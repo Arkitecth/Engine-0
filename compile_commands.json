@@ -1,0 +1,23 @@
+[
+  {
+    "file": "main.cpp",
+    "arguments": [
+      "c++",
+      "-std=c++11",
+      "-I../../imgui/",
+      "-I../../imgui//backends",
+      "-g",
+      "-Wall",
+      "-Wformat",
+      "-I/opt/homebrew/include",
+      "-I/usr/local/include",
+      "-I/opt/local/include",
+      "-c",
+      "-o",
+      "main.o",
+      "main.cpp"
+    ],
+    "directory": "/Users/trenttuedon/Development/projects/engine000",
+    "output": "main.o"
+  }
+]
