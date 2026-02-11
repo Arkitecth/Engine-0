@@ -13,4 +13,5 @@ int main()
 	std::cout << enemy.getPosition().getY() << '\n';
 	enemy.setPosition(E0::Vector{100.0f, 200.0f}); 
 	std::cout << enemy.getPosition().getX() << '\n';
+	std::cout << enemy.getPosition().getY() << '\n';
 }

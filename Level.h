@@ -1,9 +1,11 @@
 #include <vector>
+#include "Entity.h"
 namespace E0
 {
-	struct Level 
+	class Level 
 	{
-		std::vector<Enemy> enemies; 
-		std::vector<Tower>  towers;
+		private:
+			std::vector<Entity> enemies; 
+			std::vector<Entity> towers; 
 	}; 
 }

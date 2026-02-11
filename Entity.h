@@ -4,7 +4,7 @@
 #include <string_view>
 namespace E0
 {
-	class Enemy 
+	class Entity
 	{
 		private:
 			Vector position{}; 
@@ -14,9 +14,9 @@ namespace E0
 			//Animation extension should be added somewhere around here
 			std::string texturePath{}; 
 		public:
-			Enemy() = default; 
-			Enemy(Vector new_position, float new_attack_score, float new_defense_score, float new_movement_speed, std::string new_texture_path); 
-			~Enemy() = default; 
+			Entity() = default; 
+			Entity(Vector new_position, float new_attack_score, float new_defense_score, float new_movement_speed, std::string new_texture_path); 
+			~Entity() = default; 
 
 			Vector getPosition(); 
 			void setPosition(Vector new_position); 
