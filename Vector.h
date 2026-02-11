@@ -1,6 +1,7 @@
+#pragma once
 namespace E0
 {
-	struct Vector
+	class Vector
 	{
 		private:
 			float pos_x {};
