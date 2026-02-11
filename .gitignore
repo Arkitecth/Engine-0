@@ -1,5 +1,5 @@
 *.md
+*.dSYM
 *.o
 .cache
-*.dSYM
 
