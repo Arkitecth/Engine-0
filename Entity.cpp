@@ -1,5 +1,16 @@
 #include "Entity.h"
 
+
+E0::Entity::Entity()
+{
+	position = E0::Vector{0, 0}; 
+	attackScore = 0.0f; 
+	defenseScore = 0.0f; 
+	movementSpeed = 0.0f; 
+	texturePath = ""; 
+	entity_id += 1; 
+}
+
 E0::Entity::Entity(E0::Vector new_position, float new_attack_score, float new_defense_score, float new_movement_speed, std::string new_texture_path)
 {
 	position = new_position; 
@@ -7,6 +18,7 @@ E0::Entity::Entity(E0::Vector new_position, float new_attack_score, float new_de
 	defenseScore = new_defense_score;
 	movementSpeed = new_movement_speed; 
 	texturePath = new_texture_path; 
+	entity_id += 1; 
 }
 
 E0::Vector E0::Entity::getPosition()

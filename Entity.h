@@ -2,8 +2,10 @@
 #include "Vector.h"
 #include <string>
 #include <string_view>
+
 namespace E0
 {
+	static int entity_id = 0; 
 	class Entity
 	{
 		private:
@@ -14,7 +16,7 @@ namespace E0
 			//Animation extension should be added somewhere around here
 			std::string texturePath{}; 
 		public:
-			Entity() = default; 
+			Entity(); 
 			Entity(Vector new_position, float new_attack_score, float new_defense_score, float new_movement_speed, std::string new_texture_path); 
 			~Entity() = default; 
 
