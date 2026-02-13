@@ -6,10 +6,12 @@
 namespace E0
 {
 	static int entity_id = 0; 
+	const std::string_view UNDEFINED_TYPE = "undefined_entity_type";
 	class Entity
 	{
 		private:
 			Vector position{}; 
+			std::string entity_type{}; 
 			float attackScore{}; 
 			float defenseScore{}; 
 			float movementSpeed{}; 
@@ -17,7 +19,7 @@ namespace E0
 			std::string texturePath{}; 
 		public:
 			Entity(); 
-			Entity(Vector new_position, float new_attack_score, float new_defense_score, float new_movement_speed, std::string new_texture_path); 
+			Entity(Vector new_position, std::string new_entity_type, float new_attack_score, float new_defense_score, float new_movement_speed, std::string new_texture_path); 
 			~Entity() = default; 
 
 			Vector getPosition(); 

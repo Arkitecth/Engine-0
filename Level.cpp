@@ -31,4 +31,9 @@ std::vector<E0::Entity> E0::Level::getEntities()
 	return entities_copy;
 }
 
+void E0::addEntity(std::vector<Entity>& entities)
+{
+
+}
+
 

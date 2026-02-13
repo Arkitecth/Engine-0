@@ -5,15 +5,17 @@ E0::Entity::Entity()
 {
 	position = E0::Vector{0, 0}; 
 	attackScore = 0.0f; 
+	entity_type = UNDEFINED_TYPE;  
 	defenseScore = 0.0f; 
 	movementSpeed = 0.0f; 
 	texturePath = ""; 
 	entity_id += 1; 
 }
 
-E0::Entity::Entity(E0::Vector new_position, float new_attack_score, float new_defense_score, float new_movement_speed, std::string new_texture_path)
+E0::Entity::Entity(E0::Vector new_position, std::string new_entity_type, float new_attack_score, float new_defense_score, float new_movement_speed, std::string new_texture_path)
 {
 	position = new_position; 
+	entity_type = new_entity_type; 
 	attackScore = new_attack_score; 
 	defenseScore = new_defense_score;
 	movementSpeed = new_movement_speed; 
