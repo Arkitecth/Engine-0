@@ -18,7 +18,9 @@ namespace E0
 			std::string getTexturePath(); 
 			void setTexturePath(std::string new_texture_path); 
 
-			std::vector<Entity> getEntities(); 
+			std::vector<Entity> getEntities(std::string entity_type); 
+
+			std::vector<Entity>& getAllEntities();
 	}; 
 			void addEntity(std::vector<Entity>&, Entity& entity); 
 

@@ -5,11 +5,12 @@
 
 namespace E0
 {
-	static int entity_id = 0; 
+	static int current_entity_id = 0; 
 	const std::string_view UNDEFINED_TYPE = "undefined_entity_type";
 	class Entity
 	{
 		private:
+			int entityID{}; 
 			Vector position{}; 
 			std::string entity_type{}; 
 			float attackScore{}; 
@@ -36,6 +37,13 @@ namespace E0
 
 			std::string getTexturePath(); 
 			void setTexturePath(std::string new_texture_path); 
-		
+
+
+			std::string getEntityType(); 
+			void setEntityType(std::string new_entity_type); 
+
+
+			int getEntityID(); 
+	
 	}; 
 }
