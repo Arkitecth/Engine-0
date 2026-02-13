@@ -10,7 +10,7 @@ E0::Entity::Entity()
 	movementSpeed = 0.0f; 
 	texturePath = ""; 
 	entityID = current_entity_id; 
-	current_entity_id+= 1; 
+	current_entity_id += 1; 
 }
 
 E0::Entity::Entity(E0::Vector new_position, std::string new_entity_type, float new_attack_score, float new_defense_score, float new_movement_speed, std::string new_texture_path)
@@ -22,7 +22,7 @@ E0::Entity::Entity(E0::Vector new_position, std::string new_entity_type, float n
 	movementSpeed = new_movement_speed; 
 	texturePath = new_texture_path; 
 	entityID = current_entity_id; 
-	current_entity_id+= 1; 
+	current_entity_id += 1; 
 }
 
 E0::Vector E0::Entity::getPosition()

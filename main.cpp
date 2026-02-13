@@ -16,6 +16,7 @@ int main()
 	enemy.setMovementSpeed(1.0f); 
 
 	E0::addEntity(entities, enemy); 
+
 	E0::destroyEntity(enemy.getEntityID(), entities);
 
 	std::cout << entities.size() << '\n';
