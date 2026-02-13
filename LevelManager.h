@@ -15,6 +15,7 @@ namespace E0
 			int getCurrentLevel(); 
 			void setCurrentLevel(int new_level); 
 			std::vector<Level>& getLevels();
+			void setLevels(std::vector<Level>& new_levels); 
 	}; 
 			void addLevel(LevelManager& levelManager,  Level& level); 
 			void removeLevel(LevelManager& levelManager, Level& level); 

@@ -1,17 +1,24 @@
-#include "iostream"
+#include "Entity.h"
+#include "LevelManager.h"
 #include "Vector.h"
-#include "Enemy.h"
-
+#include <iostream>
 int main()
 {
-	E0::Vector vector{10.0f, 20.0f};
-	std::cout << vector.getX() << '\n'; 
-	std::cout << vector.getY() << '\n';
+	E0::Level level1 {};
+	level1.setLevelsName("Level 1"); 
 
-	E0::Enemy enemy{};
-	std::cout << enemy.getPosition().getX() << '\n';
-	std::cout << enemy.getPosition().getY() << '\n';
-	enemy.setPosition(E0::Vector{100.0f, 200.0f}); 
-	std::cout << enemy.getPosition().getX() << '\n';
-	std::cout << enemy.getPosition().getY() << '\n';
+	std::vector<E0::Entity> entities = level1.getAllEntities(); 
+
+	E0::Entity enemy{}; 
+	enemy.setEntityType("enemy"); 
+	enemy.setTexturePath(".."); 
+	enemy.setPosition(E0::Vector{100, 100}); 
+	enemy.setMovementSpeed(1.0f); 
+
+	E0::addEntity(entities, enemy); 
+	E0::destroyEntity(enemy.getEntityID(), entities);
+
+	std::cout << entities.size() << '\n';
+
+
 }

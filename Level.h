@@ -22,8 +22,8 @@ namespace E0
 
 			std::vector<Entity>& getAllEntities();
 	}; 
-			void addEntity(std::vector<Entity>&, Entity& entity); 
+			void addEntity(std::vector<Entity>& entities, Entity& entity); 
 
-			void destroyEntity(int entity_id, std::vector<Entity>&); 
+			void destroyEntity(int entity_id, std::vector<Entity>& entities); 
 
 }

@@ -23,6 +23,13 @@ std::vector<E0::Level>& E0::LevelManager::getLevels()
 	return levels;
 }
 
+void E0::LevelManager::setLevels(std::vector<Level>& new_levels)
+{
+	levels = new_levels; 
+	current_level = 0; 
+}
+
+
 void addLevel(E0::LevelManager& levelManager, E0::Level& level)
 {
 	std::vector<E0::Level> levels = levelManager.getLevels(); 
@@ -32,6 +39,16 @@ void addLevel(E0::LevelManager& levelManager, E0::Level& level)
 void removeLevel(E0::LevelManager& levelManager, E0::Level& level)
 {
 	std::vector<E0::Level> levels = levelManager.getLevels(); 
-	levels.erase(std::remove(levels.begin(), levels.end(), level.getLevelsName())); 
+	std::vector<E0::Level> new_level{};
+
+	for(int i = 0; i < levels.size(); i++)
+	{
+		if (levels[i].getLevelsName() == level.getLevelsName()) {	
+			continue;
+		}
+		new_level.push_back(level); 
+	}
+
+	levelManager.setLevels(new_level); 
 }
 
