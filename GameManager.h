@@ -3,15 +3,15 @@ namespace E0
 	class GameManager 
 	{
 		private:
-			int frameTime{}; 
+			int frameRate{}; 
 			bool isGameOver{}; 
 
 		public:
 			GameManager() = default; 
 			~GameManager() = default; 
-			int  getFrameTime(); 
+			int  getFrameRate(); 
 			bool getGameOver(); 
-			void setFrameTime(int new_frame_time); 
+			void setFrameRate(int new_frame_rate); 
 			void setGameOver(bool new_is_game_over); 
 	}; 
 
