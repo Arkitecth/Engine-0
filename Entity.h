@@ -42,8 +42,9 @@ namespace E0
 			std::string getEntityType(); 
 			void setEntityType(std::string new_entity_type); 
 
-
 			int getEntityID(); 
+
+			bool operator==(const Entity& rhs); 
 	
 	}; 
 }

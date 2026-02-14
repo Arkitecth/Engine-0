@@ -93,5 +93,11 @@ int E0::Entity::getEntityID()
 }
 
 
+bool E0::Entity::operator==(const Entity& rhs)
+{
+	return rhs.entityID == this->entityID; 
+}
+
+
 
 

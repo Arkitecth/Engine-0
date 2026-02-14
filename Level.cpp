@@ -1,5 +1,7 @@
 #include "Level.h"
 #include "Entity.h"
+#include <algorithm>
+#include <iostream>
 #include <vector>
 
 std::string E0::Level::getLevelsName()
@@ -22,7 +24,7 @@ void E0::Level::setTexturePath(std::string new_texture_path)
 	levelTexturePath = new_texture_path; 
 }
 
-std::vector<E0::Entity> E0::Level::getEntities(std::string entity_type)
+std::vector<E0::Entity> E0::Level::getEntitiesOfType(std::string entity_type)
 {
 	std::vector<Entity> entities_copy; 
 	for(int i = 0; i < entities.size(); i++)
@@ -35,21 +37,34 @@ std::vector<E0::Entity> E0::Level::getEntities(std::string entity_type)
 	return entities_copy;
 }
 
-std::vector<E0::Entity>& E0::Level::getAllEntities()
+std::vector<E0::Entity>& E0::Level::getEntities()
 {
 	return entities;
 }
 
-
-void E0::addEntity(std::vector<Entity>& entities, Entity& entity)
+void E0::Level::setEntities(std::vector<Entity> new_entities)
 {
-	entities.push_back(entity); 
+	entities = new_entities; 
 }
 
-void E0::destroyEntity(int entity_id, std::vector<Entity>& entities)
+
+void E0::addEntity(Level& level, Entity& entity)
 {
-	auto it = entities.begin() + entity_id;
-	entities.erase(it);
+	std::vector<Entity> entities = level.getEntities(); 
+	auto it = std::find(entities.begin(), entities.end(), entity);
+	if (it != entities.end()) {
+		std::cout << "Duplicate Entities Not Allowed " << '\n';
+		return;
+	} 
+
+	entities.push_back(entity); 
+	level.setEntities(entities); 
+}
+
+void E0::destroyEntity(Level& level, Entity& entity)
+{
+	auto it = level.getEntities().begin() + entity.getEntityID();
+	level.getEntities().erase(it);
 }
 
 
