@@ -9,11 +9,13 @@ namespace E0
 		private:
 			std::vector<Level> levels{}; 
 			int current_level{};
-			LevelManager() = default; 
+			LevelManager(); 
 		
 		public:
-			~LevelManager() = default; 
+			~LevelManager(); 
 			static LevelManager& getInstance(); 
+			void startUp(); 
+			void shutDown(); 
 			int getCurrentLevel(); 
 			void setCurrentLevel(int new_level); 
 			std::vector<Level>& getLevels();

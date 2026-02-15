@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include "GameManager.h"
 #include "LevelManager.h"
 #include "vector"
 #include "iostream"
@@ -12,6 +13,8 @@ int main()
 	E0::Level level{}; 
 	E0::addEntity(level, enemy); 
 	E0::addEntity(level, enemy2); 
+
+	E0::run(); 
 
 
 

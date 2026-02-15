@@ -3,6 +3,17 @@
 #include <vector>
 
 
+
+E0::LevelManager::LevelManager()
+{
+	startUp(); 
+}
+
+E0::LevelManager::~LevelManager()
+{
+	shutDown(); 
+}
+
 int E0::LevelManager::getCurrentLevel()
 {
 	return current_level; 
@@ -16,6 +27,17 @@ void E0::LevelManager::setCurrentLevel(int new_level)
 		std::cerr << "Current Level Should Not Exceed the Maximum amount of Levels " << '\n';
 	}
 }
+
+void E0::LevelManager::startUp()
+{
+	current_level = 0; 
+	levels = {};
+}
+
+void E0::LevelManager::shutDown()
+{
+}
+
 
 E0::LevelManager& E0::LevelManager::getInstance()
 {
@@ -57,7 +79,6 @@ void removeLevel(E0::Level& level)
 
 	LEM.setLevels(new_level); 
 }
-
 
 
 

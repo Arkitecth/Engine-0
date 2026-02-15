@@ -21,15 +21,36 @@ std::string getTimeStamp()
 
 E0::LogManager::LogManager()
 {
+	startUp(); 
+}
+
+void E0::LogManager::startUp()
+{
+
 	log_file.open(log_file_name, std::ios::out | std::ios::app); 
 	consoleFlush = true;
+
 }
 
 E0::LogManager::~LogManager()
 {
+	shutDown(); 
+}
+
+
+E0::LogManager& E0::LogManager::getInstance()
+{
+	static LogManager lm; 
+
+	return lm;
+}
+
+void E0::LogManager::shutDown()
+{
 	if (log_file.is_open()) {
 		log_file.close();
 	}
+
 }
 
 void E0::LogManager::logError(std::string_view msg)

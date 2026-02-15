@@ -1,3 +1,8 @@
+#pragma once
+
+#define GM E0::GameManager::getInstance()
+const int DEFAULT_FRAME_RATE = 30;
+
 namespace E0
 {
 	class GameManager 
@@ -5,15 +10,18 @@ namespace E0
 		private:
 			int frameRate{}; 
 			bool isGameOver{}; 
+			GameManager(); 
 
 		public:
-			GameManager() = default; 
-			~GameManager() = default; 
+			static GameManager& getInstance(); 
+			~GameManager(); 
+			void startUp(); 
+			void shutDown(); 
 			int  getFrameRate(); 
 			bool getGameOver(); 
 			void setFrameRate(int new_frame_rate); 
 			void setGameOver(bool new_is_game_over); 
 	}; 
 
-			void run(GameManager& gm); 
+			void run(); 
 }
