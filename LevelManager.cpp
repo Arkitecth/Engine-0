@@ -1,5 +1,4 @@
 #include "LevelManager.h"
-#include <algorithm>
 #include <iostream>
 #include <vector>
 
@@ -18,6 +17,13 @@ void E0::LevelManager::setCurrentLevel(int new_level)
 	}
 }
 
+E0::LevelManager& E0::LevelManager::getInstance()
+{
+	static LevelManager levelManager; 
+
+	return levelManager;
+}
+
 std::vector<E0::Level>& E0::LevelManager::getLevels()
 {
 	return levels;
@@ -30,15 +36,15 @@ void E0::LevelManager::setLevels(std::vector<Level>& new_levels)
 }
 
 
-void addLevel(E0::LevelManager& levelManager, E0::Level& level)
+void addLevel(E0::Level& level)
 {
-	std::vector<E0::Level> levels = levelManager.getLevels(); 
+	std::vector<E0::Level> levels = LEM.getLevels(); 
 	levels.push_back(level); 
 }
 
-void removeLevel(E0::LevelManager& levelManager, E0::Level& level)
+void removeLevel(E0::Level& level)
 {
-	std::vector<E0::Level> levels = levelManager.getLevels(); 
+	std::vector<E0::Level> levels = LEM.getLevels(); 
 	std::vector<E0::Level> new_level{};
 
 	for(int i = 0; i < levels.size(); i++)
@@ -49,6 +55,9 @@ void removeLevel(E0::LevelManager& levelManager, E0::Level& level)
 		new_level.push_back(level); 
 	}
 
-	levelManager.setLevels(new_level); 
+	LEM.setLevels(new_level); 
 }
+
+
+
 
