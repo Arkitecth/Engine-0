@@ -1,0 +1,93 @@
+[
+  {
+    "file": "./Entity.cpp",
+    "arguments": [
+      "g++",
+      "-I/opt/homebrew/include",
+      "-I/opt/local/include",
+      "./Entity.cpp",
+      "-o",
+      "main"
+    ],
+    "directory": "/Users/trenttuedon/Development/projects/engine000",
+    "output": "main"
+  },
+  {
+    "file": "./Level.cpp",
+    "arguments": [
+      "g++",
+      "-I/opt/homebrew/include",
+      "-I/opt/local/include",
+      "./Level.cpp",
+      "-o",
+      "main"
+    ],
+    "directory": "/Users/trenttuedon/Development/projects/engine000",
+    "output": "main"
+  },
+  {
+    "file": "./Vector.cpp",
+    "arguments": [
+      "g++",
+      "-I/opt/homebrew/include",
+      "-I/opt/local/include",
+      "./Vector.cpp",
+      "-o",
+      "main"
+    ],
+    "directory": "/Users/trenttuedon/Development/projects/engine000",
+    "output": "main"
+  },
+  {
+    "file": "./GameManager.cpp",
+    "arguments": [
+      "g++",
+      "-I/opt/homebrew/include",
+      "-I/opt/local/include",
+      "./GameManager.cpp",
+      "-o",
+      "main"
+    ],
+    "directory": "/Users/trenttuedon/Development/projects/engine000",
+    "output": "main"
+  },
+  {
+    "file": "./LevelManager.cpp",
+    "arguments": [
+      "g++",
+      "-I/opt/homebrew/include",
+      "-I/opt/local/include",
+      "./LevelManager.cpp",
+      "-o",
+      "main"
+    ],
+    "directory": "/Users/trenttuedon/Development/projects/engine000",
+    "output": "main"
+  },
+  {
+    "file": "./main.cpp",
+    "arguments": [
+      "g++",
+      "-I/opt/homebrew/include",
+      "-I/opt/local/include",
+      "./main.cpp",
+      "-o",
+      "main"
+    ],
+    "directory": "/Users/trenttuedon/Development/projects/engine000",
+    "output": "main"
+  },
+  {
+    "file": "./LogManager.cpp",
+    "arguments": [
+      "g++",
+      "-I/opt/homebrew/include",
+      "-I/opt/local/include",
+      "./LogManager.cpp",
+      "-o",
+      "main"
+    ],
+    "directory": "/Users/trenttuedon/Development/projects/engine000",
+    "output": "main"
+  }
+]
