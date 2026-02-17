@@ -29,6 +29,6 @@ int main()
 		}
 
 		DM.drawRectangle(30.0f, 30.0f, 100.0f, 100.0f, E0::GREEN); 
-		DM.swapBuffer();
+		DM.swapBuffer(E0::BLACK);
 	}
 }

@@ -79,10 +79,10 @@ void E0::DisplayManager::drawTexture()
 
 }
 
-void E0::DisplayManager::swapBuffer()
+void E0::DisplayManager::swapBuffer(Color color)
 {
 	SDL_RenderPresent(m_renderer); 
-	SDL_SetRenderDrawColor(m_renderer, 0xFF, 0xFF, 0xFF, 0xFF); 
+	SDL_SetRenderDrawColor(m_renderer, color.red, color.green, color.blue, color.alpha); 
 	SDL_RenderClear(m_renderer); 
 }
 

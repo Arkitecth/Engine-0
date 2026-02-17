@@ -31,7 +31,7 @@ namespace E0
 			void drawCircle(int x, int y, float radius); 
 			void drawRectangle(float x, float y, float width, float height, Color color); 
 			void drawTexture(); 
-			void swapBuffer(); 
+			void swapBuffer(Color color); 
 	}; 
 
 }
