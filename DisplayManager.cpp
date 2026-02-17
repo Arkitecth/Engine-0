@@ -1,4 +1,5 @@
 #include "DisplayManager.h"
+#include <string>
 
 E0::DisplayManager::DisplayManager()
 {
@@ -19,22 +20,22 @@ E0::DisplayManager& E0::DisplayManager::getInstance()
 }
 
 
-void E0::DisplayManager::setWidth(int new_width)
+void E0::DisplayManager::setWindowWidth(int new_width)
 {
 	width = new_width;
 }
 
-void E0::DisplayManager::setHeight(int new_height)
+void E0::DisplayManager::setWindowHeight(int new_height)
 {
 	height = new_height; 
 }
 
-SDL_Window* E0::DisplayManager::getWindow()
+SDL_Renderer* E0::DisplayManager::getRenderer()
 {
-	return m_window; 
+	return m_renderer; 
 }
 
-void E0::DisplayManager::setTitle(std::string new_title)
+void E0::DisplayManager::setWindowTitle(std::string new_title)
 {
 	title = new_title; 
 }
@@ -74,9 +75,8 @@ void E0::DisplayManager::drawRectangle(float x, float y, float width, float heig
 	SDL_RenderFillRect(m_renderer, &fillRect); 
 }
 
-void E0::DisplayManager::drawTexture()
+void E0::DisplayManager::drawTexture(std::string filePath)
 {
-
 }
 
 void E0::DisplayManager::swapBuffer(Color color)
@@ -86,12 +86,12 @@ void E0::DisplayManager::swapBuffer(Color color)
 	SDL_RenderClear(m_renderer); 
 }
 
-int E0::DisplayManager::getWidth()
+int E0::DisplayManager::getWindowWidth()
 {
 	return width; 
 }
 
-int E0::DisplayManager::getHeight()
+int E0::DisplayManager::getWindowHeight()
 {
 	return height; 
 }

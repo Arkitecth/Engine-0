@@ -1,4 +1,5 @@
 #pragma once
+#include "Texture.h"
 #include "Vector.h"
 #include <string>
 #include <string_view>
@@ -18,6 +19,8 @@ namespace E0
 			float movementSpeed{}; 
 			//Animation extension should be added somewhere around here
 			std::string texturePath{}; 
+			Texture enemyTexture{};
+			
 		public:
 			Entity(); 
 			Entity(Vector new_position, std::string new_entity_type, float new_attack_score, float new_defense_score, float new_movement_speed, std::string new_texture_path); 

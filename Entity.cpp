@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include "Texture.h"
 
 
 E0::Entity::Entity()
@@ -11,6 +12,7 @@ E0::Entity::Entity()
 	texturePath = ""; 
 	entityID = current_entity_id; 
 	current_entity_id += 1; 
+	enemyTexture = Texture{"", };
 }
 
 E0::Entity::Entity(E0::Vector new_position, std::string new_entity_type, float new_attack_score, float new_defense_score, float new_movement_speed, std::string new_texture_path)

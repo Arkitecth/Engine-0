@@ -21,16 +21,16 @@ namespace E0
 			~DisplayManager(); 
 			void startUp(); 
 			void shutDown(); 
-			SDL_Window* getWindow(); 
-			int getWidth(); 
-			void setWidth(int new_width); 
-			std::string getTitle(); 
-			void setTitle(std::string new_title); 
-			int getHeight(); 
-			void setHeight(int new_height); 
+			SDL_Renderer* getRenderer(); 
+			int getWindowWidth(); 
+			void setWindowWidth(int new_width); 
+			std::string getWindowTitle(); 
+			void setWindowTitle(std::string new_title); 
+			int getWindowHeight(); 
+			void setWindowHeight(int new_height); 
 			void drawCircle(int x, int y, float radius); 
 			void drawRectangle(float x, float y, float width, float height, Color color); 
-			void drawTexture(); 
+			void drawTexture(std::string filePath); 
 			void swapBuffer(Color color); 
 	}; 
 
