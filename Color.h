@@ -1,0 +1,21 @@
+#include <SDL3/SDL.h>
+namespace E0
+{
+	struct Color 
+	{
+		Uint8 red{}; 
+		Uint8 green{}; 
+		Uint8 blue{}; 
+		Uint8 alpha{}; 
+	}; 
+
+	const Color RED = {0xFF, 0x00, 0x00, 0xFF};
+
+	const Color GREEN = {0x00, 0xFF, 0x00, 0xFF};
+
+	const Color BLUE = {0x00, 0x00, 0xFF, 0xFF};
+
+	const Color WHITE= {0xFF, 0xFF, 0xFF, 0xFF};
+
+	const Color BLACK = {0x00, 0x00, 0x00, 0x00};
+}

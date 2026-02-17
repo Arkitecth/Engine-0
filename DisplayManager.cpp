@@ -3,6 +3,7 @@
 E0::DisplayManager::DisplayManager()
 {
 	m_window = nullptr;
+	m_renderer = nullptr;
 	startUp(); 
 }
 
@@ -46,6 +47,7 @@ void E0::DisplayManager::startUp()
 	if (m_window == nullptr) 
 	{
 		m_window = SDL_CreateWindow(title.c_str(), width, height, SDL_WINDOW_RESIZABLE); 
+		m_renderer = SDL_CreateRenderer(m_window, nullptr); 
 	}
 
 }
@@ -56,6 +58,32 @@ void E0::DisplayManager::shutDown()
 		SDL_DestroyWindow(m_window); 
 		SDL_Quit(); 
 	}
+}
+
+void E0::DisplayManager::drawCircle(int x, int y, float radius)
+{
+
+}
+
+void E0::DisplayManager::drawRectangle(float x, float y, float width, float height, Color color)
+{
+	SDL_FRect fillRect = {x, y, width, height};
+
+	SDL_SetRenderDrawColor(m_renderer, color.red, color.green, color.blue, color.alpha); 
+
+	SDL_RenderFillRect(m_renderer, &fillRect); 
+}
+
+void E0::DisplayManager::drawTexture()
+{
+
+}
+
+void E0::DisplayManager::swapBuffer()
+{
+	SDL_RenderPresent(m_renderer); 
+	SDL_SetRenderDrawColor(m_renderer, 0xFF, 0xFF, 0xFF, 0xFF); 
+	SDL_RenderClear(m_renderer); 
 }
 
 int E0::DisplayManager::getWidth()
