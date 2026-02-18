@@ -12,7 +12,7 @@ E0::Entity::Entity()
 	texturePath = ""; 
 	entityID = current_entity_id; 
 	current_entity_id += 1; 
-	enemyTexture = Texture{"", };
+	enemyTexture = Texture{""};
 }
 
 E0::Entity::Entity(E0::Vector new_position, std::string new_entity_type, float new_attack_score, float new_defense_score, float new_movement_speed, std::string new_texture_path)
@@ -24,6 +24,7 @@ E0::Entity::Entity(E0::Vector new_position, std::string new_entity_type, float n
 	movementSpeed = new_movement_speed; 
 	texturePath = new_texture_path; 
 	entityID = current_entity_id; 
+	enemyTexture = Texture{texturePath}; 
 	current_entity_id += 1; 
 }
 
@@ -76,6 +77,7 @@ std::string E0::Entity::getTexturePath()
 void E0::Entity::setTexturePath(std::string new_texture_path)
 {
 	texturePath = new_texture_path; 
+	enemyTexture.setTexture(new_texture_path); 
 }
 
 

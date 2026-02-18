@@ -10,6 +10,6 @@ FILES= $(shell find $(ENGINE_SRC) -maxdepth 1 -name '*.cpp')
 
 
 test:
-	$(CC) $(CFLAGS) $(FILES) $(LIBS) -o $(EXECUTABLE) 
+	$(CC) $(CFLAGS) $(FILES) $(LIBS) -o $(EXECUTABLE)  -g
 
 

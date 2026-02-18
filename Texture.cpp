@@ -1,5 +1,7 @@
 #include "Texture.h"
 #include "DisplayManager.h"
+#include "LogManager.h"
+#include <iostream>
 #include <string_view>
 
 E0::Texture::Texture()
@@ -23,12 +25,20 @@ void E0::Texture::setTexture(std::string_view new_file_path)
 	filePath = new_file_path; 
 	SDL_Surface* loadedSurface = SDL_LoadPNG(new_file_path.data());
 	loadedTexture = SDL_CreateTextureFromSurface(DM.getRenderer(), loadedSurface); 
+	if (loadedTexture == nullptr) {
+		LM.logError("An error occurred with Setting Texture"); 
+	}
 	SDL_DestroySurface(loadedSurface); 
 }
 
 std::string E0::Texture::getFilePath()
 {
 	return std::string(filePath);
+}
+
+SDL_Texture* E0::Texture::getLoadedTexture()
+{
+	return loadedTexture;
 }
 
 

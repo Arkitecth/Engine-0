@@ -1,9 +1,9 @@
+#pragma once
 #include <SDL3/SDL.h>
+#include "Texture.h"
 #include "string"
 #include "Color.h"
 #define DM E0::DisplayManager::getInstance() 
-
-
 namespace E0
 {
 	class DisplayManager
@@ -30,7 +30,7 @@ namespace E0
 			void setWindowHeight(int new_height); 
 			void drawCircle(int x, int y, float radius); 
 			void drawRectangle(float x, float y, float width, float height, Color color); 
-			void drawTexture(std::string filePath); 
+			void drawTexture(E0::Texture& texture, float x, float y, float width, float height); 
 			void swapBuffer(Color color); 
 	}; 
 

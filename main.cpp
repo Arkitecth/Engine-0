@@ -1,4 +1,7 @@
 #include "DisplayManager.h"
+#include "Entity.h"
+#include "Texture.h"
+#include <iostream>
 int main()
 {
 	// GM.startUp();
@@ -19,7 +22,8 @@ int main()
 	// }
 	
 	DM.startUp(); 
-	SDL_Event e; 
+	SDL_Event e;  
+	E0::Texture texture{"./game_background_1.png"}; 
 	bool run = true;
 	while (run) {
 		while (SDL_PollEvent(&e)) {
@@ -27,7 +31,9 @@ int main()
 				run = false;
 			}
 		}
-		DM.drawRectangle(70.0f, 50.0f, 100.0f, 100.0f, E0::GREEN); 
+		//DM.drawRectangle(70.0f, 50.0f, 100.0f, 100.0f, E0::GREEN); 
+		DM.drawTexture(texture, 100.0f, 100.0f, 100.0f, 100.0f); 
 		DM.swapBuffer(E0::BLACK);
+
 	}
 }

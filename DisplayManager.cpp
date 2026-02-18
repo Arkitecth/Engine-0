@@ -1,4 +1,5 @@
 #include "DisplayManager.h"
+#include <iostream>
 #include <string>
 
 E0::DisplayManager::DisplayManager()
@@ -45,7 +46,7 @@ void E0::DisplayManager::startUp()
 	width = 500; 
 	height = 500; 
 	title = "Engine 0";
-	if (m_window == nullptr) 
+	if (m_window == nullptr && m_renderer == nullptr) 
 	{
 		m_window = SDL_CreateWindow(title.c_str(), width, height, SDL_WINDOW_RESIZABLE); 
 		m_renderer = SDL_CreateRenderer(m_window, nullptr); 
@@ -75,8 +76,13 @@ void E0::DisplayManager::drawRectangle(float x, float y, float width, float heig
 	SDL_RenderFillRect(m_renderer, &fillRect); 
 }
 
-void E0::DisplayManager::drawTexture(std::string filePath)
+void E0::DisplayManager::drawTexture(Texture& texture, float x, float y, float width, float height)
 {
+	SDL_FRect fillRect = {x, y, width, height};
+	SDL_RenderTexture(m_renderer, texture.getLoadedTexture(), nullptr, nullptr);
+	if (SDL_GetError()[0]) {
+		SDL_Log("SDL Error: %s", SDL_GetError());
+	}
 }
 
 void E0::DisplayManager::swapBuffer(Color color)
@@ -84,6 +90,7 @@ void E0::DisplayManager::swapBuffer(Color color)
 	SDL_RenderPresent(m_renderer); 
 	SDL_SetRenderDrawColor(m_renderer, color.red, color.green, color.blue, color.alpha); 
 	SDL_RenderClear(m_renderer); 
+
 }
 
 int E0::DisplayManager::getWindowWidth()

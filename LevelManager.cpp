@@ -3,7 +3,6 @@
 #include <vector>
 
 
-
 E0::LevelManager::LevelManager()
 {
 	startUp(); 

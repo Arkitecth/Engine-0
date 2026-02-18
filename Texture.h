@@ -11,6 +11,7 @@ namespace E0
 			SDL_Texture* loadedTexture; 
 		public:
 			Texture();
+			SDL_Texture* getLoadedTexture();
 			Texture(std::string_view new_file_path);
 			void setTexture(std::string_view new_file_path); 
 			std::string getFilePath(); 
