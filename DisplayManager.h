@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL3/SDL.h>
+#include "Rectangle.h"
 #include "Texture.h"
 #include "string"
 #include "Color.h"
@@ -29,8 +30,8 @@ namespace E0
 			int getWindowHeight(); 
 			void setWindowHeight(int new_height); 
 			void drawCircle(int x, int y, float radius); 
-			void drawRectangle(float x, float y, float width, float height, Color color); 
-			void drawTexture(E0::Texture& texture, float x, float y, float width, float height); 
+			void drawRectangle(Rectangle& rect); 
+			void drawTexture(E0::Texture& texture, Rectangle& src, Rectangle& dst); 
 			void swapBuffer(Color color); 
 	}; 
 

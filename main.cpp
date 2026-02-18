@@ -1,5 +1,6 @@
 #include "DisplayManager.h"
 #include "Entity.h"
+#include "Rectangle.h"
 #include "Texture.h"
 #include <iostream>
 int main()
@@ -31,8 +32,13 @@ int main()
 				run = false;
 			}
 		}
-		//DM.drawRectangle(70.0f, 50.0f, 100.0f, 100.0f, E0::GREEN); 
-		DM.drawTexture(texture, 100.0f, 100.0f, 100.0f, 100.0f); 
+		E0::Rectangle rect{70.0f, 50.0f, 100.0f, 100.0f, E0::GREEN};
+		DM.drawRectangle(rect); 
+
+
+		E0::Rectangle rectA{};
+		E0::Rectangle rectB{};
+		DM.drawTexture(texture, rectA, rectB); 
 		DM.swapBuffer(E0::BLACK);
 
 	}

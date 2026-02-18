@@ -9,11 +9,15 @@ namespace E0
 		private:
 			std::string_view filePath; 
 			SDL_Texture* loadedTexture; 
+			float width; 
+			float height; 
 		public:
 			Texture();
 			SDL_Texture* getLoadedTexture();
 			Texture(std::string_view new_file_path);
 			void setTexture(std::string_view new_file_path); 
+			float getWidth(); 
+			float getHeight();
 			std::string getFilePath(); 
 			~Texture(); 
 	}; 

@@ -1,4 +1,5 @@
 #include "DisplayManager.h"
+#include "Rectangle.h"
 #include <iostream>
 #include <string>
 
@@ -67,19 +68,28 @@ void E0::DisplayManager::drawCircle(int x, int y, float radius)
 
 }
 
-void E0::DisplayManager::drawRectangle(float x, float y, float width, float height, Color color)
+void E0::DisplayManager::drawRectangle(E0::Rectangle& rect)
 {
-	SDL_FRect fillRect = {x, y, width, height};
-
-	SDL_SetRenderDrawColor(m_renderer, color.red, color.green, color.blue, color.alpha); 
-
+	SDL_FRect fillRect = {rect.x_position, rect.y_position, rect.width, rect.height};
+	SDL_SetRenderDrawColor(m_renderer, rect.color.red, rect.color.green, rect.color.blue, rect.color.alpha); 
 	SDL_RenderFillRect(m_renderer, &fillRect); 
 }
 
-void E0::DisplayManager::drawTexture(Texture& texture, float x, float y, float width, float height)
+void E0::DisplayManager::drawTexture(Texture& texture, Rectangle& src, Rectangle& dst)
 {
-	SDL_FRect fillRect = {x, y, width, height};
-	SDL_RenderTexture(m_renderer, texture.getLoadedTexture(), nullptr, nullptr);
+	SDL_FRect srcRect= {src.x_position, src.y_position, src.width, src.height};
+	SDL_FRect dstRect = {dst.x_position, dst.y_position, dst.width, dst.height};
+	SDL_FRect* p_srcRect = &srcRect;
+	SDL_FRect* p_dstRect= &dstRect;
+
+	if (srcRect.h == 0 && srcRect.w == 0) 
+	{
+		p_srcRect = nullptr;
+	}
+	if (dstRect.h == 0 && srcRect.w == 0) {
+		p_dstRect = nullptr;
+	}
+	SDL_RenderTexture(m_renderer, texture.getLoadedTexture(), p_srcRect, p_dstRect);
 	if (SDL_GetError()[0]) {
 		SDL_Log("SDL Error: %s", SDL_GetError());
 	}
