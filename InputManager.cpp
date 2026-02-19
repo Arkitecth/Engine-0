@@ -43,7 +43,7 @@ void E0::InputManager::pollInput()
 			EventKeyboard keyboardEvent; 
 			keyboardEvent.setKey(SDL_GetKeyName(e.key.key));
 			keyboardEvent.setKeyboardAction(KeyboardAction::KEY_PRESSED); 
-			std::cout << int(keyboardEvent.getKey()) << '\n';
+			//std::cout << int(keyboardEvent.getKey()) << '\n';
 		}
 
 		else if (e.type == SDL_EVENT_KEY_UP) {

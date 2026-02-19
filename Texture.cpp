@@ -29,6 +29,7 @@ void E0::Texture::setTexture(std::string_view new_file_path)
 	if (loadedTexture == nullptr) {
 		LM.logError("An error occurred with Setting Texture"); 
 	}
+
 	width = loadedTexture->w; 
 	height = loadedTexture->h;
 	SDL_DestroySurface(loadedSurface); 
