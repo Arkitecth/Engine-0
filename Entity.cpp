@@ -9,22 +9,20 @@ E0::Entity::Entity()
 	entity_type = UNDEFINED_TYPE;  
 	defenseScore = 0.0f; 
 	movementSpeed = 0.0f; 
-	texturePath = ""; 
+	width = 0.0f; 
+	height = 0.0f;
 	entityID = current_entity_id; 
 	current_entity_id += 1; 
-	enemyTexture = Texture{""};
+	entityTexture= Texture{""};
 }
 
-E0::Entity::Entity(E0::Vector new_position, std::string new_entity_type, float new_attack_score, float new_defense_score, float new_movement_speed, std::string new_texture_path)
+E0::Entity::Entity(Vector new_position, std::string new_entity_type, float new_width, float new_height)
 {
 	position = new_position; 
 	entity_type = new_entity_type; 
-	attackScore = new_attack_score; 
-	defenseScore = new_defense_score;
-	movementSpeed = new_movement_speed; 
-	texturePath = new_texture_path; 
+	width = new_width; 
+	height = new_height;
 	entityID = current_entity_id; 
-	enemyTexture = Texture{texturePath}; 
 	current_entity_id += 1; 
 }
 
@@ -69,15 +67,14 @@ void E0::Entity::setDefenseScore(float new_defense_score)
 }
 
 
-std::string E0::Entity::getTexturePath()
+E0::Texture E0::Entity::getTexture()
 {
-	return texturePath;
+	return entityTexture;
 }
 
-void E0::Entity::setTexturePath(std::string new_texture_path)
+void E0::Entity::setTexture(std::string new_texture_path)
 {
-	texturePath = new_texture_path; 
-	enemyTexture.setTexture(new_texture_path); 
+	entityTexture.setTexture(new_texture_path); 
 }
 
 

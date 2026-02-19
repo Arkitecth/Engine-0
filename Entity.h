@@ -17,13 +17,14 @@ namespace E0
 			float attackScore{}; 
 			float defenseScore{}; 
 			float movementSpeed{}; 
+			float width{}; 
+			float height{};
 			//Animation extension should be added somewhere around here
-			std::string texturePath{}; 
-			Texture enemyTexture{};
+			Texture entityTexture{};
 			
 		public:
 			Entity(); 
-			Entity(Vector new_position, std::string new_entity_type, float new_attack_score, float new_defense_score, float new_movement_speed, std::string new_texture_path); 
+			Entity(Vector new_position, std::string entity_type, float width, float height); 
 			~Entity() = default; 
 
 			Vector getPosition(); 
@@ -38,9 +39,14 @@ namespace E0
 			float getDefenseScore(); 
 			void setDefenseScore(float new_defense_score); 
 
-			std::string getTexturePath(); 
-			void setTexturePath(std::string new_texture_path); 
+			Texture getTexture(); 
+			void setTexture(std::string new_texture_path); 
 
+			float getWidth(); 
+			float getHeight(); 
+
+			void setWidth(); 
+			void setHeight(); 
 
 			std::string getEntityType(); 
 			void setEntityType(std::string new_entity_type); 

@@ -1,7 +1,6 @@
 #include "Texture.h"
 #include "DisplayManager.h"
 #include "LogManager.h"
-#include <iostream>
 #include <string_view>
 
 E0::Texture::Texture()

@@ -1,6 +1,8 @@
 #include "GameManager.h"
+#include "DisplayManager.h"
 #include "LevelManager.h"
 #include "LogManager.h"
+#include "InputManager.h"
 #include <chrono>
 #include <iostream>
 #include <thread>
@@ -29,12 +31,16 @@ void E0::GameManager::startUp()
 {
 	LM.startUp(); 
 	LEM.startUp(); 
+	DM.startUp();
+	IM.startUp();
 }
 
 
 void::E0::GameManager::shutDown()
 {
 	setGameOver(true); 
+	IM.shutDown();
+	DM.shutDown();
 	LEM.shutDown(); 
 	LM.shutDown(); 
 }
@@ -71,7 +77,7 @@ void E0::run()
 	{
 		nextFrame += frameTime;
 
-		std::cout << "Hello" << '\n';
+		IM.pollInput();
 
 		std::this_thread::sleep_until(nextFrame); 
 
