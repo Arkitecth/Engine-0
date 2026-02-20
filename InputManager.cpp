@@ -1,8 +1,10 @@
 #include "InputManager.h"
 #include <SDL3/SDL.h>
 #include <iostream>
+#include "Entity.h"
 #include "GameManager.h"
 #include "EventKeyboard.h"
+#include "LevelManager.h"
 
 
 void E0::InputManager::startUp()
@@ -43,7 +45,7 @@ void E0::InputManager::pollInput()
 			EventKeyboard keyboardEvent; 
 			keyboardEvent.setKey(SDL_GetKeyName(e.key.key));
 			keyboardEvent.setKeyboardAction(KeyboardAction::KEY_PRESSED); 
-			//std::cout << int(keyboardEvent.getKey()) << '\n';
+			LEM.getCurrentLevel().broadcastEvent(dynamic_cast<Event*>(&keyboardEvent)); 
 		}
 
 		else if (e.type == SDL_EVENT_KEY_UP) {

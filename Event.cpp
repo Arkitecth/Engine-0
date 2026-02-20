@@ -6,6 +6,11 @@ E0::Event::Event()
 	type = undefined_event; 
 }
 
+E0::Event::~Event()
+{
+
+}
+
 E0::Event::Event(std::string new_type)
 {
 	setType(new_type);

@@ -4,16 +4,9 @@
 
 E0::Entity::Entity()
 {
-	position = E0::Vector{0, 0}; 
-	attackScore = 0.0f; 
 	entity_type = UNDEFINED_TYPE;  
-	defenseScore = 0.0f; 
-	movementSpeed = 0.0f; 
-	width = 0.0f; 
-	height = 0.0f;
 	entityID = current_entity_id; 
 	current_entity_id += 1; 
-	entityTexture= Texture{""};
 }
 
 E0::Entity::Entity(Vector new_position, std::string new_entity_type, float new_width, float new_height)
@@ -30,6 +23,7 @@ E0::Vector E0::Entity::getPosition()
 {
 	return position;
 }
+
 
 void E0::Entity::setPosition(E0::Vector new_position)
 {
@@ -66,6 +60,11 @@ void E0::Entity::setDefenseScore(float new_defense_score)
 	defenseScore = new_defense_score; 
 }
 
+void E0::Entity::eventHandler(Event* e)
+{
+
+}
+
 
 E0::Texture E0::Entity::getTexture()
 {
@@ -76,6 +75,7 @@ void E0::Entity::setTexture(std::string new_texture_path)
 {
 	entityTexture.setTexture(new_texture_path); 
 }
+
 
 
 std::string E0::Entity::getEntityType()

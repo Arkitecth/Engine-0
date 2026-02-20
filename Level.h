@@ -1,4 +1,6 @@
+#pragma once
 #include <vector>
+#include "Event.h"
 #include "Entity.h"
 namespace E0
 {
@@ -10,7 +12,7 @@ namespace E0
 			std::vector<Entity> entities{}; 
 		
 		public:
-			Level() = default; 
+			Level(); 
 			~Level() = default;
 			std::string getLevelsName(); 
 			void setLevelsName(std::string new_level_name); 	
@@ -23,7 +25,9 @@ namespace E0
 			std::vector<Entity>& getEntities();
 
 			void setEntities(std::vector<Entity> new_entities);
+			void broadcastEvent(E0::Event* event); 
 	}; 
+			
 			void addEntity(Level& level, Entity& entity); 
 
 			void destroyEntity(Level& level, Entity& entity); 

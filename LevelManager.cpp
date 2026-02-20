@@ -1,5 +1,5 @@
 #include "LevelManager.h"
-#include <iostream>
+#include "LogManager.h"
 #include <vector>
 
 
@@ -13,9 +13,9 @@ E0::LevelManager::~LevelManager()
 	shutDown(); 
 }
 
-int E0::LevelManager::getCurrentLevel()
+E0::Level* E0::LevelManager::getCurrentLevel()
 {
-	return current_level; 
+	return levels[current_level];
 }
 
 void E0::LevelManager::setCurrentLevel(int new_level)
@@ -23,7 +23,7 @@ void E0::LevelManager::setCurrentLevel(int new_level)
 	if (new_level <= levels.size()) {
 		current_level = new_level;
 	} else {
-		std::cerr << "Current Level Should Not Exceed the Maximum amount of Levels " << '\n';
+		LM.logError("Current Level Should Not Exceed the Maximum amount of Levels");
 	}
 }
 
@@ -45,6 +45,7 @@ E0::LevelManager& E0::LevelManager::getInstance()
 	return levelManager;
 }
 
+
 std::vector<E0::Level>& E0::LevelManager::getLevels()
 {
 	return levels;
@@ -57,27 +58,25 @@ void E0::LevelManager::setLevels(std::vector<Level>& new_levels)
 }
 
 
-void addLevel(E0::Level& level)
+void E0::LevelManager::addLevel(E0::Level* level)
 {
-	std::vector<E0::Level> levels = LEM.getLevels(); 
 	levels.push_back(level); 
 }
 
-void removeLevel(E0::Level& level)
+void E0::LevelManager::removeLevel(E0::Level* level)
 {
-	std::vector<E0::Level> levels = LEM.getLevels(); 
-	std::vector<E0::Level> new_level{};
+	std::vector<E0::Level*> new_levels{};
 
 	for(int i = 0; i < levels.size(); i++)
 	{
-		if (levels[i].getLevelsName() == level.getLevelsName()) {	
+		if (levels[i]->getLevelsName() == level->getLevelsName()) {	
 			continue;
 		}
-		new_level.push_back(level); 
+		new_levels.push_back(level); 
 	}
-
-	LEM.setLevels(new_level); 
+	LEM.setLevels(new_levels); 
 }
+
 
 
 

@@ -1,7 +1,10 @@
 #include "DisplayManager.h"
 #include "Entity.h"
 #include "GameManager.h"
+#include "Level.h"
+#include "LevelManager.h"
 #include "Rectangle.h"
+#include "EventKeyboard.h"
 #include "Texture.h"
 #include <iostream>
 int main()
@@ -44,5 +47,35 @@ int main()
 	//
 	// }
 	
+	class Enemy: public E0::Entity
+	{
+		public:
+			Enemy(){
+				E0::Entity::setEntityType("Enemy"); 
+				E0::Entity::setAttackScore(10); 
+				E0::Entity::setDefenseScore(10); 
+			}
+
+			~Enemy()
+			{
+				
+			}
+			
+			void eventHandler(E0::Event* e)
+			{
+				if (e->getType() == E0::keyboard_event) {
+
+					E0::EventKeyboard* keyboardEvent = dynamic_cast<E0::EventKeyboard*>(e); 
+					std::cout << "Enemy listened to keyboard event " << int(keyboardEvent->getKey()) << '\n';
+				}
+			}
+
+	};
+	GM.startUp();
+	E0::Level level{};
+	Enemy enemy{};
+	E0::addEntity(level, enemy);
 	E0::run();
 }
+
+

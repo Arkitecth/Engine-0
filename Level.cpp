@@ -1,5 +1,6 @@
 #include "Level.h"
 #include "Entity.h"
+#include "LevelManager.h"
 #include <algorithm>
 #include <iostream>
 #include <vector>
@@ -7,6 +8,11 @@
 std::string E0::Level::getLevelsName()
 {
 	return levelName; 
+}
+
+E0::Level::Level()
+{
+	LEM.addLevel(*this); 
 }
 
 void E0::Level::setLevelsName(std::string new_level_name)
@@ -65,6 +71,13 @@ void E0::destroyEntity(Level& level, Entity& entity)
 {
 	auto it = level.getEntities().begin() + entity.getEntityID();
 	level.getEntities().erase(it);
+}
+
+void E0::Level::broadcastEvent(E0::Event* event)
+{
+	for (auto& entity : entities) {
+		entity.eventHandler(event); 
+	}
 }
 
 

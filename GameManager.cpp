@@ -81,7 +81,6 @@ void E0::run()
 
 		std::this_thread::sleep_until(nextFrame); 
 
-
 	}
 }
 

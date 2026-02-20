@@ -2,6 +2,7 @@
 #include "Texture.h"
 #include "Vector.h"
 #include <string>
+#include "Event.h"
 #include <string_view>
 
 namespace E0
@@ -25,7 +26,8 @@ namespace E0
 		public:
 			Entity(); 
 			Entity(Vector new_position, std::string entity_type, float width, float height); 
-			~Entity() = default; 
+			virtual ~Entity() = default; 
+			virtual void eventHandler(Event* e); 
 
 			Vector getPosition(); 
 			void setPosition(Vector new_position); 
@@ -47,6 +49,7 @@ namespace E0
 
 			void setWidth(); 
 			void setHeight(); 
+
 
 			std::string getEntityType(); 
 			void setEntityType(std::string new_entity_type); 
