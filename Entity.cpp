@@ -9,6 +9,10 @@ E0::Entity::Entity()
 	current_entity_id += 1; 
 }
 
+E0::Entity::~Entity()
+{
+}
+
 E0::Entity::Entity(Vector new_position, std::string new_entity_type, float new_width, float new_height)
 {
 	position = new_position; 

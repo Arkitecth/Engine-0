@@ -29,8 +29,6 @@ void E0::LevelManager::setCurrentLevel(int new_level)
 
 void E0::LevelManager::startUp()
 {
-	current_level = 0; 
-	levels = {};
 }
 
 void E0::LevelManager::shutDown()
@@ -46,12 +44,12 @@ E0::LevelManager& E0::LevelManager::getInstance()
 }
 
 
-std::vector<E0::Level>& E0::LevelManager::getLevels()
+std::vector<E0::Level*> E0::LevelManager::getLevels()
 {
 	return levels;
 }
 
-void E0::LevelManager::setLevels(std::vector<Level>& new_levels)
+void E0::LevelManager::setLevels(std::vector<Level*> new_levels)
 {
 	levels = new_levels; 
 	current_level = 0; 

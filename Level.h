@@ -9,7 +9,7 @@ namespace E0
 		private:
 			std::string levelName{}; 
 			std::string levelTexturePath{}; 
-			std::vector<Entity> entities{}; 
+			std::vector<Entity*> entities{}; 
 		
 		public:
 			Level(); 
@@ -20,16 +20,16 @@ namespace E0
 			std::string getTexturePath(); 
 			void setTexturePath(std::string new_texture_path); 
 
-			std::vector<Entity> getEntitiesOfType(std::string entity_type); 
+			std::vector<Entity*> getEntitiesOfType(std::string entity_type); 
 
-			std::vector<Entity>& getEntities();
+			std::vector<Entity*> getAllEntities();
 
-			void setEntities(std::vector<Entity> new_entities);
+			void setEntities(std::vector<Entity*> new_entities);
 			void broadcastEvent(E0::Event* event); 
 	}; 
 			
-			void addEntity(Level& level, Entity& entity); 
+			void addEntity(Level& level, Entity* entity); 
 
-			void destroyEntity(Level& level, Entity& entity); 
+			void destroyEntity(Level& level, Entity* entity); 
 
 }

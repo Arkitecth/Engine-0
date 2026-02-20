@@ -12,7 +12,7 @@ std::string E0::Level::getLevelsName()
 
 E0::Level::Level()
 {
-	LEM.addLevel(*this); 
+	LEM.addLevel(this); 
 }
 
 void E0::Level::setLevelsName(std::string new_level_name)
@@ -30,12 +30,12 @@ void E0::Level::setTexturePath(std::string new_texture_path)
 	levelTexturePath = new_texture_path; 
 }
 
-std::vector<E0::Entity> E0::Level::getEntitiesOfType(std::string entity_type)
+std::vector<E0::Entity*> E0::Level::getEntitiesOfType(std::string entity_type)
 {
-	std::vector<Entity> entities_copy; 
+	std::vector<Entity*> entities_copy; 
 	for(int i = 0; i < entities.size(); i++)
 	{
-		if (entities[i].getEntityType() == entity_type) {	
+		if (entities[i]->getEntityType() == entity_type) {	
 			entities_copy.push_back(entities[i]); 
 		}
 	}
@@ -43,20 +43,20 @@ std::vector<E0::Entity> E0::Level::getEntitiesOfType(std::string entity_type)
 	return entities_copy;
 }
 
-std::vector<E0::Entity>& E0::Level::getEntities()
+std::vector<E0::Entity*> E0::Level::getAllEntities()
 {
 	return entities;
 }
 
-void E0::Level::setEntities(std::vector<Entity> new_entities)
+void E0::Level::setEntities(std::vector<Entity*> new_entities)
 {
 	entities = new_entities; 
 }
 
 
-void E0::addEntity(Level& level, Entity& entity)
+void E0::addEntity(Level& level, Entity* entity)
 {
-	std::vector<Entity> entities = level.getEntities(); 
+	std::vector<Entity*> entities = level.getAllEntities(); 
 	auto it = std::find(entities.begin(), entities.end(), entity);
 	if (it != entities.end()) {
 		std::cout << "Duplicate Entities Not Allowed " << '\n';
@@ -67,16 +67,16 @@ void E0::addEntity(Level& level, Entity& entity)
 	level.setEntities(entities); 
 }
 
-void E0::destroyEntity(Level& level, Entity& entity)
+void E0::destroyEntity(Level& level, Entity* entity)
 {
-	auto it = level.getEntities().begin() + entity.getEntityID();
-	level.getEntities().erase(it);
+	auto it = level.getAllEntities().begin() + entity->getEntityID();
+	level.getAllEntities().erase(it);
 }
 
 void E0::Level::broadcastEvent(E0::Event* event)
 {
-	for (auto& entity : entities) {
-		entity.eventHandler(event); 
+	for (Entity* entity : entities) {
+		entity->eventHandler(event); 
 	}
 }
 

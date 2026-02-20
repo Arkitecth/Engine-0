@@ -4,7 +4,6 @@
 #include <string>
 #include "Event.h"
 #include <string_view>
-
 namespace E0
 {
 	static int current_entity_id = 0; 
@@ -12,7 +11,7 @@ namespace E0
 	class Entity
 	{
 		private:
-			int entityID{}; 
+			int entityID; 
 			Vector position{}; 
 			std::string entity_type{}; 
 			float attackScore{}; 
@@ -26,7 +25,7 @@ namespace E0
 		public:
 			Entity(); 
 			Entity(Vector new_position, std::string entity_type, float width, float height); 
-			virtual ~Entity() = default; 
+			virtual ~Entity(); 
 			virtual void eventHandler(Event* e); 
 
 			Vector getPosition(); 

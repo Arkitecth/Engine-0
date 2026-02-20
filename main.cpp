@@ -64,7 +64,6 @@ int main()
 			void eventHandler(E0::Event* e)
 			{
 				if (e->getType() == E0::keyboard_event) {
-
 					E0::EventKeyboard* keyboardEvent = dynamic_cast<E0::EventKeyboard*>(e); 
 					std::cout << "Enemy listened to keyboard event " << int(keyboardEvent->getKey()) << '\n';
 				}
@@ -74,7 +73,7 @@ int main()
 	GM.startUp();
 	E0::Level level{};
 	Enemy enemy{};
-	E0::addEntity(level, enemy);
+	E0::addEntity(level, &enemy);
 	E0::run();
 }
 

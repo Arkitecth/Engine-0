@@ -45,7 +45,7 @@ void E0::InputManager::pollInput()
 			EventKeyboard keyboardEvent; 
 			keyboardEvent.setKey(SDL_GetKeyName(e.key.key));
 			keyboardEvent.setKeyboardAction(KeyboardAction::KEY_PRESSED); 
-			LEM.getCurrentLevel().broadcastEvent(dynamic_cast<Event*>(&keyboardEvent)); 
+			LEM.getCurrentLevel()->broadcastEvent(dynamic_cast<Event*>(&keyboardEvent)); 
 		}
 
 		else if (e.type == SDL_EVENT_KEY_UP) {
