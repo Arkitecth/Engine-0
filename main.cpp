@@ -1,11 +1,8 @@
-#include "DisplayManager.h"
 #include "Entity.h"
 #include "GameManager.h"
 #include "Level.h"
-#include "LevelManager.h"
-#include "Rectangle.h"
 #include "EventKeyboard.h"
-#include "Texture.h"
+#include "EventMouse.h"
 #include <iostream>
 int main()
 {
@@ -67,8 +64,13 @@ int main()
 					E0::EventKeyboard* keyboardEvent = dynamic_cast<E0::EventKeyboard*>(e); 
 					std::cout << "Enemy listened to keyboard event " << int(keyboardEvent->getKey()) << '\n';
 				}
-			}
+				else if (e->getType() == E0::mouse_event) {
+					E0::EventMouse* mseEvent = dynamic_cast<E0::EventMouse*>(e); 
+					std::cout << "Enemy listened to mouse event " << int(mseEvent->getKey()) << '\n';
+				}
 
+
+			}
 	};
 	GM.startUp();
 	E0::Level level{};
