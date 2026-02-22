@@ -1,12 +1,9 @@
 #include "InputManager.h"
 #include <SDL3/SDL.h>
-#include <iostream>
-#include "Entity.h"
 #include "GameManager.h"
 #include "EventKeyboard.h"
 #include "EventMouse.h"
 #include "LevelManager.h"
-
 
 void E0::InputManager::startUp()
 {

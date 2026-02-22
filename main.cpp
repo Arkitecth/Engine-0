@@ -3,7 +3,26 @@
 #include "Level.h"
 #include "EventKeyboard.h"
 #include "EventMouse.h"
+#include "Rectangle.h"
+#include "Vector.h"
 #include <iostream>
+#include "utility.h"
+
+
+void TestRectangle()
+{
+	E0::Rectangle rectA{E0::Vector{100, 100}, 100, 100};
+
+	E0::Rectangle rectB{E0::Vector{100, 100}, 100, 100};
+
+	if (CheckForIntersection(rectA, rectB)) {
+		std::cout << "Test Passed " << '\n';
+	} else {
+		std::cout << "Test Failed" << '\n';
+	}
+}
+
+
 int main()
 {
 	// GM.startUp();
@@ -44,6 +63,7 @@ int main()
 	//
 	// }
 	
+	TestRectangle();
 	class Enemy: public E0::Entity
 	{
 		public:
@@ -77,6 +97,9 @@ int main()
 	Enemy enemy{};
 	E0::addEntity(level, &enemy);
 	E0::run();
+
+
 }
+
 
 

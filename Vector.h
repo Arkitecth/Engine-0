@@ -16,5 +16,14 @@ namespace E0
 			void setY(float new_pos_y); 
 			float getX(); 
 			float getY(); 
+
+			void operator=(const Vector& rhs); 
+			Vector operator+(const Vector& rhs); 
+			Vector operator-(const Vector& rhs); 
+			bool  operator>(const Vector& rhs); 
+			bool  operator<(const Vector& rhs); 
+			bool  operator==(const Vector& rhs); 
+			bool  operator>=(const Vector& rhs); 
+			bool  operator<=(const Vector& rhs); 
 	}; 
 } 

@@ -38,4 +38,44 @@ void E0::Vector::setXY(float new_pos_x, float new_pos_y)
 	pos_x = new_pos_x; 
 	pos_y = new_pos_y;  
 }
+void E0::Vector::operator=(const Vector& rhs)
+{
+	this->setXY(rhs.pos_x, rhs.pos_y); 
+
+}
+E0::Vector E0::Vector::operator+(const Vector& rhs)
+{
+	Vector newVector{this->pos_x + rhs.pos_x, this->pos_y + rhs.pos_y}; 
+
+	return newVector;
+}
+
+E0::Vector E0::Vector::operator-(const Vector& rhs)
+{
+	Vector newVector{rhs.pos_x - this->pos_x, rhs.pos_y - this->pos_y}; 
+
+	return newVector;
+}
+bool E0::Vector::operator>(const Vector& rhs)
+{
+	return this->pos_x > rhs.pos_x && this->pos_y > rhs.pos_y;
+}
+bool E0::Vector::operator<(const Vector& rhs)
+{
+	return this->pos_x < rhs.pos_x && this->pos_y < rhs.pos_y;
+}
+
+bool E0::Vector::operator>=(const Vector& rhs)
+{
+	return this->pos_x >= rhs.pos_x && this->pos_y >= rhs.pos_y;
+}
+bool E0::Vector::operator<=(const Vector& rhs)
+{
+	return this->pos_x <= rhs.pos_x && this->pos_y <= rhs.pos_y;
+}
+
+bool E0::Vector::operator==(const Vector& rhs)
+{
+	return this->pos_x == rhs.pos_x && this->pos_y == rhs.pos_y;
+}
 

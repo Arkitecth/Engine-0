@@ -70,15 +70,15 @@ void E0::DisplayManager::drawCircle(int x, int y, float radius)
 
 void E0::DisplayManager::drawRectangle(E0::Rectangle& rect)
 {
-	SDL_FRect fillRect = {rect.x_position, rect.y_position, rect.width, rect.height};
+	SDL_FRect fillRect = {rect.position.getX(), rect.position.getY(), rect.width, rect.height};
 	SDL_SetRenderDrawColor(m_renderer, rect.color.red, rect.color.green, rect.color.blue, rect.color.alpha); 
 	SDL_RenderFillRect(m_renderer, &fillRect); 
 }
 
 void E0::DisplayManager::drawTexture(Texture& texture, Rectangle& src, Rectangle& dst)
 {
-	SDL_FRect srcRect= {src.x_position, src.y_position, src.width, src.height};
-	SDL_FRect dstRect = {dst.x_position, dst.y_position, dst.width, dst.height};
+	SDL_FRect srcRect= {src.position.getX(), src.position.getY(), src.width, src.height};
+	SDL_FRect dstRect = {dst.position.getX(), dst.position.getY(), dst.width, dst.height};
 	SDL_FRect* p_srcRect = &srcRect;
 	SDL_FRect* p_dstRect= &dstRect;
 
