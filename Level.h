@@ -16,7 +16,6 @@ namespace E0
 			~Level() = default;
 			std::string getLevelsName(); 
 			void setLevelsName(std::string new_level_name); 	
-
 			std::string getTexturePath(); 
 			void setTexturePath(std::string new_texture_path); 
 
@@ -25,6 +24,11 @@ namespace E0
 			std::vector<Entity*> getAllEntities();
 
 			void setEntities(std::vector<Entity*> new_entities);
+
+			void update(); 
+
+			void draw(); 
+
 			void broadcastEvent(E0::Event* event); 
 	}; 
 			
