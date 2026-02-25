@@ -53,16 +53,6 @@ float E0::Entity::getMovementSpeed()
 }
 
 
-E0::Rectangle E0::Entity::getBoundingBox()
-{
-	return boundingBox; 
-}
-
-void E0::Entity::setBoundingBox(E0::Rectangle new_rectangle)
-{
-	boundingBox = new_rectangle; 
-}
-
 void E0::Entity::setMovementSpeed(float new_movement_speed)
 {
 	movementSpeed = new_movement_speed; 

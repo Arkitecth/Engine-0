@@ -22,7 +22,6 @@ namespace E0
 			float height{};
 			//Animation extension should be added somewhere around here
 			Texture entityTexture{};
-			Rectangle boundingBox{};
 
 		public:
 			Entity(); 
@@ -52,12 +51,6 @@ namespace E0
 
 			void setWidth(); 
 			void setHeight(); 
-
-			
-			Rectangle getBoundingBox(); 
-
-			void setBoundingBox(Rectangle new_rectangle); 
-
 
 			std::string getEntityType(); 
 			void setEntityType(std::string new_entity_type); 

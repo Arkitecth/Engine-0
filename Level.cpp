@@ -89,7 +89,7 @@ std::vector<E0::Entity*> E0::Level::getColissions(E0::Vector where, Entity* enti
 		if (current_entity == entity) {
 			continue;
 		}
-		if (CheckForIntersection(entity->getBoundingBox(), current_entity->getBoundingBox())) {
+		if (CheckForIntersection(getBox(entity), getBox(current_entity))) {
 			colissionList.push_back(current_entity); 
 		}
 	}
@@ -104,7 +104,10 @@ void E0::Level::draw()
 
 void E0::Level::update()
 {
+	for (auto entity : entities) {
 
+		Vector new_position = Vector{}; 
+	}
 }
 
 
