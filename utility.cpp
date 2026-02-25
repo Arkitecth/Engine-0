@@ -1,7 +1,7 @@
 #include "utility.h"
 #include "Vector.h"
 
-bool CheckForIntersection(E0::Rectangle& rectA, E0::Rectangle& rectB)
+bool CheckForIntersection(E0::Rectangle rectA, E0::Rectangle rectB)
 {
 	E0::Vector a1{rectA.position.getX(), rectA.position.getY()};
 

@@ -3,8 +3,7 @@
 #pragma once
 namespace E0
 {
-	const std::string mouse_event = "MSE_EVENT"; 
-
+	const std::string MSE_EVENT = "E0::mouse_event"; 
 
 	enum class MouseAction
 	{

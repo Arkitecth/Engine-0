@@ -3,8 +3,7 @@
 
 E0::EventMouse::EventMouse()
 {
-	Event::setType(mouse_event); 
-
+	Event::setType(MSE_EVENT); 
 	key = MouseKey::UNDEFINED_KEY;
 	action = MouseAction::UNDEFINED_ACTION;
 }

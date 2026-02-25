@@ -21,6 +21,8 @@ namespace E0
 
 			std::vector<Entity*> getEntitiesOfType(std::string entity_type); 
 
+			std::vector<Entity*> getColissions(Vector where, Entity* entity);  
+
 			std::vector<Entity*> getAllEntities();
 
 			void setEntities(std::vector<Entity*> new_entities);

@@ -2,7 +2,7 @@
 
 E0::EventKeyboard::EventKeyboard()
 {
-	Event::setType(keyboard_event); 
+	Event::setType(KEYBOARD_EVENT); 
 
 	key = KeyboardKey::UNDEFINED_KEY;
 	action = KeyboardAction::UNDEFINED_ACTION;

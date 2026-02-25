@@ -80,11 +80,11 @@ int main()
 			
 			void eventHandler(E0::Event* e)
 			{
-				if (e->getType() == E0::keyboard_event) {
+				if (e->getType() == E0::KEYBOARD_EVENT) {
 					E0::EventKeyboard* keyboardEvent = dynamic_cast<E0::EventKeyboard*>(e); 
 					std::cout << "Enemy listened to keyboard event " << int(keyboardEvent->getKey()) << '\n';
 				}
-				else if (e->getType() == E0::mouse_event) {
+				else if (e->getType() == E0::MSE_EVENT) {
 					E0::EventMouse* mseEvent = dynamic_cast<E0::EventMouse*>(e); 
 					std::cout << "Enemy listened to mouse event " << int(mseEvent->getKey()) << '\n';
 				}

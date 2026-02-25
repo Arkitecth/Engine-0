@@ -2,7 +2,7 @@
 
 namespace E0
 {
-	const std::string keyboard_event = "keyboard_event";
+	const std::string KEYBOARD_EVENT = "E0::keyboard_event";
 
 	enum class KeyboardKey
 	{

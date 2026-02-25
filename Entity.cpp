@@ -12,6 +12,7 @@ E0::Entity::Entity()
 
 E0::Entity::~Entity()
 {
+
 }
 
 E0::Entity::Entity(Vector new_position, std::string new_entity_type, float new_width, float new_height)
@@ -93,7 +94,6 @@ void E0::Entity::setTexture(std::string new_texture_path)
 }
 
 
-
 std::string E0::Entity::getEntityType()
 {
 	return entity_type; 
@@ -113,6 +113,20 @@ bool E0::Entity::operator==(const Entity& rhs)
 {
 	return rhs.entityID == this->entityID; 
 }
+
+void draw()
+{
+
+}
+
+void update()
+{
+
+}
+
+
+
+
 
 
 

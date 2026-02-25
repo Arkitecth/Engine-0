@@ -1,8 +1,10 @@
 #include "Level.h"
 #include "Entity.h"
 #include "LevelManager.h"
+#include "Vector.h"
 #include <algorithm>
 #include <iostream>
+#include "utility.h"
 #include <vector>
 
 std::string E0::Level::getLevelsName()
@@ -78,6 +80,21 @@ void E0::Level::broadcastEvent(E0::Event* event)
 	for (Entity* entity : entities) {
 		entity->eventHandler(event); 
 	}
+}
+
+std::vector<E0::Entity*> E0::Level::getColissions(E0::Vector where, Entity* entity)
+{
+	std::vector<E0::Entity*> colissionList{}; 
+	for (auto current_entity : entities) {
+		if (current_entity == entity) {
+			continue;
+		}
+		if (CheckForIntersection(entity->getBoundingBox(), current_entity->getBoundingBox())) {
+			colissionList.push_back(current_entity); 
+		}
+	}
+
+	return colissionList;
 }
 
 void E0::Level::draw()
