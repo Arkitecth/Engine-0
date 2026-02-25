@@ -1,4 +1,5 @@
 #pragma once
+#include "Rectangle.h"
 #include "Texture.h"
 #include "Vector.h"
 #include <string>
@@ -21,7 +22,8 @@ namespace E0
 			float height{};
 			//Animation extension should be added somewhere around here
 			Texture entityTexture{};
-			
+			Rectangle boundingBox{};
+
 		public:
 			Entity(); 
 			Entity(Vector new_position, std::string entity_type, float width, float height); 
@@ -48,6 +50,11 @@ namespace E0
 
 			void setWidth(); 
 			void setHeight(); 
+
+			
+			Rectangle getBoundingBox(); 
+
+			void setBoundingBox(Rectangle new_rectangle); 
 
 
 			std::string getEntityType(); 

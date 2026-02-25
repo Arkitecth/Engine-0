@@ -1,6 +1,7 @@
 #include "Entity.h"
+#include "Rectangle.h"
 #include "Texture.h"
-
+#include "Color.h"
 
 E0::Entity::Entity()
 {
@@ -20,6 +21,7 @@ E0::Entity::Entity(Vector new_position, std::string new_entity_type, float new_w
 	width = new_width; 
 	height = new_height;
 	entityID = current_entity_id; 
+	boundingBox = Rectangle{position, width, height, BLACK}; 
 	current_entity_id += 1; 
 }
 
@@ -49,6 +51,17 @@ float E0::Entity::getMovementSpeed()
 	return movementSpeed; 
 }
 
+
+E0::Rectangle E0::Entity::getBoundingBox()
+{
+	return boundingBox; 
+}
+
+void E0::Entity::setBoundingBox(E0::Rectangle new_rectangle)
+{
+	boundingBox = new_rectangle; 
+}
+
 void E0::Entity::setMovementSpeed(float new_movement_speed)
 {
 	movementSpeed = new_movement_speed; 
@@ -68,7 +81,6 @@ void E0::Entity::eventHandler(Event* e)
 {
 
 }
-
 
 E0::Texture E0::Entity::getTexture()
 {
@@ -96,7 +108,6 @@ int E0::Entity::getEntityID()
 {
 	return entityID; 
 }
-
 
 bool E0::Entity::operator==(const Entity& rhs)
 {

@@ -80,6 +80,16 @@ void E0::Level::broadcastEvent(E0::Event* event)
 	}
 }
 
+void E0::Level::draw()
+{
+
+}
+
+void E0::Level::update()
+{
+
+}
+
 
 
 
