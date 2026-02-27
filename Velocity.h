@@ -8,7 +8,7 @@ namespace E0
 			float speed{}; 
 		public:
 			Velocity(); 
-			Velocity(Vector direction, float speed); 
+			Velocity(Vector new_direction, float new_speed); 
 			Vector getDirection(); 
 			float getSpeed(); 
 			void setSpeed(float new_speed); 
