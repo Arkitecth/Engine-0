@@ -28,9 +28,8 @@ namespace E0
 			Entity(); 
 			Entity(Vector new_position, Velocity new_velocity, std::string entity_type, float width, float height); 
 			virtual ~Entity(); 
-			virtual void eventHandler(Event* e); 
+			virtual void eventHandler(const Event* e); 
 			virtual void draw(); 
-			virtual void update(); 
 
 			Vector getPosition(); 
 			void setPosition(Vector new_position); 

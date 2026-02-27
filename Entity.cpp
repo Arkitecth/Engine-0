@@ -30,7 +30,9 @@ E0::Vector E0::Entity::getPosition()
 
 E0::Vector E0::Entity::predictPosition()
 {
-	Vector new_vector{}; 
+	Vector new_vector{position.getX() + velocity.getVelocity().getX(), position.getY() + velocity.getVelocity().getY()}; 
+
+	return new_vector;
 }
 
 
@@ -59,7 +61,7 @@ void E0::Entity::setDefenseScore(float new_defense_score)
 	defenseScore = new_defense_score; 
 }
 
-void E0::Entity::eventHandler(Event* e)
+void E0::Entity::eventHandler(const Event* e)
 {
 
 }
@@ -100,10 +102,6 @@ void draw()
 
 }
 
-void update()
-{
-
-}
 
 
 

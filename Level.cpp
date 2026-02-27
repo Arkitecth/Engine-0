@@ -1,6 +1,7 @@
 #include "Level.h"
 #include "Entity.h"
 #include "LevelManager.h"
+#include "EventCollision.h"
 #include "Vector.h"
 #include <algorithm>
 #include <iostream>
@@ -99,14 +100,23 @@ std::vector<E0::Entity*> E0::Level::getColissions(E0::Vector where, Entity* enti
 
 void E0::Level::draw()
 {
-
+	for (Entity* entity : entities) {
+		entity->draw();
+	}
 }
 
 void E0::Level::update()
 {
-	for (auto entity : entities) {
-		getColissions(E0::Vector where, Entity *entity)
-		entity->update(); 
+	for (Entity* entity : entities) {
+		std::vector<E0::Entity*> collidedEntities= getColissions(entity->predictPosition(), entity); 
+		EventColission colissionEvent{}; 
+		colissionEvent.setPosition(entity->predictPosition()); 
+		for (Entity* collidedEntity : collidedEntities) {
+			colissionEvent.setEntity01(entity); 
+			colissionEvent.setEntity02(collidedEntity); 
+		}
+
+		entity->eventHandler(dynamic_cast<const Event*>(&colissionEvent)); 
 	}
 }
 
