@@ -1,8 +1,6 @@
 #include "Entity.h"
-#include "Rectangle.h"
 #include "Texture.h"
-#include "Color.h"
-
+#include "Vector.h"
 E0::Entity::Entity()
 {
 	entity_type = UNDEFINED_TYPE;  
@@ -12,23 +10,27 @@ E0::Entity::Entity()
 
 E0::Entity::~Entity()
 {
-
 }
 
-E0::Entity::Entity(Vector new_position, std::string new_entity_type, float new_width, float new_height)
+E0::Entity::Entity(Vector new_position, Velocity new_velocity, std::string new_entity_type, float new_width, float new_height)
 {
 	position = new_position; 
 	entity_type = new_entity_type; 
+	velocity = new_velocity; 
 	width = new_width; 
 	height = new_height;
 	entityID = current_entity_id; 
-	boundingBox = Rectangle{position, width, height, BLACK}; 
 	current_entity_id += 1; 
 }
 
 E0::Vector E0::Entity::getPosition()
 {
 	return position;
+}
+
+E0::Vector E0::Entity::predictPosition()
+{
+	Vector new_vector{}; 
 }
 
 
@@ -45,17 +47,6 @@ float E0::Entity::getAttackScore()
 void E0::Entity::setAttackScore(float new_attack_score)
 {
 	attackScore = new_attack_score; 
-}
-
-float E0::Entity::getMovementSpeed()
-{
-	return movementSpeed; 
-}
-
-
-void E0::Entity::setMovementSpeed(float new_movement_speed)
-{
-	movementSpeed = new_movement_speed; 
 }
 
 float E0::Entity::getDefenseScore()

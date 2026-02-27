@@ -1,7 +1,5 @@
 #include "Velocity.h"
 #include "Vector.h"
-
-
 E0::Velocity::Velocity()
 {
 }
@@ -11,6 +9,19 @@ E0::Velocity::Velocity(Vector new_direction, float new_speed)
 {
 	direction = new_direction; 
 	speed = new_speed; 
+}
+
+E0::Vector E0::Velocity::getVelocity()
+{
+	Vector newVelocity{direction.getX() * speed, direction.getY() * speed}; 
+
+	return newVelocity; 
+}
+
+void E0::Velocity::setVelocity(E0::Vector new_velocity)
+{
+	direction = new_velocity.normalize(); 
+	speed = new_velocity.magnitude();  
 }
 
 

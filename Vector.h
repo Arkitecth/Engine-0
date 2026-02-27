@@ -14,6 +14,8 @@ namespace E0
 			void setXY(float new_pos_x, float new_pos_y); 
 			void setX(float new_pos_x); 
 			void setY(float new_pos_y); 
+			Vector normalize(); 
+			float magnitude(); 
 			float getX(); 
 			float getY(); 
 

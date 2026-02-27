@@ -2,6 +2,7 @@
 #include "Rectangle.h"
 #include "Texture.h"
 #include "Vector.h"
+#include "Velocity.h"
 #include <string>
 #include "Event.h"
 #include <string_view>
@@ -17,7 +18,7 @@ namespace E0
 			std::string entity_type{}; 
 			float attackScore{}; 
 			float defenseScore{}; 
-			float movementSpeed{}; 
+			Velocity velocity{};
 			float width{}; 
 			float height{};
 			//Animation extension should be added somewhere around here
@@ -25,7 +26,7 @@ namespace E0
 
 		public:
 			Entity(); 
-			Entity(Vector new_position, std::string entity_type, float width, float height); 
+			Entity(Vector new_position, Velocity new_velocity, std::string entity_type, float width, float height); 
 			virtual ~Entity(); 
 			virtual void eventHandler(Event* e); 
 			virtual void draw(); 
@@ -36,9 +37,6 @@ namespace E0
 
 			float getAttackScore(); 
 			void setAttackScore(float new_attack_score); 
-
-			float getMovementSpeed(); 
-			void setMovementSpeed(float new_movement_speed); 
 
 			float getDefenseScore(); 
 			void setDefenseScore(float new_defense_score); 
@@ -54,6 +52,8 @@ namespace E0
 
 			std::string getEntityType(); 
 			void setEntityType(std::string new_entity_type); 
+
+			Vector predictPosition(); 
 
 			int getEntityID(); 
 

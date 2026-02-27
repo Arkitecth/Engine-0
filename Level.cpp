@@ -105,8 +105,8 @@ void E0::Level::draw()
 void E0::Level::update()
 {
 	for (auto entity : entities) {
-
-		Vector new_position = Vector{}; 
+		getColissions(E0::Vector where, Entity *entity)
+		entity->update(); 
 	}
 }
 

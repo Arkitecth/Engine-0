@@ -1,4 +1,5 @@
 #include "Vector.h"
+#include <cmath>
 
 E0::Vector::Vector()
 {
@@ -17,7 +18,6 @@ float E0::Vector::getX()
 	return pos_x; 
 }
 
-
 float E0::Vector::getY()
 {
 	return pos_y; 
@@ -32,6 +32,21 @@ void E0::Vector::setY(float new_pos_y)
 {
 	pos_y = new_pos_y;  
 }
+
+
+E0::Vector E0::Vector::normalize()
+{
+	float mag = magnitude();
+	Vector unitVector{ pos_x / mag, pos_y / mag}; 
+
+	return unitVector; 
+}
+
+float E0::Vector::magnitude()
+{
+	return std::sqrt(pos_x * pos_x + pos_y * pos_y);
+}
+
 
 void E0::Vector::setXY(float new_pos_x, float new_pos_y)
 {
