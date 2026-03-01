@@ -27,7 +27,7 @@ bool CheckForIntersection(E0::Rectangle rectA, E0::Rectangle rectB)
 }
 
 
-E0::Rectangle getBox(E0::Entity* entity)
+E0::Rectangle getBox(const E0::Entity* entity) 
 {
 	E0::Rectangle box{entity->getPosition(), entity->getWidth(), entity->getHeight(), E0::BLACK};
 

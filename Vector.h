@@ -16,8 +16,8 @@ namespace E0
 			void setY(float new_pos_y); 
 			Vector normalize(); 
 			float magnitude(); 
-			float getX(); 
-			float getY(); 
+			float getX() const; 
+			float getY() const; 
 
 			void operator=(const Vector& rhs); 
 			Vector operator+(const Vector& rhs); 

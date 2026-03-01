@@ -76,7 +76,7 @@ void E0::destroyEntity(Level& level, Entity* entity)
 	level.getAllEntities().erase(it);
 }
 
-void E0::Level::broadcastEvent(E0::Event* event)
+void E0::Level::broadcastEvent(const E0::Event* event)
 {
 	for (Entity* entity : entities) {
 		entity->eventHandler(event); 

@@ -13,12 +13,12 @@ E0::Vector::Vector(float new_pos_x, float new_pos_y)
 	pos_y = new_pos_y; 
 }
 
-float E0::Vector::getX()
+float E0::Vector::getX() const
 {
 	return pos_x; 
 }
 
-float E0::Vector::getY()
+float E0::Vector::getY() const
 {
 	return pos_y; 
 }

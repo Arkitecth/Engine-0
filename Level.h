@@ -31,7 +31,7 @@ namespace E0
 
 			void draw(); 
 
-			void broadcastEvent(E0::Event* event); 
+			void broadcastEvent(const E0::Event* event); 
 	}; 
 			
 			void addEntity(Level& level, Entity* entity); 

@@ -26,35 +26,37 @@ namespace E0
 
 		public:
 			Entity(); 
-			Entity(Vector new_position, Velocity new_velocity, std::string entity_type, float width, float height); 
 			virtual ~Entity(); 
-			virtual void eventHandler(const Event* e); 
+			virtual void eventHandler(const Event* e);  
 			virtual void draw(); 
 
-			Vector getPosition(); 
+			Vector getPosition() const; 
 			void setPosition(Vector new_position); 
 
-			float getAttackScore(); 
+			float getAttackScore() const; 
 			void setAttackScore(float new_attack_score); 
 
-			float getDefenseScore(); 
+			Vector getVelocity() const; 
+			void setVelocity(Velocity new_velocity); 
+
+			float getDefenseScore() const; 
 			void setDefenseScore(float new_defense_score); 
 
-			Texture getTexture(); 
+			Texture getTexture() const; 
 			void setTexture(std::string new_texture_path); 
 
-			float getWidth(); 
-			float getHeight(); 
+			float getWidth() const; 
+			float getHeight() const; 
 
-			void setWidth(); 
-			void setHeight(); 
+			void setWidth(float new_width); 
+			void setHeight(float new_height); 
 
-			std::string getEntityType(); 
+			std::string getEntityType() const; 
 			void setEntityType(std::string new_entity_type); 
 
 			Vector predictPosition(); 
 
-			int getEntityID(); 
+			int getEntityID() const; 
 
 			bool operator==(const Entity& rhs); 
 	

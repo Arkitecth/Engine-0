@@ -10,6 +10,9 @@ E0::EventColission::EventColission()
 	entity_02 = nullptr;
 }
 
+E0::EventColission::~EventColission()
+{
+}
 
 void E0::EventColission::setEntity01(E0::Entity* new_entity)
 {
@@ -22,17 +25,17 @@ void E0::EventColission::setEntity02(E0::Entity* new_entity)
 }
 
 
-E0::Entity* E0::EventColission::getEntity01()
+E0::Entity* E0::EventColission::getEntity01() const
 {
 	return entity_01; 
 }
 
-E0::Entity* E0::EventColission::getEntity02()
+E0::Entity* E0::EventColission::getEntity02() const
 {
 	return entity_02; 
 }
 
-E0::Vector E0::EventColission::getPosition()
+E0::Vector E0::EventColission::getPosition() const
 {
 	return position;
 }

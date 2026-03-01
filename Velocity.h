@@ -14,10 +14,10 @@ namespace E0
 		public:
 			Velocity(); 
 			Velocity(Vector new_direction, float new_speed); 
-			Vector getVelocity(); // Get the Velocity Vector (Scaled With Speed)
-			void setVelocity(Vector new_velocity); 
-			Vector getDirection(); 
-			float getSpeed(); 
+			Vector getVelocityVector() const; // Get the Velocity Vector (Scaled With Speed)
+			void setVelocityVector(Vector new_velocity); 
+			Vector getDirection() const; 
+			float getSpeed() const; 
 			void setSpeed(float new_speed); 
 			void setDirection(Vector new_direction); 
 	}; 

@@ -24,7 +24,7 @@ void E0::Event::setType(std::string new_type)
 }
 
 
-std::string E0::Event::getType()
+std::string E0::Event::getType() const
 {
 	return type; 
 }

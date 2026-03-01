@@ -11,27 +11,27 @@ E0::Velocity::Velocity(Vector new_direction, float new_speed)
 	speed = new_speed; 
 }
 
-E0::Vector E0::Velocity::getVelocity()
+E0::Vector E0::Velocity::getVelocityVector() const
 {
 	Vector newVelocity{direction.getX() * speed, direction.getY() * speed}; 
 
 	return newVelocity; 
 }
 
-void E0::Velocity::setVelocity(E0::Vector new_velocity)
+void E0::Velocity::setVelocityVector(E0::Vector new_velocity)
 {
 	direction = new_velocity.normalize(); 
 	speed = new_velocity.magnitude();  
 }
 
 
-E0::Vector E0::Velocity::getDirection()
+E0::Vector E0::Velocity::getDirection() const
 {
 	return direction; 
 }
 
 
-float E0::Velocity::getSpeed()
+float E0::Velocity::getSpeed() const
 {
 	return speed; 
 }
@@ -39,6 +39,7 @@ float E0::Velocity::getSpeed()
 void E0::Velocity::setSpeed(float new_speed)
 {
 	speed = new_speed; 
+	
 }
 
 void E0::Velocity::setDirection(E0::Vector new_direction)

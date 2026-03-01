@@ -13,6 +13,6 @@ namespace E0
 			virtual ~Event();
 			Event(std::string new_type); 
 			void setType(std::string new_type); 
-			std::string getType(); 
+			std::string getType() const; 
 	};
 }

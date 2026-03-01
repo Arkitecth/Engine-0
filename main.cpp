@@ -6,6 +6,7 @@
 #include "Rectangle.h"
 #include "Vector.h"
 #include <iostream>
+#include "EventCollision.h"
 #include "utility.h"
 
 
@@ -20,6 +21,75 @@ void TestRectangle()
 	} else {
 		std::cout << "Test Failed" << '\n';
 	}
+}
+
+void TestColissions()
+{
+	struct Bomb : public E0::Entity
+	{
+		Bomb()
+		{
+			E0::Entity::setAttackScore(10); 
+			E0::Entity::setDefenseScore(10); 
+			E0::Entity::setEntityType("Bomb"); 
+			E0::Entity::setPosition(E0::Vector{100, 100}); 
+			E0::Entity::setVelocity(E0::Velocity{E0::RIGHT, 3.0f});
+		}
+
+		~Bomb()
+		{
+
+		}
+
+		void draw()
+		{
+
+		}
+
+		void eventHandler(const E0::Event* e){
+			if (e->getType() == E0::EVENT_COLISSION) 
+			{
+				const E0::EventColission* eventColission = dynamic_cast<const E0::EventColission*>(e); 
+				std::cout << eventColission->getEntity01()->getEntityType() << "colidded with " << eventColission->getEntity02()->getEntityType() << '\n'; 
+				std::cout << "Colission has occured" << '\n';
+			}
+		}
+	}; 
+
+	struct Enemy: public E0::Entity
+	{
+		Enemy()
+		{
+			E0::Entity::setAttackScore(10); 
+			E0::Entity::setDefenseScore(10); 
+			E0::Entity::setEntityType("Bomb"); 
+			E0::Entity::setPosition(E0::Vector{100, 100}); 
+			E0::Entity::setVelocity(E0::Velocity{E0::RIGHT, 3.0f});
+		}
+
+		~Enemy()
+		{
+
+		}
+
+		void draw()
+		{
+
+		}
+
+		void eventHandler(const E0::Event* e){
+			if (e->getType() == E0::EVENT_COLISSION) 
+			{
+				const E0::EventColission* eventColission = dynamic_cast<const E0::EventColission*>(e); 
+				std::cout << eventColission->getEntity01()->getEntityType() << "colidded with " << eventColission->getEntity02()->getEntityType() << '\n'; 
+				std::cout << "Colission has occured" << '\n';
+			}
+		}
+	};
+
+	Enemy enemy{};
+
+	Bomb bomb{};
 }
 
 

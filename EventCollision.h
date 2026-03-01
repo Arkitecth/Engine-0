@@ -14,9 +14,9 @@ namespace E0
 		public:
 			void setEntity01(Entity* new_entity); 
 			void setEntity02(Entity* new_entity); 
-			Entity* getEntity01(); 
-			Entity* getEntity02(); 
-			Vector getPosition(); 
+			Entity* getEntity01() const; 
+			Entity* getEntity02() const; 
+			Vector getPosition() const; 
 			void setPosition(Vector position); 
 			EventColission(); 
 			~EventColission(); 
