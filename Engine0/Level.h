@@ -10,6 +10,7 @@ namespace E0
 			std::string levelName{}; 
 			std::string levelTexturePath{}; 
 			std::vector<Entity*> entities{}; 
+			Texture levelTexture{};
 		
 		public:
 			Level(); 
@@ -32,10 +33,10 @@ namespace E0
 			void draw(); 
 
 			void broadcastEvent(const E0::Event* event); 
+
+			void addEntity(Entity* entity); 
+
+			void destroyEntity(Entity* entity); 
+
 	}; 
-			
-			void addEntity(Level& level, Entity* entity); 
-
-			void destroyEntity(Level& level, Entity* entity); 
-
 }

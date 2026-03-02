@@ -1,7 +1,9 @@
 #include "Level.h"
+#include "DisplayManager.h"
 #include "Entity.h"
 #include "LevelManager.h"
 #include "EventCollision.h"
+#include "Texture.h"
 #include "Vector.h"
 #include <algorithm>
 #include <iostream>
@@ -30,7 +32,8 @@ std::string E0::Level::getTexturePath()
 
 void E0::Level::setTexturePath(std::string new_texture_path)
 {
-	levelTexturePath = new_texture_path; 
+	levelTexturePath = new_texture_path;
+	levelTexture.setTexture(new_texture_path); 
 }
 
 std::vector<E0::Entity*> E0::Level::getEntitiesOfType(std::string entity_type)
@@ -57,9 +60,8 @@ void E0::Level::setEntities(std::vector<Entity*> new_entities)
 }
 
 
-void E0::addEntity(Level& level, Entity* entity)
+void E0::Level::addEntity(Entity* entity)
 {
-	std::vector<Entity*> entities = level.getAllEntities(); 
 	auto it = std::find(entities.begin(), entities.end(), entity);
 	if (it != entities.end()) {
 		std::cout << "Duplicate Entities Not Allowed " << '\n';
@@ -67,13 +69,13 @@ void E0::addEntity(Level& level, Entity* entity)
 	} 
 
 	entities.push_back(entity); 
-	level.setEntities(entities); 
+	setEntities(entities); 
 }
 
-void E0::destroyEntity(Level& level, Entity* entity)
+void E0::Level::destroyEntity(Entity* entity)
 {
-	auto it = level.getAllEntities().begin() + entity->getEntityID();
-	level.getAllEntities().erase(it);
+	auto it = entities.begin() + entity->getEntityID();
+	entities.erase(it);
 }
 
 void E0::Level::broadcastEvent(const E0::Event* event)
@@ -100,6 +102,11 @@ std::vector<E0::Entity*> E0::Level::getColissions(E0::Vector where, Entity* enti
 
 void E0::Level::draw()
 {
+	if (!levelTexturePath.empty()) 
+	{
+		DM.drawBackgroundTexture(levelTexture); 
+	}
+
 	for (Entity* entity : entities) {
 		entity->draw();
 	}

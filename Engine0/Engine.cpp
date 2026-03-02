@@ -22,6 +22,16 @@ E0::GameManager::~GameManager()
 }
 
 
+void E0::GameManager::setTitle(std::string new_title)
+{
+	DM.setWindowTitle(new_title); 
+}
+
+std::string E0::GameManager::getTitle()
+{
+	return DM.getWindowTitle();
+}
+
 int E0::GameManager::getFrameRate()
 {
 	return frameRate; 

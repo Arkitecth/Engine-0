@@ -74,6 +74,7 @@ void E0::DisplayManager::drawRectangle(E0::Rectangle& rect)
 	SDL_RenderFillRect(m_renderer, &fillRect); 
 }
 
+//If Rectangles have a width and height of 0, Draw Texture Will Default To Fit The Entire Screen.
 void E0::DisplayManager::drawTexture(Texture& texture, Rectangle& src, Rectangle& dst)
 {
 	SDL_FRect srcRect= {src.position.getX(), src.position.getY(), src.width, src.height};
@@ -89,6 +90,14 @@ void E0::DisplayManager::drawTexture(Texture& texture, Rectangle& src, Rectangle
 		p_dstRect = nullptr;
 	}
 	SDL_RenderTexture(m_renderer, texture.getLoadedTexture(), p_srcRect, p_dstRect);
+	if (SDL_GetError()[0]) {
+		SDL_Log("SDL Error: %s", SDL_GetError());
+	}
+}
+
+void E0::DisplayManager::drawBackgroundTexture(Texture& texture)
+{
+	SDL_RenderTexture(m_renderer, texture.getLoadedTexture(), nullptr, nullptr);
 	if (SDL_GetError()[0]) {
 		SDL_Log("SDL Error: %s", SDL_GetError());
 	}

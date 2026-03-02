@@ -32,6 +32,7 @@ namespace E0
 			void drawCircle(int x, int y, float radius); 
 			void drawRectangle(Rectangle& rect); 
 			void drawTexture(E0::Texture& texture, Rectangle& src, Rectangle& dst); 
+			void drawBackgroundTexture(E0::Texture& texture); 
 			void swapBuffer(Color color); 
 	}; 
 

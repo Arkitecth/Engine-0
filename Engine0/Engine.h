@@ -1,5 +1,5 @@
 #pragma once
-
+#include <string_view>
 #define Engine E0::GameManager::getInstance()
 const int DEFAULT_FRAME_RATE = 30;
 
@@ -10,6 +10,7 @@ namespace E0
 		private:
 			int frameRate{}; 
 			bool isGameOver{}; 
+			std::string_view title{}; 
 			GameManager(); 
 
 		public:
@@ -19,6 +20,8 @@ namespace E0
 			void shutDown(); 
 			int  getFrameRate(); 
 			bool getGameOver(); 
+			std::string getTitle(); 
+			void setTitle(std::string new_title); 
 			void setFrameRate(int new_frame_rate); 
 			void setGameOver(bool new_is_game_over); 
 			void run(); 
