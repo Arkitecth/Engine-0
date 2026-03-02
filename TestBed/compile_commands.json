@@ -1,0 +1,25 @@
+[
+  {
+    "file": "./main.cpp",
+    "arguments": [
+      "g++",
+      "-std=c++17",
+      "-Wall",
+      "-I/opt/homebrew/include",
+      "./main.cpp",
+      "-I../Engine0",
+      "-framework",
+      "OpenGL",
+      "-framework",
+      "Cocoa",
+      "-framework",
+      "IOKit",
+      "-framework",
+      "CoreVideo",
+      "-o",
+      "main"
+    ],
+    "directory": "/Users/trenttuedon/Development/projects/engine000/TestBed",
+    "output": "main"
+  }
+]
