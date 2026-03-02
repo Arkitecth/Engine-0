@@ -13,7 +13,7 @@ E0::GameManager::GameManager()
 	frameRate = DEFAULT_FRAME_RATE; 
 	isGameOver = false;
 	startUp(); 
-
+	LM.logInfo("Engine has been booted"); 
 }
 
 E0::GameManager::~GameManager()
@@ -33,16 +33,20 @@ void E0::GameManager::startUp()
 	LEM.startUp(); 
 	DM.startUp();
 	IM.startUp();
+
 }
 
 
 void::E0::GameManager::shutDown()
 {
+
+	LM.logInfo("Engine is now shutting down"); 
 	setGameOver(true); 
 	IM.shutDown();
 	DM.shutDown();
 	LEM.shutDown(); 
 	LM.shutDown(); 
+
 }
 
 void E0::GameManager::setFrameRate(int new_frame_rate)
@@ -73,11 +77,19 @@ void E0::GameManager::run()
 	using clock = std::chrono::steady_clock; 
 	const auto frameTime = std::chrono::milliseconds(1000 / frameRate);
 	auto nextFrame = clock::now(); 
+	LM.logInfo("Engine is now running"); 
 	while (!isGameOver) 
 	{
 		nextFrame += frameTime;
 
 		IM.pollInput(); 
+
+		if (LEM.getLevels().size() == 0) 
+		{	
+			LM.logError("No Level was added."); 
+			Engine.shutDown();
+			return;
+		}
 
 		LEM.getCurrentLevel()->update(); 
 
@@ -86,7 +98,6 @@ void E0::GameManager::run()
 		std::this_thread::sleep_until(nextFrame); 
 
 		DM.swapBuffer(E0::BLACK); 
-
 	}
 }
 

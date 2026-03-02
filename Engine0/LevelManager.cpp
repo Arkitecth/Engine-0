@@ -15,6 +15,10 @@ E0::LevelManager::~LevelManager()
 
 E0::Level* E0::LevelManager::getCurrentLevel()
 {
+	if (levels.size() == 0) {
+		LM.logError("No Level has been added"); 
+		return nullptr;
+	}
 	return levels[current_level];
 }
 
