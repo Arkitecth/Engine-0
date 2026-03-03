@@ -41,11 +41,15 @@ void E0::DisplayManager::setWindowTitle(std::string new_title)
 	title = new_title; 
 }
 
+std::string E0::DisplayManager::getWindowTitle()
+{
+	return title;
+}
+
 void E0::DisplayManager::startUp()
 {
-	width = 500; 
-	height = 500; 
-	title = "Engine 0";
+	width = 500;
+	height = 500;
 	if (m_window == nullptr && m_renderer == nullptr) 
 	{
 		m_window = SDL_CreateWindow(title.c_str(), width, height, SDL_WINDOW_RESIZABLE); 

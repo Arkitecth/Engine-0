@@ -13,9 +13,9 @@ namespace E0
 			DisplayManager(); 
 			SDL_Window* m_window; 
 			SDL_Renderer* m_renderer; 
-			int width; 
-			std::string title; 
-			int height; 
+			int width{}; 
+			std::string title{}; 
+			int height{}; 
 
 		public:
 			static DisplayManager& getInstance(); 
