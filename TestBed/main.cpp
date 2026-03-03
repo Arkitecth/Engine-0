@@ -23,5 +23,5 @@ void TestRectangle()
 
 int main()
 {
-	TestRectangle();
+	Engine.run();
 }

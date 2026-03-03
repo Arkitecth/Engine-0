@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS= -std=c++17 -Wall
+CFLAGS= -std=c++17 -Wall -g
 INCDIR= -I../Engine0
 LINKDIR= -L../Engine0
 DYNAMIC_LIB_PATH=-Wl,-rpath,@executable_path/../Engine0

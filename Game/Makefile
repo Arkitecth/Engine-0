@@ -7,7 +7,7 @@ LIBS= -lengine0
 LIBS+=-framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
 LIBS+=`pkg-config --libs sdl3`
 CFLAGS+=`pkg-config --cflags sdl3`
-EXECUTABLE= test
+EXECUTABLE= game 
 TEST_SRC = ./
 FILES= $(shell find $(TEST_SRC) -maxdepth 1 -name '*.cpp')
 
