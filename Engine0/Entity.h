@@ -1,5 +1,4 @@
 #pragma once
-#include "Rectangle.h"
 #include "Texture.h"
 #include "Vector.h"
 #include "Velocity.h"
@@ -13,11 +12,9 @@ namespace E0
 	class Entity
 	{
 		private:
-			int entityID; 
+			int entityID{}; 
 			Vector position{}; 
 			std::string entity_type{}; 
-			float attackScore{}; 
-			float defenseScore{}; 
 			Velocity velocity{};
 			float width{}; 
 			float height{};
@@ -33,14 +30,8 @@ namespace E0
 			Vector getPosition() const; 
 			void setPosition(Vector new_position); 
 
-			float getAttackScore() const; 
-			void setAttackScore(float new_attack_score); 
-
 			Vector getVelocity() const; 
 			void setVelocity(Velocity new_velocity); 
-
-			float getDefenseScore() const; 
-			void setDefenseScore(float new_defense_score); 
 
 			Texture getTexture() const; 
 			void setTexture(std::string new_texture_path); 

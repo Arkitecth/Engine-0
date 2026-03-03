@@ -67,26 +67,6 @@ void E0::Entity::setPosition(E0::Vector new_position)
 	position.setXY(new_position.getX(), new_position.getY()); 
 }
 
-float E0::Entity::getAttackScore() const
-{
-	return attackScore; 
-}
-
-void E0::Entity::setAttackScore(float new_attack_score)
-{
-	attackScore = new_attack_score; 
-}
-
-float E0::Entity::getDefenseScore() const
-{
-	return defenseScore; 
-}
-
-void E0::Entity::setDefenseScore(float new_defense_score)
-{
-	defenseScore = new_defense_score; 
-}
-
 void E0::Entity::eventHandler(const Event* e) 
 {
 
