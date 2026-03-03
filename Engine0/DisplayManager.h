@@ -4,9 +4,13 @@
 #include "Texture.h"
 #include "string"
 #include "Color.h"
-#define DM E0::DisplayManager::getInstance() 
+#define DM E0::DisplayManager::getInstance()
+
 namespace E0
 {
+	const int WINDOW_WIDTH_DEFAULT = 500;
+	const int WINDOW_HEIGHT_DEFAULT = 500; 
+	const std::string WINDOW_TITLE_DEFAULT = "Engine 0";
 	class DisplayManager
 	{
 		private:

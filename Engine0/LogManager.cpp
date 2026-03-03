@@ -63,6 +63,17 @@ void E0::LogManager::logError(std::string_view msg)
 	log_file.flush();
 }
 
+void E0::LogManager::logWarn(std::string_view msg)
+{
+	if (consoleFlush) {
+		std::cout << "[" << getTimeStamp() << "]" << " [WARN] " << msg << '\n';
+	}
+
+	log_file << "[" << getTimeStamp() << "]" << " [WARN] " << msg << '\n';
+	log_file.flush();
+}
+
+
 void E0::LogManager::logInfo(std::string_view msg)
 {
 	if (consoleFlush) {

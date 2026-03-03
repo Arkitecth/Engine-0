@@ -1,4 +1,5 @@
 #include "DisplayManager.h"
+#include "LogManager.h"
 #include "Rectangle.h"
 #include <string>
 
@@ -6,7 +7,9 @@ E0::DisplayManager::DisplayManager()
 {
 	m_window = nullptr;
 	m_renderer = nullptr;
-	startUp(); 
+	width = WINDOW_WIDTH_DEFAULT;
+	height = WINDOW_HEIGHT_DEFAULT;
+	title = WINDOW_TITLE_DEFAULT;
 }
 
 E0::DisplayManager::~DisplayManager()
@@ -48,14 +51,12 @@ std::string E0::DisplayManager::getWindowTitle()
 
 void E0::DisplayManager::startUp()
 {
-	width = 500;
-	height = 500;
 	if (m_window == nullptr && m_renderer == nullptr) 
 	{
 		m_window = SDL_CreateWindow(title.c_str(), width, height, SDL_WINDOW_RESIZABLE); 
+		LM.logInfo(title); 
 		m_renderer = SDL_CreateRenderer(m_window, nullptr); 
 	}
-
 }
 
 void E0::DisplayManager::shutDown()

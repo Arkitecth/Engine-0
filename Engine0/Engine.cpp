@@ -12,8 +12,6 @@ E0::GameManager::GameManager()
 {
 	frameRate = DEFAULT_FRAME_RATE; 
 	isGameOver = false;
-	startUp(); 
-	LM.logInfo("Engine has been booted"); 
 }
 
 E0::GameManager::~GameManager()
@@ -21,16 +19,6 @@ E0::GameManager::~GameManager()
 	shutDown();
 }
 
-
-void E0::GameManager::setTitle(std::string new_title)
-{
-	DM.setWindowTitle(new_title); 
-}
-
-std::string E0::GameManager::getTitle()
-{
-	return DM.getWindowTitle();
-}
 
 int E0::GameManager::getFrameRate()
 {
@@ -43,7 +31,7 @@ void E0::GameManager::startUp()
 	LEM.startUp(); 
 	DM.startUp();
 	IM.startUp();
-
+	LM.logInfo("Engine has been booted"); 
 }
 
 

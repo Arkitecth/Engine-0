@@ -18,6 +18,7 @@ namespace E0
 			~LogManager(); 
 			void logError(std::string_view msg); 
 			void logInfo(std::string_view msg); 
+			void logWarn(std::string_view msg); 
 	}; 
 
 
