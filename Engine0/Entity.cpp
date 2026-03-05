@@ -72,9 +72,9 @@ void E0::Entity::eventHandler(const Event* e)
 
 }
 
-E0::Texture E0::Entity::getTexture() const
+E0::Texture* E0::Entity::getTexture() 
 {
-	return entityTexture;
+	return &entityTexture;
 }
 
 void E0::Entity::setTexture(std::string new_texture_path)

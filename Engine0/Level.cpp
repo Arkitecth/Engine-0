@@ -104,7 +104,7 @@ void E0::Level::draw()
 {
 	if (!levelTexturePath.empty()) 
 	{
-		DM.drawBackgroundTexture(levelTexture); 
+		DM.drawBackgroundTexture(&levelTexture); 
 	}
 
 	for (Entity* entity : entities) {

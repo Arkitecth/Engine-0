@@ -1,6 +1,6 @@
 #include "DisplayManager.h"
-#include "LogManager.h"
 #include "Rectangle.h"
+#include <iostream>
 #include <string>
 
 E0::DisplayManager::DisplayManager()
@@ -79,7 +79,7 @@ void E0::DisplayManager::drawRectangle(E0::Rectangle& rect)
 }
 
 //If Rectangles have a width and height of 0, Draw Texture Will Default To Fit The Entire Screen.
-void E0::DisplayManager::drawTexture(Texture& texture, Rectangle& src, Rectangle& dst)
+void E0::DisplayManager::drawTexture(Texture* texture, Rectangle& src, Rectangle& dst)
 {
 	SDL_FRect srcRect= {src.position.getX(), src.position.getY(), src.width, src.height};
 	SDL_FRect dstRect = {dst.position.getX(), dst.position.getY(), dst.width, dst.height};
@@ -90,18 +90,18 @@ void E0::DisplayManager::drawTexture(Texture& texture, Rectangle& src, Rectangle
 	{
 		p_srcRect = nullptr;
 	}
-	if (dstRect.h == 0 && srcRect.w == 0) {
+	if (dstRect.h == 0 && dstRect.w == 0) {
 		p_dstRect = nullptr;
 	}
-	SDL_RenderTexture(m_renderer, texture.getLoadedTexture(), p_srcRect, p_dstRect);
+	SDL_RenderTexture(m_renderer, texture->getLoadedTexture(), p_srcRect, p_dstRect);
 	if (SDL_GetError()[0]) {
 		SDL_Log("SDL Error: %s", SDL_GetError());
 	}
 }
 
-void E0::DisplayManager::drawBackgroundTexture(Texture& texture)
+void E0::DisplayManager::drawBackgroundTexture(Texture* texture)
 {
-	SDL_RenderTexture(m_renderer, texture.getLoadedTexture(), nullptr, nullptr);
+	SDL_RenderTexture(m_renderer, texture->getLoadedTexture(), nullptr, nullptr);
 	if (SDL_GetError()[0]) {
 		SDL_Log("SDL Error: %s", SDL_GetError());
 	}

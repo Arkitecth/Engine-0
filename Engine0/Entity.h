@@ -12,7 +12,7 @@ namespace E0
 	class Entity
 	{
 		private:
-			int entityID{}; 
+			int entityID; 
 			Vector position{}; 
 			std::string entity_type{}; 
 			Velocity velocity{};
@@ -33,7 +33,7 @@ namespace E0
 			Vector getVelocity() const; 
 			void setVelocity(Velocity new_velocity); 
 
-			Texture getTexture() const; 
+			Texture* getTexture(); 
 			void setTexture(std::string new_texture_path); 
 
 			float getWidth() const; 
