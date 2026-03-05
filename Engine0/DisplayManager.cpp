@@ -54,7 +54,6 @@ void E0::DisplayManager::startUp()
 	if (m_window == nullptr && m_renderer == nullptr) 
 	{
 		m_window = SDL_CreateWindow(title.c_str(), width, height, SDL_WINDOW_RESIZABLE); 
-		LM.logInfo(title); 
 		m_renderer = SDL_CreateRenderer(m_window, nullptr); 
 	}
 }
