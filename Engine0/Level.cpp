@@ -33,7 +33,7 @@ std::string E0::Level::getTexturePath()
 void E0::Level::setTexturePath(std::string new_texture_path)
 {
 	levelTexturePath = new_texture_path;
-	levelTexture.setTexture(new_texture_path); 
+	levelTexture.setLoadedTexture(new_texture_path); 
 }
 
 std::vector<E0::Entity*> E0::Level::getEntitiesOfType(std::string entity_type)

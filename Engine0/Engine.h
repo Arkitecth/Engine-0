@@ -1,5 +1,6 @@
 #pragma once
 #include <string_view>
+#include "DisplayManager.h"
 #define Engine E0::GameManager::getInstance()
 const int DEFAULT_FRAME_RATE = 30;
 
@@ -16,7 +17,7 @@ namespace E0
 		public:
 			static GameManager& getInstance(); 
 			~GameManager(); 
-			void startUp(); 
+			void startUp(int window_width = WINDOW_WIDTH_DEFAULT, int window_height = WINDOW_HEIGHT_DEFAULT, std::string_view title = WINDOW_TITLE_DEFAULT);
 			void shutDown(); 
 			int  getFrameRate(); 
 			bool getGameOver(); 

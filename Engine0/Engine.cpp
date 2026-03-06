@@ -1,7 +1,7 @@
 #include "Engine.h"
 #include "Color.h"
-#include "DisplayManager.h"
 #include "LevelManager.h"
+#include "ResourceManager.h"
 #include "LogManager.h"
 #include "InputManager.h"
 #include <chrono>
@@ -25,11 +25,12 @@ int E0::GameManager::getFrameRate()
 	return frameRate; 
 }
 
-void E0::GameManager::startUp()
+void E0::GameManager::startUp(int window_width, int window_height, std::string_view title)
 {
 	LM.startUp(); 
+	RM.startUp();
 	LEM.startUp(); 
-	DM.startUp();
+	DM.startUp(window_width, window_height, title.data());
 	IM.startUp();
 	LM.logInfo("Engine has been booted"); 
 }
@@ -43,6 +44,7 @@ void::E0::GameManager::shutDown()
 	IM.shutDown();
 	DM.shutDown();
 	LEM.shutDown(); 
+	RM.shutDown();
 	LM.shutDown(); 
 
 }

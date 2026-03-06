@@ -13,7 +13,7 @@ E0::Texture::Texture()
 
 E0::Texture::Texture(std::string_view new_file_path)
 {
-	setTexture(new_file_path); 
+	setLoadedTexture(new_file_path); 
 }
 
 E0::Texture::~Texture()
@@ -23,8 +23,9 @@ E0::Texture::~Texture()
 	}
 }
 
-void E0::Texture::setTexture(std::string_view new_file_path)
+void E0::Texture::setLoadedTexture(std::string_view new_file_path)
 {
+
 	filePath = new_file_path; 
 	SDL_Surface* loadedSurface = SDL_LoadPNG(new_file_path.data());
 	loadedTexture = SDL_CreateTextureFromSurface(DM.getRenderer(), loadedSurface); 
@@ -32,7 +33,6 @@ void E0::Texture::setTexture(std::string_view new_file_path)
 		LM.logError("An error occurred with Setting Texture"); 
 		return;
 	}
-
 	width = loadedTexture->w; 
 	height = loadedTexture->h;
 	SDL_DestroySurface(loadedSurface); 

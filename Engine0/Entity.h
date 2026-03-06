@@ -4,6 +4,7 @@
 #include "Velocity.h"
 #include <string>
 #include "Event.h"
+#include "Animation.h"
 #include <string_view>
 namespace E0
 {
@@ -18,8 +19,7 @@ namespace E0
 			Velocity velocity{};
 			float width{}; 
 			float height{};
-			//Animation extension should be added somewhere around here
-			Texture entityTexture{};
+			Animation animation{};
 
 		public:
 			Entity(); 
@@ -33,8 +33,9 @@ namespace E0
 			Vector getVelocity() const; 
 			void setVelocity(Velocity new_velocity); 
 
-			Texture* getTexture(); 
-			void setTexture(std::string new_texture_path); 
+			Animation getAnimation() const; 
+
+			void setAnimation(Animation new_animation); 
 
 			float getWidth() const; 
 			float getHeight() const; 

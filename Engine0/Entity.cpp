@@ -1,5 +1,4 @@
 #include "Entity.h"
-#include "Texture.h"
 #include "Vector.h"
 E0::Entity::Entity()
 {
@@ -72,17 +71,6 @@ void E0::Entity::eventHandler(const Event* e)
 
 }
 
-E0::Texture* E0::Entity::getTexture() 
-{
-	return &entityTexture;
-}
-
-void E0::Entity::setTexture(std::string new_texture_path)
-{
-	entityTexture.setTexture(new_texture_path); 
-}
-
-
 std::string E0::Entity::getEntityType() const
 {
 	return entity_type; 
@@ -103,5 +91,13 @@ bool E0::Entity::operator==(const Entity& rhs)
 	return rhs.entityID == this->entityID; 
 }
 
+E0::Animation E0::Entity::getAnimation() const
+{
+	return animation;
+}
 
+void E0::Entity::setAnimation(Animation new_animation) 
+{
+	animation = new_animation;
+}
 

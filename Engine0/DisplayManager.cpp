@@ -1,6 +1,5 @@
 #include "DisplayManager.h"
 #include "Rectangle.h"
-#include <iostream>
 #include <string>
 
 E0::DisplayManager::DisplayManager()
@@ -49,12 +48,16 @@ std::string E0::DisplayManager::getWindowTitle()
 	return title;
 }
 
-void E0::DisplayManager::startUp()
+void E0::DisplayManager::startUp(int new_width, int new_height, std::string new_title)
 {
 	if (m_window == nullptr && m_renderer == nullptr) 
 	{
-		m_window = SDL_CreateWindow(title.c_str(), width, height, SDL_WINDOW_RESIZABLE); 
+		width = new_width;
+		height = new_height;
+		title = new_title;
+		m_window = SDL_CreateWindow(new_title.c_str(), new_width, new_height, SDL_WINDOW_RESIZABLE); 
 		m_renderer = SDL_CreateRenderer(m_window, nullptr); 
+
 	}
 }
 
@@ -79,21 +82,12 @@ void E0::DisplayManager::drawRectangle(E0::Rectangle& rect)
 }
 
 //If Rectangles have a width and height of 0, Draw Texture Will Default To Fit The Entire Screen.
-void E0::DisplayManager::drawTexture(Texture* texture, Rectangle& src, Rectangle& dst)
+// Refactor To Have Texture and position instead of two rectangles
+void E0::DisplayManager::drawTexture(Texture* texture, Rectangle& dst)
 {
-	SDL_FRect srcRect= {src.position.getX(), src.position.getY(), src.width, src.height};
 	SDL_FRect dstRect = {dst.position.getX(), dst.position.getY(), dst.width, dst.height};
-	SDL_FRect* p_srcRect = &srcRect;
 	SDL_FRect* p_dstRect= &dstRect;
-
-	if (srcRect.h == 0 && srcRect.w == 0) 
-	{
-		p_srcRect = nullptr;
-	}
-	if (dstRect.h == 0 && dstRect.w == 0) {
-		p_dstRect = nullptr;
-	}
-	SDL_RenderTexture(m_renderer, texture->getLoadedTexture(), p_srcRect, p_dstRect);
+	SDL_RenderTexture(m_renderer, texture->getLoadedTexture(), nullptr, p_dstRect);
 	if (SDL_GetError()[0]) {
 		SDL_Log("SDL Error: %s", SDL_GetError());
 	}
