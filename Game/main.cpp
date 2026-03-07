@@ -2,11 +2,11 @@
 #include "Enemy.h"
 #include "Level.h"
 #include <DisplayManager.h>
+#include <ResourceManager.h>
 
 int main()
 {
-	DM.setWindowTitle("Tower Defense"); 
-	Engine.startUp();
+		Engine.startUp(1000, 1000, "My Engine");
 		E0::Level level{};
 		Enemy enemy{};
 		level.setLevelsName("Level 1"); 

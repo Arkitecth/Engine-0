@@ -1,18 +1,21 @@
 #include "Enemy.h"
 #include "DisplayManager.h"
+#include "Engine.h"
 #include "Entity.h"
 #include "Rectangle.h"
 #include "Vector.h"
+#include <utility.h>
+#include <ResourceManager.h>
 
-Enemy::Enemy()
+Enemy::Enemy(): 
+	animation{RM.getAnimationFiles("./Assets/Goblin/", "run")}
 {
 	E0::Entity::setPosition(E0::Vector{100, 25}); 
 	E0::Entity::setEntityType("Enemy"); 
-	E0::Entity::setHeight(65.0f);
-	E0::Entity::setWidth(65.0f);
-	E0::Entity::setTexture("./Assets/enemy.png");
-}
+	E0::Entity::setHeight(80.0f);
+	E0::Entity::setWidth(80.0f);
 
+}
 
 Enemy::~Enemy()
 {
@@ -21,9 +24,20 @@ Enemy::~Enemy()
 
 void Enemy::draw()
 {
-	E0::Rectangle srcRect{};
-	E0::Rectangle dstRect{E0::Entity::getPosition(), E0::Entity::getWidth(), E0::Entity::getHeight()};
-	DM.drawTexture(E0::Entity::getTexture(), srcRect, dstRect); 
+	E0::Rectangle rect = getBox(this);
+	// for(int i = 0; i < animation.getAnimationSize(); i++)
+	// {
+	// 	animation.setAnimationIndex(i); 
+	// 	DM.drawTexture(animation.getCurrentTexture(), rect); 
+	// }
+	static float timer = 0.0f;
+	float frameDuration = 0.0f; // 100ms per frame
+	timer += 60.0f/ 1000;
+	if (timer >= frameDuration) {
+		animation.setAnimationIndex((animation.getAnimationIndex() + 1) % animation.getAnimationSize());
+		timer = 0.0f;
+	}
+	DM.drawTexture(animation.getCurrentTexture(), rect);
 }
 
 
