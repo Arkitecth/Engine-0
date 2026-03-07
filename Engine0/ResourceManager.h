@@ -14,6 +14,6 @@ namespace E0
 			~ResourceManager(); 
 			void startUp();
 			void shutDown(); 
-			Animation getAnimation(std::string_view directory_path, std::string_view animation_qualifier); 
+			std::vector<std::string> getAnimationFiles(std::string_view directory_path, std::string_view animation_qualifier); 
 	}; 
 }
