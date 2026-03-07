@@ -1,5 +1,4 @@
-#include "Vector.h"
-#include "Frame.h"
+#include "Texture.h"
 #include <vector>
 namespace E0
 {
@@ -7,16 +6,18 @@ namespace E0
 	{
 		private:
 			int animationIndex{};
-			std::vector<Frame*> animationFrames{};
+			std::vector<Texture*> animationTextures{};
 		public:
 			Animation(); 
+			Animation(std::vector<std::string> animation_file_paths); 
 			~Animation(); 
 			int  getAnimationIndex(); 
+			int getAnimationSize(); 
+			Texture* getCurrentTexture() const; 
 			void setAnimationIndex(int new_index); 
-			std::vector<Frame*> getAnimationFrames() const; 
-			void insertAnimationFrame(Frame* frame); 
-			void clearAnimationFrames(); 
-			void animate(E0::Vector position);
+			const std::vector<Texture*>* getAnimationTextures() const; 
+			void insertAnimationTexture(Texture* texture); 
+			void clearAnimationTextures(); 
 	}; 
 
 }

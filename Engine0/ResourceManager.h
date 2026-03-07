@@ -1,6 +1,7 @@
+#pragma once
+#include "Animation.h"
 #include <string_view>
-#include <vector>
-#define RM ResourceManager::getInstance()
+#define RM E0::ResourceManager::getInstance()
 namespace E0
 {
 	class ResourceManager
@@ -13,6 +14,6 @@ namespace E0
 			~ResourceManager(); 
 			void startUp();
 			void shutDown(); 
-			std::vector<std::string> getAnimation(std::string_view directory_path); 
+			Animation getAnimation(std::string_view directory_path, std::string_view animation_qualifier); 
 	}; 
 }

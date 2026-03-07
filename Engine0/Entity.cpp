@@ -90,14 +90,3 @@ bool E0::Entity::operator==(const Entity& rhs)
 {
 	return rhs.entityID == this->entityID; 
 }
-
-E0::Animation E0::Entity::getAnimation() const
-{
-	return animation;
-}
-
-void E0::Entity::setAnimation(Animation new_animation) 
-{
-	animation = new_animation;
-}
-

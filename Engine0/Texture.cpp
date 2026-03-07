@@ -25,7 +25,6 @@ E0::Texture::~Texture()
 
 void E0::Texture::setLoadedTexture(std::string_view new_file_path)
 {
-
 	filePath = new_file_path; 
 	SDL_Surface* loadedSurface = SDL_LoadPNG(new_file_path.data());
 	loadedTexture = SDL_CreateTextureFromSurface(DM.getRenderer(), loadedSurface); 
@@ -57,6 +56,5 @@ float E0::Texture::getHeight()
 {
 	return float(loadedTexture->h);
 }
-
 
 

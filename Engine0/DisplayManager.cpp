@@ -81,8 +81,6 @@ void E0::DisplayManager::drawRectangle(E0::Rectangle& rect)
 	SDL_RenderFillRect(m_renderer, &fillRect); 
 }
 
-//If Rectangles have a width and height of 0, Draw Texture Will Default To Fit The Entire Screen.
-// Refactor To Have Texture and position instead of two rectangles
 void E0::DisplayManager::drawTexture(Texture* texture, Rectangle& dst)
 {
 	SDL_FRect dstRect = {dst.position.getX(), dst.position.getY(), dst.width, dst.height};
