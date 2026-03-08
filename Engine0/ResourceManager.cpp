@@ -35,7 +35,6 @@ void E0::ResourceManager::shutDown()
 std::vector<std::string> E0::ResourceManager::getAnimationFiles(std::string_view directory_path, std::string_view animation_qualifier)
 {
 	std::vector<std::string> animationFilePaths{};
-	Animation entityAnimation{};
 	if (!std::filesystem::is_directory(directory_path)) 
 	{
 		LM.logError("RM: Animation Directory Path is invalid or not a directory"); 

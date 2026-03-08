@@ -1,5 +1,5 @@
 #include <SDL3/SDL.h>
-#include <string_view>
+#include <string>
 #pragma once
 
 namespace E0
@@ -7,12 +7,14 @@ namespace E0
 	class Texture 
 	{
 		private:
-			std::string_view filePath; 
+			std::string filePath; 
 			SDL_Texture* loadedTexture; 
 			float width{}; 
 			float height{}; 
 		public:
 			Texture();
+			Texture(const Texture& rhs);
+			void operator=(const Texture& rhs);
 			SDL_Texture* getLoadedTexture();
 			Texture(std::string_view new_file_path);
 			void setLoadedTexture(std::string_view new_file_path); 

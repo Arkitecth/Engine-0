@@ -6,17 +6,20 @@ namespace E0
 	{
 		private:
 			int animationIndex{};
-			std::vector<Texture*> animationTextures{};
+			float animationTimer{};
+			std::vector<Texture> animationTextures{};
 		public:
 			Animation(); 
 			Animation(std::vector<std::string> animation_file_paths); 
 			~Animation(); 
 			int  getAnimationIndex(); 
+			void setAnimationTimer(float new_animation_timer); 
+			float getAnimationTimer(); 
 			int getAnimationSize(); 
-			Texture* getCurrentTexture() const; 
+			const Texture& getCurrentTexture() const; 
 			void setAnimationIndex(int new_index); 
-			const std::vector<Texture*>* getAnimationTextures() const; 
-			void insertAnimationTexture(Texture* texture); 
+			const std::vector<Texture>* getAnimationTextures() const; 
+			void insertAnimationTexture(Texture texture); 
 			void clearAnimationTextures(); 
 	}; 
 

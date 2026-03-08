@@ -2,7 +2,6 @@
 #include <SDL3/SDL.h>
 #include "Rectangle.h"
 #include "Texture.h"
-#include "Vector.h"
 #include "string"
 #include "Color.h"
 #define DM E0::DisplayManager::getInstance()
@@ -36,7 +35,7 @@ namespace E0
 			void setWindowHeight(int new_height); 
 			void drawCircle(int x, int y, float radius); 
 			void drawRectangle(Rectangle& rect); 
-			void drawTexture(E0::Texture* texture, Rectangle& dst); 
+			void drawTexture(E0::Texture texture, Rectangle& dst); 
 			void drawBackgroundTexture(E0::Texture* texture); 
 			void swapBuffer(Color color); 
 	}; 

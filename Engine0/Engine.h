@@ -11,6 +11,7 @@ namespace E0
 		private:
 			int frameRate{}; 
 			bool isGameOver{}; 
+			float deltaTime{};
 			std::string_view title{}; 
 			GameManager(); 
 
@@ -20,6 +21,8 @@ namespace E0
 			void startUp(int window_width = WINDOW_WIDTH_DEFAULT, int window_height = WINDOW_HEIGHT_DEFAULT, std::string_view title = WINDOW_TITLE_DEFAULT);
 			void shutDown(); 
 			int  getFrameRate(); 
+			float getDeltaTime(); 
+			void  setDeltaTime(float new_delta_time);
 			bool getGameOver(); 
 			void setFrameRate(int new_frame_rate); 
 			void setGameOver(bool new_is_game_over); 
