@@ -1,6 +1,4 @@
 #include "Enemy.h"
-#include "DisplayManager.h"
-#include "Engine.h"
 #include "Entity.h"
 #include "Rectangle.h"
 #include "Vector.h"
@@ -24,22 +22,9 @@ Enemy::~Enemy()
 
 void Enemy::draw()
 {
-	E0::Rectangle rect = getBox(this);
-	// for(int i = 0; i < animation.getAnimationSize(); i++)
-	// {
-	// 	animation.setAnimationIndex(i); 
-	// 	DM.drawTexture(animation.getCurrentTexture(), rect); 
-	// }
-	static float timer = 0.0f;
-	float frameDuration = 0.0f; // 100ms per frame
-	timer += 60.0f/ 1000;
-	if (timer >= frameDuration) {
-		animation.setAnimationIndex((animation.getAnimationIndex() + 1) % animation.getAnimationSize());
-		timer = 0.0f;
-	}
-	DM.drawTexture(animation.getCurrentTexture(), rect);
+	E0::Rectangle box = getBox(this); 
+	animation.animate(box);
 }
-
 
 void Enemy::eventHandler(const E0::Event* e)
 {
