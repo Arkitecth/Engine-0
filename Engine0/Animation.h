@@ -1,3 +1,4 @@
+#include "Rectangle.h"
 #include "Texture.h"
 #include <vector>
 namespace E0
@@ -19,6 +20,7 @@ namespace E0
 			const Texture& getCurrentTexture() const; 
 			void setAnimationIndex(int new_index); 
 			const std::vector<Texture>* getAnimationTextures() const; 
+			void animate(E0::Rectangle& dst_rect);
 			void insertAnimationTexture(Texture texture); 
 			void clearAnimationTextures(); 
 	}; 

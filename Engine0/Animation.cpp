@@ -1,8 +1,9 @@
 #include "Animation.h"
 #include "DisplayManager.h"
-#include "Entity.h"
+#include "Engine.h"
 #include "Rectangle.h"
 #include "Texture.h"
+#include <iostream>
 
 E0::Animation::Animation()
 {
@@ -68,15 +69,13 @@ void E0::Animation::clearAnimationTextures()
 	animationTextures.clear();
 }
 
-void animate(E0::Rectangle& dst_rect)
+void E0::Animation::animate(E0::Rectangle& dst_rect)
 {
-	E0::Animation animation{};
-	float timer = animation.getAnimationTimer(); 
-	animation.setAnimationTimer(timer + delta); 
+	setAnimationTimer(animationTimer + Engine.getDeltaTime()); 
 
-	if (animation.getAnimationTimer() >= expectedFrameTime) 
+	if (getAnimationTimer() > Engine.getFrameRate()) 
 	{
-		animation.setAnimationIndex(animation.getAnimationIndex() + 1 % animation.getAnimationSize());
+		setAnimationIndex((getAnimationIndex() + 1) % getAnimationSize());
 	} 
-	DM.drawTexture(animation.getCurrentTexture(), dst_rect); 
+	DM.drawTexture(getCurrentTexture(), dst_rect); 
 }

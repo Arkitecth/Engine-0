@@ -22,7 +22,12 @@ E0::GameManager::~GameManager()
 
 int E0::GameManager::getFrameRate()
 {
-	return frameRate; 
+	return 1000 / frameRate; 
+}
+
+float E0::GameManager::getDeltaTime()
+{
+	return deltaTime; 
 }
 
 void E0::GameManager::startUp(int window_width, int window_height, std::string_view title)
@@ -54,6 +59,8 @@ void E0::GameManager::setFrameRate(int new_frame_rate)
 	frameRate = new_frame_rate; 
 }
 
+
+
 void E0::GameManager::setGameOver(bool new_game_over)
 {
 	isGameOver = new_game_over;
@@ -80,6 +87,8 @@ void E0::GameManager::run()
 	LM.logInfo("Engine is now running"); 
 	while (!isGameOver) 
 	{
+		const auto currentTime = clock::now(); 
+
 		nextFrame += frameTime;
 
 		IM.pollInput(); 
@@ -94,6 +103,12 @@ void E0::GameManager::run()
 		LEM.getCurrentLevel()->update(); 
 
 		LEM.getCurrentLevel()->draw(); 
+
+		const auto lastTime = clock::now(); 
+
+		auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(lastTime - currentTime);
+
+		deltaTime = duration.count();
 
 		std::this_thread::sleep_until(nextFrame); 
 
