@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include "Color.h"
+#include "EventStep.h"
 #include "LevelManager.h"
 #include "ResourceManager.h"
 #include "LogManager.h"
@@ -83,10 +84,13 @@ void E0::GameManager::run()
 {
 	using clock = std::chrono::steady_clock; 
 	const auto frameTime = std::chrono::milliseconds(1000 / frameRate);
+	EventStep stepEvent{};
 	auto nextFrame = clock::now(); 
 	LM.logInfo("Engine is now running"); 
 	while (!isGameOver) 
 	{
+		stepEvent.increment();
+
 		const auto currentTime = clock::now(); 
 
 		nextFrame += frameTime;
@@ -99,6 +103,8 @@ void E0::GameManager::run()
 			Engine.shutDown();
 			return;
 		}
+
+		LEM.getCurrentLevel()->broadcastEvent(dynamic_cast<const Event*>(&stepEvent));
 
 		LEM.getCurrentLevel()->update(); 
 

@@ -3,7 +3,6 @@
 #include "Engine.h"
 #include "Rectangle.h"
 #include "Texture.h"
-#include <iostream>
 
 E0::Animation::Animation()
 {

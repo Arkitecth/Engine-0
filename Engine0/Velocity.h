@@ -4,7 +4,7 @@ namespace E0
 	const Vector UP = Vector{0, 1 }; 
 	const Vector DOWN = Vector{0, -1}; 
 	const Vector LEFT = Vector{-1, 0}; 
-	const Vector RIGHT = Vector{0, 1}; 
+	const Vector RIGHT = Vector{1, 0}; 
 
 	class Velocity 
 	{
