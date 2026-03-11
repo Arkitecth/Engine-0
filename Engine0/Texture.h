@@ -1,7 +1,6 @@
 #include <SDL3/SDL.h>
 #include <string>
 #pragma once
-
 namespace E0
 {
 	class Texture 

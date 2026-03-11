@@ -4,6 +4,7 @@
 #include "Vector.h"
 #include <utility.h>
 #include <ResourceManager.h>
+#include <EventStep.h>
 
 Enemy::Enemy(): 
 	animation{RM.getAnimationFiles("./Assets/Goblin/", "run")}
@@ -12,7 +13,7 @@ Enemy::Enemy():
 	E0::Entity::setEntityType("Enemy"); 
 	E0::Entity::setHeight(80.0f);
 	E0::Entity::setWidth(80.0f);
-
+	E0::Entity::setVelocity(E0::Velocity{E0::DOWN, 1}); 
 }
 
 Enemy::~Enemy()
@@ -28,7 +29,10 @@ void Enemy::draw()
 
 void Enemy::eventHandler(const E0::Event* e)
 {
-
+	if (e->getType() == E0::EVENT_STEP && animation.isFrameFinished()) 
+	{
+		E0::Entity::setPosition(E0::Entity::predictPosition()); 
+	}
 }
 
 int Enemy::getAttackScore()

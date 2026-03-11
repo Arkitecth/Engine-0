@@ -14,6 +14,5 @@ class Enemy: public E0::Entity
 		 int getDefenseScore(); 
 		 void setDefenseScore(int new_defense_score); 
 		 void draw();
-		 void move(); 
 		~Enemy();
 }; 

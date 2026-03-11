@@ -8,15 +8,22 @@ namespace E0
 		private:
 			int animationIndex{};
 			float animationTimer{};
+			float slowdownTime{};
+			bool frameFinished{};
 			std::vector<Texture> animationTextures{};
 		public:
 			Animation(); 
 			Animation(std::vector<std::string> animation_file_paths); 
 			~Animation(); 
-			int  getAnimationIndex(); 
-			void setAnimationTimer(float new_animation_timer); 
+
+			int   getAnimationIndex(); 
+			void  setAnimationTimer(float new_animation_timer); 
 			float getAnimationTimer(); 
-			int getAnimationSize(); 
+			bool  isFrameFinished();
+
+			void  setSlowdownTimer(float new_slowdown_timer); 
+			float getSlowdownTimer(); 
+			int   getAnimationSize(); 
 			const Texture& getCurrentTexture() const; 
 			void setAnimationIndex(int new_index); 
 			const std::vector<Texture>* getAnimationTextures() const; 
