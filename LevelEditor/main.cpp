@@ -1,6 +1,7 @@
 #include "SDL3/SDL_error.h"
 #include "SDL3/SDL_events.h"
 #include "SDL3/SDL_init.h"
+#include "SDL3/SDL_log.h"
 #include "SDL3/SDL_render.h"
 #include "SDL3/SDL_stdinc.h"
 #include "SDL3/SDL_video.h"
@@ -12,14 +13,40 @@
 #include <SDL3/SDL_dialog.h>
 
 
-//const char const* fileList
-void SDLCALL callback(void* userData, const char* const* filelist, int filter)
+
+static const SDL_DialogFileFilter filters[] = 
 {
-	if (!filelist) 
+		{"PNG Images ", "png"},  
+		{"JPEG Images ", "jpg;jpeg"},  
+}; 
+
+
+
+void SDLCALL callback(void* userdata, const char* const* fileList, int filter)
+{
+	if (!fileList) 
 	{
-	
+		SDL_Log("An error occurred: %s\n", SDL_GetError()); 
+		return;
+	} else if(!*fileList) {
+		SDL_Log("the user did not select any file"); 
+		SDL_Log("Most likely, the dialog was canceled."); 
+		return;
+	}
+	while (*fileList) 
+	{
+		SDL_Log("Full path to selected file: '%s'", *fileList);
+		fileList++;
+	}
+
+	if (filter < 0) {
+		SDL_Log("The current platform does not support fetching the selected filter, or the user did not select any filter");
+	} else if(filter < SDL_arraysize(filters)) {
+		SDL_Log("The filter selected by the user is '%s' (%s).", 
+			filters[filter].pattern, filters[filter].name);
 	}
 }
+
 
 int main()
 {
@@ -75,7 +102,7 @@ int main()
 			ImGui::Begin("Level Manager"); 
 			if(ImGui::Button("Add Level"))
 			{
-				SDL_ShowOpenFileDialog(SDL_DialogFileCallback callback, void *userdata, SDL_Window *window, const SDL_DialogFileFilter *filters, int nfilters, const char *default_location, bool allow_many)
+				SDL_ShowOpenFileDialog(callback, nullptr, window, filters, 0, "./", false); 
 			} 
 			ImGui::End(); 
 		}
