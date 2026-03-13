@@ -2,12 +2,24 @@
 #include "SDL3/SDL_events.h"
 #include "SDL3/SDL_init.h"
 #include "SDL3/SDL_render.h"
+#include "SDL3/SDL_stdinc.h"
 #include "SDL3/SDL_video.h"
 #include "imgui.h"
 #include "imgui_impl_sdl3.h"
 #include "imgui_impl_sdlrenderer3.h"
 #include "iostream"
 #include <SDL3/SDL.h>
+#include <SDL3/SDL_dialog.h>
+
+
+//const char const* fileList
+void SDLCALL callback(void* userData, const char* const* filelist, int filter)
+{
+	if (!filelist) 
+	{
+	
+	}
+}
 
 int main()
 {
@@ -61,7 +73,10 @@ int main()
 		ImGui::NewFrame();
 		{
 			ImGui::Begin("Level Manager"); 
-			ImGui::Button("Add Level"); 
+			if(ImGui::Button("Add Level"))
+			{
+				SDL_ShowOpenFileDialog(SDL_DialogFileCallback callback, void *userdata, SDL_Window *window, const SDL_DialogFileFilter *filters, int nfilters, const char *default_location, bool allow_many)
+			} 
 			ImGui::End(); 
 		}
 		ImGui::Render(); 
