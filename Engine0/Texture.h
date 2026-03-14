@@ -12,10 +12,10 @@ namespace E0
 			float height{}; 
 		public:
 			Texture();
+			Texture(std::string new_file_path);
 			Texture(const Texture& rhs);
 			void operator=(const Texture& rhs);
 			SDL_Texture* getLoadedTexture();
-			Texture(std::string_view new_file_path);
 			void setLoadedTexture(std::string_view new_file_path); 
 			float getWidth(); 
 			float getHeight();

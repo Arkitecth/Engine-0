@@ -1,6 +1,7 @@
 #include "Texture.h"
 #include "DisplayManager.h"
 #include "LogManager.h"
+#include <string>
 #include <string_view>
 
 E0::Texture::Texture()
@@ -11,14 +12,14 @@ E0::Texture::Texture()
 	height = 0.0f; 
 }
 
+E0::Texture::Texture(std::string new_file_path)
+{
+	setLoadedTexture(new_file_path);
+}
+
 E0::Texture::Texture(const Texture& rhs)
 {
 	setLoadedTexture(rhs.filePath); 
-}
-
-E0::Texture::Texture(std::string_view new_file_path)
-{
-	setLoadedTexture(new_file_path); 
 }
 
 void E0::Texture::operator=(const Texture& rhs)

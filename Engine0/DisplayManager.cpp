@@ -55,9 +55,9 @@ void E0::DisplayManager::startUp(int new_width, int new_height, std::string new_
 		width = new_width;
 		height = new_height;
 		title = new_title;
-		m_window = SDL_CreateWindow(new_title.c_str(), new_width, new_height, SDL_WINDOW_RESIZABLE); 
+		m_window = SDL_CreateWindow(new_title.c_str(), new_width, new_height, SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIGH_PIXEL_DENSITY); 
 		m_renderer = SDL_CreateRenderer(m_window, nullptr); 
-
+		SDL_SetRenderVSync(m_renderer, 1); 
 	}
 }
 
@@ -110,6 +110,11 @@ void E0::DisplayManager::swapBuffer(Color color)
 int E0::DisplayManager::getWindowWidth()
 {
 	return width; 
+}
+
+SDL_Window* E0::DisplayManager::getWindow()
+{
+	return m_window;
 }
 
 int E0::DisplayManager::getWindowHeight()

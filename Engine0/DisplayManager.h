@@ -27,6 +27,7 @@ namespace E0
 			void startUp(int new_width, int new_height, std::string new_title); 
 			void shutDown(); 
 			SDL_Renderer* getRenderer(); 
+			SDL_Window* getWindow(); 
 			int getWindowWidth(); 
 			void setWindowWidth(int new_width); 
 			std::string getWindowTitle(); 
