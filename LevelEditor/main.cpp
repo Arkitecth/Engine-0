@@ -5,13 +5,14 @@
 #include "SDL3/SDL_render.h"
 #include "SDL3/SDL_stdinc.h"
 #include "SDL3/SDL_video.h"
+#include "Texture.h"
 #include "imgui.h"
 #include "imgui_impl_sdl3.h"
 #include "imgui_impl_sdlrenderer3.h"
 #include "iostream"
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_dialog.h>
-
+#include <DisplayManager.h>
 
 
 static const SDL_DialogFileFilter filters[] = 
@@ -21,6 +22,7 @@ static const SDL_DialogFileFilter filters[] =
 }; 
 
 
+E0::Texture texture{}; 
 
 void SDLCALL callback(void* userdata, const char* const* fileList, int filter)
 {
@@ -33,10 +35,10 @@ void SDLCALL callback(void* userdata, const char* const* fileList, int filter)
 		SDL_Log("Most likely, the dialog was canceled."); 
 		return;
 	}
-	while (*fileList) 
+	if (*fileList) 
 	{
-		SDL_Log("Full path to selected file: '%s'", *fileList);
-		fileList++;
+		texture.setLoadedTexture(*fileList);
+		SDL_Log("Full path texture selected file: '%s'", *fileList);
 	}
 
 	if (filter < 0) {
@@ -45,36 +47,25 @@ void SDLCALL callback(void* userdata, const char* const* fileList, int filter)
 		SDL_Log("The filter selected by the user is '%s' (%s).", 
 			filters[filter].pattern, filters[filter].name);
 	}
+
+
+	
+}
+
+
+void loadBackground()
+{
+
 }
 
 
 int main()
 {
-	if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMEPAD)) 
-	{
-		std::cout << "An error occurred during initialization" << '\n';
-		return 1; 
-	}
-
 	int width = 800;
 	int height = 450; 
 
-	SDL_WindowFlags window_flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIGH_PIXEL_DENSITY;
+	DM.startUp(width, height, "Level Editor"); 
 
-	SDL_Window* window = SDL_CreateWindow("Level Editor", width, height, window_flags); 
-	if (window == nullptr) 
-	{
-		std::cout << "Failed to Create Window" << '\n';
-		return 1; 
-	}
-
-	SDL_Renderer* renderer = SDL_CreateRenderer(window, nullptr);
-	SDL_SetRenderVSync(renderer, 1);
-	if (renderer == nullptr) 
-	{
-		std::cout << "Error: SDL_CreateRenderer: Failed to Create Renderer %s " << SDL_GetError() <<  '\n';
-		return 1; 
-	}
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io; 
@@ -82,8 +73,8 @@ int main()
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; 
 
 	ImGui::StyleColorsDark();
-	ImGui_ImplSDL3_InitForSDLRenderer(window, renderer);
-	ImGui_ImplSDLRenderer3_Init(renderer);
+	ImGui_ImplSDL3_InitForSDLRenderer(DM.getWindow(), DM.getRenderer());
+	ImGui_ImplSDLRenderer3_Init(DM.getRenderer());
 	bool done = false;
 	while (!done) 
 	{
@@ -102,21 +93,25 @@ int main()
 			ImGui::Begin("Level Manager"); 
 			if(ImGui::Button("Add Level"))
 			{
-				SDL_ShowOpenFileDialog(callback, nullptr, window, filters, 0, "./", false); 
+				SDL_ShowOpenFileDialog(callback, nullptr, DM.getWindow(), filters, 0, "./", false); 
 			} 
 			ImGui::End(); 
 		}
+
+
 		ImGui::Render(); 
-		SDL_SetRenderScale(renderer, io.DisplayFramebufferScale.x, io.DisplayFramebufferScale.y);
-		SDL_RenderClear(renderer); 
-		ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData(), renderer);
-		SDL_RenderPresent(renderer); 
+		SDL_SetRenderScale(DM.getRenderer(), io.DisplayFramebufferScale.x, io.DisplayFramebufferScale.y);
+		SDL_RenderClear(DM.getRenderer()); 
+		if (texture.getLoadedTexture() != nullptr) {
+			DM.drawBackgroundTexture(&texture);
+		}
+		ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData(), DM.getRenderer());
+		SDL_RenderPresent(DM.getRenderer()); 
 	}
 	ImGui_ImplSDLRenderer3_Shutdown(); 
 	ImGui_ImplSDL3_Shutdown();
 	ImGui::DestroyContext();
-	SDL_DestroyRenderer(renderer); 
-	SDL_DestroyWindow(window); 
+	DM.shutDown();
 	SDL_Quit(); 
 }
 

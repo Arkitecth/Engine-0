@@ -1,0 +1,178 @@
+[
+  {
+    "file": "main.cpp",
+    "arguments": [
+      "c++",
+      "-std=c++17",
+      "-I../../../imgui/",
+      "-I../Engine0/",
+      "-I../../../imgui//backends",
+      "-g",
+      "-Wall",
+      "-Wformat",
+      "-I/opt/homebrew/include",
+      "-I/usr/local/include",
+      "-I/opt/local/include",
+      "-c",
+      "-o",
+      "main.o",
+      "main.cpp"
+    ],
+    "directory": "/Users/trenttuedon/Development/projects/engine000/LevelEditor",
+    "output": "main.o"
+  },
+  {
+    "file": "../../../imgui//imgui.cpp",
+    "arguments": [
+      "c++",
+      "-std=c++17",
+      "-I../../../imgui/",
+      "-I../Engine0/",
+      "-I../../../imgui//backends",
+      "-g",
+      "-Wall",
+      "-Wformat",
+      "-I/opt/homebrew/include",
+      "-I/usr/local/include",
+      "-I/opt/local/include",
+      "-c",
+      "-o",
+      "imgui.o",
+      "../../../imgui//imgui.cpp"
+    ],
+    "directory": "/Users/trenttuedon/Development/projects/engine000/LevelEditor",
+    "output": "imgui.o"
+  },
+  {
+    "file": "../../../imgui//imgui_demo.cpp",
+    "arguments": [
+      "c++",
+      "-std=c++17",
+      "-I../../../imgui/",
+      "-I../Engine0/",
+      "-I../../../imgui//backends",
+      "-g",
+      "-Wall",
+      "-Wformat",
+      "-I/opt/homebrew/include",
+      "-I/usr/local/include",
+      "-I/opt/local/include",
+      "-c",
+      "-o",
+      "imgui_demo.o",
+      "../../../imgui//imgui_demo.cpp"
+    ],
+    "directory": "/Users/trenttuedon/Development/projects/engine000/LevelEditor",
+    "output": "imgui_demo.o"
+  },
+  {
+    "file": "../../../imgui//imgui_draw.cpp",
+    "arguments": [
+      "c++",
+      "-std=c++17",
+      "-I../../../imgui/",
+      "-I../Engine0/",
+      "-I../../../imgui//backends",
+      "-g",
+      "-Wall",
+      "-Wformat",
+      "-I/opt/homebrew/include",
+      "-I/usr/local/include",
+      "-I/opt/local/include",
+      "-c",
+      "-o",
+      "imgui_draw.o",
+      "../../../imgui//imgui_draw.cpp"
+    ],
+    "directory": "/Users/trenttuedon/Development/projects/engine000/LevelEditor",
+    "output": "imgui_draw.o"
+  },
+  {
+    "file": "../../../imgui//imgui_tables.cpp",
+    "arguments": [
+      "c++",
+      "-std=c++17",
+      "-I../../../imgui/",
+      "-I../Engine0/",
+      "-I../../../imgui//backends",
+      "-g",
+      "-Wall",
+      "-Wformat",
+      "-I/opt/homebrew/include",
+      "-I/usr/local/include",
+      "-I/opt/local/include",
+      "-c",
+      "-o",
+      "imgui_tables.o",
+      "../../../imgui//imgui_tables.cpp"
+    ],
+    "directory": "/Users/trenttuedon/Development/projects/engine000/LevelEditor",
+    "output": "imgui_tables.o"
+  },
+  {
+    "file": "../../../imgui//imgui_widgets.cpp",
+    "arguments": [
+      "c++",
+      "-std=c++17",
+      "-I../../../imgui/",
+      "-I../Engine0/",
+      "-I../../../imgui//backends",
+      "-g",
+      "-Wall",
+      "-Wformat",
+      "-I/opt/homebrew/include",
+      "-I/usr/local/include",
+      "-I/opt/local/include",
+      "-c",
+      "-o",
+      "imgui_widgets.o",
+      "../../../imgui//imgui_widgets.cpp"
+    ],
+    "directory": "/Users/trenttuedon/Development/projects/engine000/LevelEditor",
+    "output": "imgui_widgets.o"
+  },
+  {
+    "file": "../../../imgui//backends/imgui_impl_sdl3.cpp",
+    "arguments": [
+      "c++",
+      "-std=c++17",
+      "-I../../../imgui/",
+      "-I../Engine0/",
+      "-I../../../imgui//backends",
+      "-g",
+      "-Wall",
+      "-Wformat",
+      "-I/opt/homebrew/include",
+      "-I/usr/local/include",
+      "-I/opt/local/include",
+      "-c",
+      "-o",
+      "imgui_impl_sdl3.o",
+      "../../../imgui//backends/imgui_impl_sdl3.cpp"
+    ],
+    "directory": "/Users/trenttuedon/Development/projects/engine000/LevelEditor",
+    "output": "imgui_impl_sdl3.o"
+  },
+  {
+    "file": "../../../imgui//backends/imgui_impl_sdlrenderer3.cpp",
+    "arguments": [
+      "c++",
+      "-std=c++17",
+      "-I../../../imgui/",
+      "-I../Engine0/",
+      "-I../../../imgui//backends",
+      "-g",
+      "-Wall",
+      "-Wformat",
+      "-I/opt/homebrew/include",
+      "-I/usr/local/include",
+      "-I/opt/local/include",
+      "-c",
+      "-o",
+      "imgui_impl_sdlrenderer3.o",
+      "../../../imgui//backends/imgui_impl_sdlrenderer3.cpp"
+    ],
+    "directory": "/Users/trenttuedon/Development/projects/engine000/LevelEditor",
+    "output": "imgui_impl_sdlrenderer3.o"
+  }
+]

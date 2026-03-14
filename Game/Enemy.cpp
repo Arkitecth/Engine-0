@@ -11,11 +11,10 @@ Enemy::Enemy():
 {
 	E0::Entity::setPosition(E0::Vector{100, 25}); 
 	E0::Entity::setEntityType("Enemy"); 
-	E0::Entity::setHeight(80.0f);
-	E0::Entity::setWidth(80.0f);
-	E0::Entity::setVelocity(E0::Velocity{E0::DOWN, 1}); 
+	E0::Entity::setHeight(160.0f);
+	E0::Entity::setWidth(160.0f);
+	E0::Entity::setVelocity(E0::Velocity{E0::RIGHT, 1}); 
 }
-
 Enemy::~Enemy()
 {
 

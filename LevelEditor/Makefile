@@ -8,15 +8,19 @@
 
 EXE = editor 
 IMGUI_DIR = ../../../imgui/
+ENGINE_DIR= ../Engine0/
+
 BIN = bin
 #SDL_DIR = /opt/homebrew/Cellar/sdl3/3.4.0/
 SOURCES = main.cpp
 SOURCES += $(IMGUI_DIR)/imgui.cpp $(IMGUI_DIR)/imgui_demo.cpp $(IMGUI_DIR)/imgui_draw.cpp $(IMGUI_DIR)/imgui_tables.cpp $(IMGUI_DIR)/imgui_widgets.cpp
+DYNAMIC_LIB_PATH=-Wl,-rpath,@executable_path/../Engine0
 SOURCES += $(IMGUI_DIR)/backends/imgui_impl_sdl3.cpp $(IMGUI_DIR)/backends/imgui_impl_sdlrenderer3.cpp
+LIBS = -lengine0
 OBJS =  $(addsuffix .o, $(basename $(notdir $(SOURCES))))
 UNAME_S := $(shell uname -s)
 LINUX_GL_LIBS = -lGL
-CXXFLAGS = -std=c++11 -I$(IMGUI_DIR) -I$(IMGUI_DIR)/backends 
+CXXFLAGS = -std=c++17 -I$(IMGUI_DIR) -I$(ENGINE_DIR) -I$(IMGUI_DIR)/backends 
 CXXFLAGS += -g -Wall -Wformat
 
 ##---------------------------------------------------------------------
@@ -38,6 +42,8 @@ ifeq ($(UNAME_S), Linux) #LINUX
 	ECHO_MESSAGE = "Linux"
 	LIBS += $(LINUX_GL_LIBS) -ldl `pkg-config sdl3 --libs`
 
+	LIBS += -L $(ENGINE_DIR)
+
 	CXXFLAGS += `pkg-config sdl3 --cflags`
 	CFLAGS = $(CXXFLAGS)
 endif
@@ -47,6 +53,7 @@ ifeq ($(UNAME_S), Darwin) #APPLE
 	LIBS += -framework Cocoa -framework IOKit -framework CoreVideo
 	LIBS += `pkg-config --libs sdl3`
 	LIBS += -L/usr/local/lib -L/opt/local/lib
+	LIBS += -L $(ENGINE_DIR)
 
 	CXXFLAGS += `pkg-config --cflags sdl3`
 	CXXFLAGS += -I/usr/local/include -I/opt/local/include
@@ -56,6 +63,7 @@ endif
 ifeq ($(OS), Windows_NT)
 	ECHO_MESSAGE = "MinGW"
 	LIBS += -lgdi32 -lopengl32 -limm32 `pkg-config --static --libs sdl3`
+	LIBS += -L $(ENGINE_DIR)
 
 	CXXFLAGS += `pkg-config --cflags sdl3`
 	CFLAGS = $(CXXFLAGS)
@@ -79,7 +87,7 @@ all: $(EXE)
 	mv *.o bin
 
 $(EXE): $(OBJS)
-	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIBS)
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(ENGINE_INCLUDE_DIR) $(ENGINE_LINK_DIR) $(LIBS) $(DYNAMIC_LIB_PATH)
 
 clean:
 	rm -f $(EXE) $(OBJS)
