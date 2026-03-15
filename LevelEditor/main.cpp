@@ -4,12 +4,10 @@
 #include "SDL3/SDL_log.h"
 #include "SDL3/SDL_render.h"
 #include "SDL3/SDL_stdinc.h"
-#include "SDL3/SDL_video.h"
-#include "Texture.h"
+#include <Level.h>
 #include "imgui.h"
 #include "imgui_impl_sdl3.h"
 #include "imgui_impl_sdlrenderer3.h"
-#include "iostream"
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_dialog.h>
 #include <DisplayManager.h>
@@ -21,8 +19,9 @@ static const SDL_DialogFileFilter filters[] =
 		{"JPEG Images ", "jpg;jpeg"},  
 }; 
 
-
-E0::Texture texture{}; 
+E0::Level level{};
+std::string fileName{};
+bool levelAdded = false;
 
 void SDLCALL callback(void* userdata, const char* const* fileList, int filter)
 {
@@ -37,8 +36,9 @@ void SDLCALL callback(void* userdata, const char* const* fileList, int filter)
 	}
 	if (*fileList) 
 	{
-		texture.setLoadedTexture(*fileList);
+		level.setTexturePath(*fileList); 
 		SDL_Log("Full path texture selected file: '%s'", *fileList);
+		fileName = *fileList;
 	}
 
 	if (filter < 0) {
@@ -47,11 +47,7 @@ void SDLCALL callback(void* userdata, const char* const* fileList, int filter)
 		SDL_Log("The filter selected by the user is '%s' (%s).", 
 			filters[filter].pattern, filters[filter].name);
 	}
-
-
-	
 }
-
 
 void loadBackground()
 {
@@ -63,7 +59,7 @@ int main()
 {
 	int width = 800;
 	int height = 450; 
-
+	char levelsName[100]{}; 
 	DM.startUp(width, height, "Level Editor"); 
 
 	IMGUI_CHECKVERSION();
@@ -91,23 +87,43 @@ int main()
 		ImGui::NewFrame();
 		{
 			ImGui::Begin("Level Manager"); 
+			ImGui::BeginTabBar("Levels");
 			if(ImGui::Button("Add Level"))
 			{
-				SDL_ShowOpenFileDialog(callback, nullptr, DM.getWindow(), filters, 0, "./", false); 
-			} 
+				ImGui::OpenPopup("LevelEntry"); 
+			}
+			if (ImGui::BeginPopup("LevelEntry")) 
+			{
+				ImGui::InputText("Level Name", levelsName, 100);
+				if(ImGui::Button("Create Level"))
+				{
+					SDL_ShowOpenFileDialog(callback, nullptr, DM.getWindow(), filters, 1, "./", false); 
+					levelAdded = true;
+					ImGui::CloseCurrentPopup();
+				}
+				ImGui::EndPopup();
+			}
+		} 
+			if (levelAdded) 
+			{
+				if(ImGui::BeginTabItem(levelsName))
+				{
+					ImGui::EndTabItem(); 
+				}
+			}
+			ImGui::EndTabBar();
 			ImGui::End(); 
-		}
 
 
 		ImGui::Render(); 
 		SDL_SetRenderScale(DM.getRenderer(), io.DisplayFramebufferScale.x, io.DisplayFramebufferScale.y);
 		SDL_RenderClear(DM.getRenderer()); 
-		if (texture.getLoadedTexture() != nullptr) {
-			DM.drawBackgroundTexture(&texture);
-		}
+		level.draw();
 		ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData(), DM.getRenderer());
 		SDL_RenderPresent(DM.getRenderer()); 
+
 	}
+
 	ImGui_ImplSDLRenderer3_Shutdown(); 
 	ImGui_ImplSDL3_Shutdown();
 	ImGui::DestroyContext();
