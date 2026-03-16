@@ -14,6 +14,7 @@ BIN = bin
 #SDL_DIR = /opt/homebrew/Cellar/sdl3/3.4.0/
 SOURCES = main.cpp
 SOURCES += $(IMGUI_DIR)/imgui.cpp $(IMGUI_DIR)/imgui_demo.cpp $(IMGUI_DIR)/imgui_draw.cpp $(IMGUI_DIR)/imgui_tables.cpp $(IMGUI_DIR)/imgui_widgets.cpp
+SOURCES += Editor.cpp
 DYNAMIC_LIB_PATH=-Wl,-rpath,@executable_path/../Engine0
 SOURCES += $(IMGUI_DIR)/backends/imgui_impl_sdl3.cpp $(IMGUI_DIR)/backends/imgui_impl_sdlrenderer3.cpp
 LIBS = -lengine0
