@@ -4,6 +4,7 @@
 #include "imgui.h"
 #include "imgui_impl_sdl3.h"
 #include "imgui_impl_sdlrenderer3.h"
+#include <iostream>
 
 
 Editor::Editor(int new_width, int new_height)
@@ -96,18 +97,24 @@ void Editor::run()
 
 void Editor::drawLayout()
 {
-	if(ImGui::Button("Add Level"))
+
+	if(ImGui::Button("Create Level"))
 	{
 		ImGui::OpenPopup("LevelEntry"); 
 	}
 	if (ImGui::BeginPopup("LevelEntry")) 
 	{
-		char buf[100];
+		char buf[100]{};
 		ImGui::InputText("Levels Name", buf, 100);
-		currentLevel.setLevelsName(buf);
-		if(ImGui::Button("Create Level"))
+		if(ImGui::Button("Create"))
 		{
 			SDL_ShowOpenFileDialog(createLevel, &currentLevel, DM.getWindow(), filters, 1, "./", false); 
+			currentLevel.setLevelsName(buf);
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::SameLine(75.0f);
+		if(ImGui::Button("Cancel"))
+		{
 			ImGui::CloseCurrentPopup();
 		}
 		ImGui::EndPopup();
