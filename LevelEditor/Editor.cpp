@@ -111,10 +111,6 @@ void SDLCALL Editor::loadLevel(void* userdata, const char* const* fileList, int 
 	}
 }
 
-
-
-
-
 void Editor::run()
 {
 
@@ -149,39 +145,63 @@ void Editor::run()
 
 void Editor::drawLayout()
 {
-	if(ImGui::Button("Create Level"))
-	{
-		ImGui::OpenPopup("LevelEntry"); 
-	}
-	ImGui::SameLine(120.0f);
-	if (ImGui::Button("Load Level")) 
-	{
-		SDL_ShowOpenFileDialog(loadLevel, &currentLevel, DM.getWindow(), levelFilter, 1, "./Levels/", false); 
-		currentLevel.setLevelsName(inputBuffer);
-		std::fill(inputBuffer, inputBuffer + sizeof(inputBuffer), '\0'); 
-	}
+	if (ImGui::BeginTabBar("Editor Tab Bar")) {
 
-	if (ImGui::BeginPopup("LevelEntry")) 
-	{
-		ImGui::InputText("Levels Name", inputBuffer, 100);
-		if(ImGui::Button("Create"))
-		{
-			currentLevel.setLevelsName(inputBuffer);
-			SDL_ShowOpenFileDialog(createLevel, &currentLevel, DM.getWindow(), filters, 1, "./", false); 
-			std::fill(inputBuffer, inputBuffer + sizeof(inputBuffer), '\0'); 
-			ImGui::CloseCurrentPopup();
+		if (ImGui::BeginTabItem("File")) {
+			if(ImGui::Button("Create Level"))
+			{
+				ImGui::OpenPopup("LevelEntry"); 
+			}
+			ImGui::SameLine(120.0f);
+			if (ImGui::Button("Load Level")) 
+			{
+				SDL_ShowOpenFileDialog(loadLevel, &currentLevel, DM.getWindow(), levelFilter, 1, "./Levels/", false); 
+				currentLevel.setLevelsName(inputBuffer);
+				std::fill(inputBuffer, inputBuffer + sizeof(inputBuffer), '\0'); 
+			}
+
+			if (ImGui::BeginPopup("LevelEntry")) 
+			{
+				ImGui::InputText("Levels Name", inputBuffer, 100);
+				if(ImGui::Button("Create"))
+				{
+					currentLevel.setLevelsName(inputBuffer);
+					SDL_ShowOpenFileDialog(createLevel, &currentLevel, DM.getWindow(), filters, 1, "./", false); 
+					std::fill(inputBuffer, inputBuffer + sizeof(inputBuffer), '\0'); 
+					ImGui::CloseCurrentPopup();
+				}
+				ImGui::SameLine(75.0f);
+				if(ImGui::Button("Cancel"))
+				{
+					std::fill(inputBuffer, inputBuffer + sizeof(inputBuffer), '\0'); 
+					ImGui::CloseCurrentPopup();
+				}
+				ImGui::EndPopup();
+			}
+			if (!currentLevel.getLevelsName().empty()) 
+			{
+				ImGui::Text("%s", currentLevel.getLevelsName().c_str());
+			}
+
+			ImGui::EndTabItem();
 		}
-		ImGui::SameLine(75.0f);
-		if(ImGui::Button("Cancel"))
+
+		if(ImGui::BeginTabItem("Tool Box"))
 		{
-			std::fill(inputBuffer, inputBuffer + sizeof(inputBuffer), '\0'); 
-			ImGui::CloseCurrentPopup();
+			if (ImGui::Button("Add Spawn Point")) {
+			}
+
+			if (ImGui::Button("Add Tower Point")) {
+			}
+			if (ImGui::Button("Add Waypoint")) {
+			
+			}
+
+			ImGui::EndTabItem(); 
 		}
-		ImGui::EndPopup();
-	}
-	if (!currentLevel.getLevelsName().empty()) 
-	{
-		ImGui::Text("%s", currentLevel.getLevelsName().c_str());
+
+		ImGui::EndTabBar();
+
 	}
 }
 
