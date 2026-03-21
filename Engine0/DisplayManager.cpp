@@ -1,4 +1,5 @@
 #include "DisplayManager.h"
+#include "Color.h"
 #include "Rectangle.h"
 #include <string>
 
@@ -69,9 +70,39 @@ void E0::DisplayManager::shutDown()
 	}
 }
 
-void E0::DisplayManager::drawCircle(int x, int y, float radius)
+void E0::DisplayManager::drawCircle(int center_x, int center_y, int radius, Color color)
 {
+	int diameter = (radius * 2);
+	int x = radius - 1;
+	int y = 0;
+	int tx = 1;
+	int ty = 1; 
+	int error = (tx - diameter);
 
+	SDL_SetRenderDrawColor(m_renderer, color.red, color.green, color.blue, color.alpha); 
+	while (x >= y) 
+	{
+
+		SDL_RenderLine(m_renderer, center_x - x, center_y - y, center_x + x, center_y - y); 
+
+		SDL_RenderLine(m_renderer, center_x - x, center_y + y, center_x + x, center_y + y); 
+
+		SDL_RenderLine(m_renderer, center_x - y, center_y - x, center_x + y, center_y - x);
+
+		SDL_RenderLine(m_renderer, center_x - y, center_y + x, center_x + y, center_y + x);
+
+		if (error <= 0) {
+			y++;
+			error += ty;
+			ty += 2;
+		}
+
+		if (error > 0) {
+			x--;
+			tx += 2;
+			error += (tx - diameter);
+		}
+	}
 }
 
 void E0::DisplayManager::drawRectangle(E0::Rectangle& rect)

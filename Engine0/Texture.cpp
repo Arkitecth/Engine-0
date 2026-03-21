@@ -4,6 +4,7 @@
 #include <string>
 #include <string_view>
 
+
 E0::Texture::Texture()
 {
 	filePath = "";
