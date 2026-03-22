@@ -1,3 +1,5 @@
+#include "DisplayManager.h"
+#include "InputManager.h"
 #include <Color.h>
 #include <Vector.h>
 #include <Engine.h>
@@ -21,7 +23,18 @@ void TestRectangle()
 
 }
 
+void TestCircle()
+{
+	Engine.startUp();
+	while (!Engine.getGameOver()) {
+		IM.pollInput();
+		DM.drawCircle(100, 100, 30, E0::RED);
+		DM.swapBuffer(E0::BLACK); 
+	}
+
+}
+
 int main()
 {
-	Engine.run();
+	TestCircle();
 }
