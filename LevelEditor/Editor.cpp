@@ -1,10 +1,13 @@
 #include "Editor.h"
+#include "Color.h"
 #include "DisplayManager.h"
 #include "SDL3/SDL_log.h"
+#include "Vector.h"
 #include "imgui.h"
 #include "imgui_impl_sdl3.h"
 #include "imgui_impl_sdlrenderer3.h"
 #include <algorithm>
+#include "InputManager.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -14,13 +17,11 @@ Editor::Editor(int new_width, int new_height)
 	width = new_width;
 	height = new_height;
 	DM.startUp(width, height, "Level Editor"); 
-
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	io = &ImGui::GetIO(); (void)io; 
 	io->ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; 
 	io->ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; 
-
 	ImGui::StyleColorsDark();
 	ImGui_ImplSDL3_InitForSDLRenderer(DM.getWindow(), DM.getRenderer());
 	ImGui_ImplSDLRenderer3_Init(DM.getRenderer());
@@ -125,21 +126,37 @@ void Editor::run()
 				isRunning = false;
 			}
 		}
+		addSpawnPoint();
 		ImGui_ImplSDLRenderer3_NewFrame();
 		ImGui_ImplSDL3_NewFrame();
 		ImGui::NewFrame();
 		ImGui::Begin("Level Manager"); 
 			drawLayout();
 		ImGui::End();
-
 		ImGui::Render(); 
 		SDL_SetRenderScale(DM.getRenderer(), io->DisplayFramebufferScale.x, io->DisplayFramebufferScale.y);
 		SDL_RenderClear(DM.getRenderer()); 
 		currentLevel.draw();
+		if (spawnPointMode) {
+			DM.drawCircle(io->MousePos.x, io->MousePos.y, 10.0f, E0::RED); 
+			for (auto vector : spawnPoints) {
+				DM.drawCircle(vector.getX(), vector.getY(), 10.0f, E0::RED); 
+			}
+		}
+		
 		ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData(), DM.getRenderer());
 		SDL_RenderPresent(DM.getRenderer());
+	}
+}
 
-	
+void Editor::addSpawnPoint()
+{
+	if (spawnPointMode) 
+	{
+		if (ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {
+			E0::Vector mousePosition {io->MousePos.x, io->MousePos.y};
+			spawnPoints.push_back(mousePosition); 
+		}
 	}
 }
 
@@ -188,7 +205,12 @@ void Editor::drawLayout()
 
 		if(ImGui::BeginTabItem("Tool Box"))
 		{
-			if (ImGui::Button("Add Spawn Point")) {
+			if (ImGui::Button("Add Spawn Point")) 
+			{
+				if (!currentLevel.getTexturePath().empty()) 
+				{
+					spawnPointMode = !spawnPointMode;
+				}
 			}
 
 			if (ImGui::Button("Add Tower Point")) {
@@ -199,11 +221,12 @@ void Editor::drawLayout()
 
 			ImGui::EndTabItem(); 
 		}
-
 		ImGui::EndTabBar();
 
 	}
 }
+
+
 
 
 

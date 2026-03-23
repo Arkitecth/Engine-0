@@ -3,7 +3,7 @@
 #
 # You will need SDL3 (http://www.libsdl.org) which is still unreleased/unpackaged.
 
-#CXX = g++
+CXX = g++
 #CXX = clang++
 
 EXE = editor 
@@ -18,7 +18,7 @@ SOURCES += Editor.cpp
 DYNAMIC_LIB_PATH=-Wl,-rpath,@executable_path/../Engine0
 SOURCES += $(IMGUI_DIR)/backends/imgui_impl_sdl3.cpp $(IMGUI_DIR)/backends/imgui_impl_sdlrenderer3.cpp
 LIBS = -lengine0
-OBJS =  $(addsuffix .o, $(basename $(notdir $(SOURCES))))
+OBJS =  $(addprefix $(BIN)/, $(addsuffix .o, $(basename $(notdir $(SOURCES)))))
 UNAME_S := $(shell uname -s)
 LINUX_GL_LIBS = -lGL
 CXXFLAGS = -std=c++17 -I$(IMGUI_DIR) -I$(ENGINE_DIR) -I$(IMGUI_DIR)/backends 
@@ -74,21 +74,27 @@ endif
 ## BUILD RULES
 ##---------------------------------------------------------------------
 
-%.o:%.cpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-%.o:$(IMGUI_DIR)/%.cpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-%.o:$(IMGUI_DIR)/backends/%.cpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 all: $(EXE)
 	@echo Build complete for $(ECHO_MESSAGE)
-	mv *.o bin
+$(BIN)/%.o:%.cpp | $(BIN)
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+$(BIN)/%.o:$(IMGUI_DIR)/%.cpp  | $(BIN)
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+$(BIN)/%.o:$(IMGUI_DIR)/backends/%.cpp | $(BIN)
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+$(BIN):
+	mkdir -p $(BIN)
+
+
 
 $(EXE): $(OBJS)
 	$(CXX) -o $@ $^ $(CXXFLAGS) $(ENGINE_INCLUDE_DIR) $(ENGINE_LINK_DIR) $(LIBS) $(DYNAMIC_LIB_PATH)
 
 clean:
-	rm -f $(EXE) $(OBJS)
+	rm -rf $(EXE) $(BIN) $(OBJS) *.o
