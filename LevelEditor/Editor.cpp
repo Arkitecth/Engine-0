@@ -126,24 +126,24 @@ void Editor::run()
 				isRunning = false;
 			}
 		}
-		addSpawnPoint();
 		ImGui_ImplSDLRenderer3_NewFrame();
 		ImGui_ImplSDL3_NewFrame();
 		ImGui::NewFrame();
-		ImGui::Begin("Level Manager"); 
-			drawLayout();
+		ImGui::Begin("Level Manager");
+		drawLayout();
+		addSpawnPoint();
 		ImGui::End();
 		ImGui::Render(); 
 		SDL_SetRenderScale(DM.getRenderer(), io->DisplayFramebufferScale.x, io->DisplayFramebufferScale.y);
 		SDL_RenderClear(DM.getRenderer()); 
 		currentLevel.draw();
-		if (spawnPointMode) {
+		if (spawnPointMode) 
+		{
 			DM.drawCircle(io->MousePos.x, io->MousePos.y, 10.0f, E0::RED); 
 			for (auto vector : spawnPoints) {
 				DM.drawCircle(vector.getX(), vector.getY(), 10.0f, E0::RED); 
 			}
 		}
-		
 		ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData(), DM.getRenderer());
 		SDL_RenderPresent(DM.getRenderer());
 	}
@@ -153,9 +153,12 @@ void Editor::addSpawnPoint()
 {
 	if (spawnPointMode) 
 	{
-		if (ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {
-			E0::Vector mousePosition {io->MousePos.x, io->MousePos.y};
-			spawnPoints.push_back(mousePosition); 
+		if (!io->WantCaptureMouse) {
+		
+			if (ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {
+				E0::Vector mousePosition {io->MousePos.x, io->MousePos.y};
+				spawnPoints.push_back(mousePosition); 
+			}
 		}
 	}
 }
