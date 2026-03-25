@@ -50,8 +50,6 @@ void E0::Animation::setAnimationTimer(float new_animation_timer)
 	animationTimer = new_animation_timer;
 }
 
-
-
 void E0::Animation::setSlowdownTimer(float new_slowdown_time)
 {
 	slowdownTime = new_slowdown_time;

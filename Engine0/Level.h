@@ -2,6 +2,7 @@
 #include <vector>
 #include "Event.h"
 #include "Entity.h"
+#include "Vector.h"
 namespace E0
 {
 	class Level 
@@ -10,6 +11,7 @@ namespace E0
 			std::string levelName{}; 
 			std::string levelTexturePath{}; 
 			std::vector<Entity*> entities{}; 
+			std::vector<E0::Vector> waypoints{};
 			Texture levelTexture{};
 		
 		public:
@@ -19,6 +21,10 @@ namespace E0
 			void setLevelsName(std::string new_level_name); 	
 			std::string getTexturePath(); 
 			void setTexturePath(std::string new_texture_path); 
+
+			std::vector<E0::Vector> getWaypoints(); 
+
+			void setWaypoint(std::vector<E0::Vector> waypoints); 
 
 			std::vector<Entity*> getEntitiesOfType(std::string entity_type); 
 

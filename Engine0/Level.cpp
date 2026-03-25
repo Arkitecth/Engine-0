@@ -30,6 +30,16 @@ std::string E0::Level::getTexturePath()
 	return levelTexturePath; 
 }
 
+void E0::Level::setWaypoint(std::vector<E0::Vector> new_waypoints)
+{
+	waypoints = new_waypoints;
+}
+
+std::vector<E0::Vector> E0::Level::getWaypoints()
+{
+	return waypoints;
+}
+
 void E0::Level::setTexturePath(std::string new_texture_path)
 {
 	levelTexturePath = new_texture_path;
