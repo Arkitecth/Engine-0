@@ -87,7 +87,7 @@ void E0::DisplayManager::drawCircle(int center_x, int center_y, int radius, Colo
 
 		SDL_RenderLine(m_renderer, center_x - y, center_y - x, center_x + y, center_y - x);
 
-		SDL_RenderLine(m_renderer, center_x + y, center_y + x, center_x + y, center_y + x);
+		SDL_RenderLine(m_renderer, center_x - y, center_y + x, center_x + y, center_y + x);
 
 		if (decision <= 0) 
 		{
