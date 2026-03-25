@@ -19,9 +19,9 @@ class Editor
             int width{};
             int height{};
             bool isRunning{};
-            bool spawnPointMode{};
+            bool wayPointMode{};
             bool towerPointMode{};
-            std::vector<E0::Vector> spawnPoints{}; 
+            std::vector<E0::Vector> wayPoints{}; 
             ImGuiIO* io; 
 
     public:
@@ -31,8 +31,8 @@ class Editor
         void draw(); 
         void drawLayout();
         void loadLevel(); 
-        void addSpawnPoint(); 
-        //void SDLCALL createLevel(void* userdata, const char* const* fileList, int filter); 
+        void addWayPoint(); 
+        void save();
         void run(); 
     static void SDLCALL createLevel(void* userdata, const char* const* fileList, int filter); 
     static void SDLCALL loadLevel(void* userdata, const char* const* fileList, int filter); 
