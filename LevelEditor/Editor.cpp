@@ -196,7 +196,6 @@ void Editor::save()
 
 void Editor::run()
 {
-
 	isRunning = true;
 	while (isRunning) 
 	{
@@ -212,35 +211,48 @@ void Editor::run()
 		ImGui_ImplSDL3_NewFrame();
 		ImGui::NewFrame();
 		ImGui::Begin("Level Manager");
-		drawLayout();
-		addWayPoint();
+		pushLayout();
 		ImGui::End();
-		ImGui::Render(); 
-		SDL_SetRenderScale(DM.getRenderer(), io->DisplayFramebufferScale.x, io->DisplayFramebufferScale.y);
-		SDL_RenderClear(DM.getRenderer()); 
-		currentLevel.draw();
-		if (wayPointMode) 
-		{
-			DM.drawCircle(io->MousePos.x, io->MousePos.y, 10.0f, E0::RED); 
-			for (auto vector : currentLevel.getWaypoints()) {
-				DM.drawCircle(vector.getX(), vector.getY(), 10.0f, E0::RED); 
-			}
-		}
-		if (editMode) {
-			for (auto vector : currentLevel.getWaypoints()) {
-				DM.drawCircle(vector.getX(), vector.getY(), 10.0f, E0::RED); 
-			}
-		}
-		ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData(), DM.getRenderer());
-		SDL_RenderPresent(DM.getRenderer());
+		render();
 	}
 }
 
-void Editor::addWayPoint()
+void Editor::render()
 {
+	ImGui::Render(); 
+	SDL_SetRenderScale(DM.getRenderer(), io->DisplayFramebufferScale.x, io->DisplayFramebufferScale.y);
+	SDL_RenderClear(DM.getRenderer()); 
+	currentLevel.draw();
 	if (wayPointMode) 
 	{
-		if (!io->WantCaptureMouse) {
+		DM.drawCircle(io->MousePos.x, io->MousePos.y, 10.0f, E0::RED); 
+		for (auto vector : currentLevel.getWaypoints()) {
+			DM.drawCircle(vector.getX(), vector.getY(), 10.0f, E0::RED); 
+		}
+	}
+	if (editMode) {
+		for (auto vector : currentLevel.getWaypoints()) {
+			DM.drawCircle(vector.getX(), vector.getY(), 10.0f, E0::RED); 
+		}
+	}
+	ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData(), DM.getRenderer());
+	SDL_RenderPresent(DM.getRenderer());
+}
+
+
+void Editor::addWayPoint()
+{
+	if (ImGui::Button("Add Waypoint")) {
+		if (!currentLevel.getTexturePath().empty()) 
+		{
+			wayPointMode = !wayPointMode;
+		}
+	}
+
+	if (wayPointMode) 
+	{
+		if (!io->WantCaptureMouse) 
+		{
 		
 			if (ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {
 				E0::Vector mousePosition {io->MousePos.x, io->MousePos.y};
@@ -250,69 +262,71 @@ void Editor::addWayPoint()
 	}
 }
 
-void Editor::drawLayout()
+void Editor::addTowerPoint()
+{
+	if (ImGui::Button("Add Towerpoint")) 
+	{
+		if (!currentLevel.getTexturePath().empty()) 
+		{
+			towerPointMode = !towerPointMode;
+		}
+	}
+}
+
+void Editor::fileManagement()
+{
+	if(ImGui::Button("Create Level"))
+	{
+		ImGui::OpenPopup("LevelEntry"); 
+	}
+	ImGui::SameLine(120.0f);
+	if (ImGui::Button("Load Level")) 
+	{
+		SDL_ShowOpenFileDialog(loadLevel, &currentLevel, DM.getWindow(), levelFilter, 1, "./Levels/", false); 
+		currentLevel.setLevelsName(inputBuffer);
+		std::fill(inputBuffer, inputBuffer + sizeof(inputBuffer), '\0'); 
+	}
+
+	if (ImGui::BeginPopup("LevelEntry")) 
+	{
+		ImGui::InputText("Levels Name", inputBuffer, 100);
+		if(ImGui::Button("Create"))
+		{
+			currentLevel.setLevelsName(inputBuffer);
+			SDL_ShowOpenFileDialog(createLevel, &currentLevel, DM.getWindow(), filters, 1, "./", false); 
+			std::fill(inputBuffer, inputBuffer + sizeof(inputBuffer), '\0'); 
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::SameLine(75.0f);
+		if(ImGui::Button("Cancel"))
+		{
+			std::fill(inputBuffer, inputBuffer + sizeof(inputBuffer), '\0'); 
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::EndPopup();
+	}
+	if (!currentLevel.getLevelsName().empty()) 
+	{
+		ImGui::Text("%s", currentLevel.getLevelsName().c_str());
+	}
+}
+
+
+void Editor::pushLayout()
 {
 	if (ImGui::BeginTabBar("Editor Tab Bar")) {
 
-		if (ImGui::BeginTabItem("File")) {
-			if(ImGui::Button("Create Level"))
-			{
-				ImGui::OpenPopup("LevelEntry"); 
-			}
-			ImGui::SameLine(120.0f);
-			if (ImGui::Button("Load Level")) 
-			{
-				SDL_ShowOpenFileDialog(loadLevel, &currentLevel, DM.getWindow(), levelFilter, 1, "./Levels/", false); 
-				currentLevel.setLevelsName(inputBuffer);
-				std::fill(inputBuffer, inputBuffer + sizeof(inputBuffer), '\0'); 
-			}
-
-			if (ImGui::BeginPopup("LevelEntry")) 
-			{
-				ImGui::InputText("Levels Name", inputBuffer, 100);
-				if(ImGui::Button("Create"))
-				{
-					currentLevel.setLevelsName(inputBuffer);
-					SDL_ShowOpenFileDialog(createLevel, &currentLevel, DM.getWindow(), filters, 1, "./", false); 
-					std::fill(inputBuffer, inputBuffer + sizeof(inputBuffer), '\0'); 
-					ImGui::CloseCurrentPopup();
-				}
-				ImGui::SameLine(75.0f);
-				if(ImGui::Button("Cancel"))
-				{
-					std::fill(inputBuffer, inputBuffer + sizeof(inputBuffer), '\0'); 
-					ImGui::CloseCurrentPopup();
-				}
-				ImGui::EndPopup();
-			}
-			if (!currentLevel.getLevelsName().empty()) 
-			{
-				ImGui::Text("%s", currentLevel.getLevelsName().c_str());
-			}
-
+		if (ImGui::BeginTabItem("File")) 
+		{
+			fileManagement(); 
 			ImGui::EndTabItem();
 		}
-
 		if(ImGui::BeginTabItem("Tool Box"))
 		{
-			if (ImGui::Button("Add Waypoint")) {
-
-				if (!currentLevel.getTexturePath().empty()) 
-				{
-					wayPointMode = !wayPointMode;
-				}
-			}
-
-			if (ImGui::Button("Add Towerpoint")) {
-
-				if (!currentLevel.getTexturePath().empty()) 
-				{
-					towerPointMode = !towerPointMode;
-				}
-			}
+			addWayPoint(); 
+			addTowerPoint();
 			save();
 			edit();
-
 			ImGui::EndTabItem(); 
 		}
 		ImGui::EndTabBar();

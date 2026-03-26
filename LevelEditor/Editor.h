@@ -29,9 +29,11 @@ class Editor
         Editor() = delete;
         ~Editor(); 
         Editor(int width, int height);
-        void draw(); 
+        void render(); 
         void edit(); 
-        void drawLayout();
+        void pushLayout();
+        void fileManagement();
+        void addTowerPoint();
         void loadLevel(); 
         void addWayPoint(); 
         void save();
