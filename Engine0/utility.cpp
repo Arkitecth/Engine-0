@@ -27,6 +27,16 @@ bool CheckForIntersection(E0::Rectangle rectA, E0::Rectangle rectB)
 }
 
 
+bool CheckForIntersection(E0::Vector point, float center_x, float center_y, int radius)
+{
+	int dx = point.getX() - center_x;
+	int dy = point.getY() - center_y;
+	float decision = (dx * dx) + (dy * dy) - radius * radius;
+
+	return decision <= 0; 
+}
+
+
 E0::Rectangle getBox(const E0::Entity* entity) 
 {
 	E0::Rectangle box{entity->getPosition(), entity->getWidth(), entity->getHeight(), E0::BLACK};

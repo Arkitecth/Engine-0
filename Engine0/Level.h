@@ -24,6 +24,8 @@ namespace E0
 
 			std::vector<E0::Vector> getWaypoints(); 
 
+			void addWayPoint(E0::Vector vector); 
+
 			void setWaypoint(std::vector<E0::Vector> waypoints); 
 
 			std::vector<Entity*> getEntitiesOfType(std::string entity_type); 
