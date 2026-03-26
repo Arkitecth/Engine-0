@@ -1,6 +1,7 @@
 #include "Editor.h"
 #include "Color.h"
 #include "DisplayManager.h"
+#include "Level.h"
 #include "SDL3/SDL_log.h"
 #include "Vector.h"
 #include "imgui.h"
@@ -8,6 +9,8 @@
 #include "imgui_impl_sdlrenderer3.h"
 #include <algorithm>
 #include "InputManager.h"
+#include "utility.h"
+#include <ios>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -36,6 +39,35 @@ Editor::~Editor()
 	DM.shutDown();
 	SDL_Quit(); 
 }
+
+void Editor::edit()
+{
+	if (ImGui::Button("Edit Points")) 
+	{
+		wayPointMode = false;
+		editMode = !editMode; 
+	}
+	if (!io->WantCaptureMouse) 
+	{
+		if (editMode) 
+		{
+			std::vector<E0::Vector> waypoints = currentLevel.getWaypoints();
+			E0::Vector mousePosition {io->MousePos.x, io->MousePos.y};
+			for (auto& vector : waypoints) 
+			{
+				if (CheckForIntersection(mousePosition, vector.getX(), vector.getY(), 10)) 
+				{
+					if (ImGui::IsMouseDown(ImGuiMouseButton_Left)) {
+						vector.setXY(mousePosition.getX(), mousePosition.getY());
+					}
+				}
+			}
+			currentLevel.setWaypoint(waypoints); 
+		}
+	}
+
+}
+
 
 void SDLCALL Editor::createLevel(void* userdata, const char* const* fileList, int filter)
 {
@@ -110,14 +142,17 @@ void SDLCALL Editor::loadLevel(void* userdata, const char* const* fileList, int 
 				std::size_t wayPointPos = line.find(waypointTag); 
 				if (wayPointPos != std::string::npos) 
 				{
-					while (line.find(closingParantheses)) {
-						std::size_t openingParanthesesPos= line.find(openingParantheses); 
-						std::size_t closingParanthesesPos = line.find(closingParantheses); 
-						std::string vectorPosition = line.substr(openingParanthesesPos, closingParanthesesPos); 
+					std::string wayPointLine = line;
+					while (wayPointLine.find(closingParantheses) != std::string::npos) {
+						//Get everything after the opening & closing parantheses
+						std::size_t openingParanthesesPos= wayPointLine.find(openingParantheses);
+						std::size_t closingParanthesesPos = wayPointLine.find(closingParantheses); 
+						std::string vectorPosition = wayPointLine.substr(openingParanthesesPos + 1, closingParanthesesPos - openingParanthesesPos - 1); 
 						std::size_t commaPosition  = vectorPosition.find(",");
 						float vectorXPosition = std::stof(vectorPosition.substr(0, commaPosition)); 
-						float vectorYPosition = std::stof(vectorPosition.substr(commaPosition, closingParanthesesPos)); 
+						float vectorYPosition = std::stof(vectorPosition.substr(commaPosition + 1, closingParanthesesPos - commaPosition)); 
 						E0::Vector vector{vectorXPosition, vectorYPosition};
+						wayPointLine.erase(openingParanthesesPos, closingParanthesesPos - openingParanthesesPos + 2);
 						waypoints.push_back(vector);
 					}
 					currentLevel->setWaypoint(waypoints); 
@@ -135,24 +170,26 @@ void SDLCALL Editor::loadLevel(void* userdata, const char* const* fileList, int 
 
 void Editor::save()
 {
-	std::fstream levelFile{};
-	levelFile.open("./Levels/" + currentLevel.getLevelsName() + ".lvl", std::ios::out | std::ios::in);
-	if (!levelFile.is_open()) {
-		SDL_Log("An error occurred opening the file"); 
-		return;
-	}
-	if (ImGui::Button("Save")) 
-	{
-		levelFile << "- Name:" << currentLevel.getLevelsName() << '\n';
-		levelFile << "- Texture Path:" << currentLevel.getTexturePath() << '\n';
-		if (wayPointMode) 
+	if (!currentLevel.getLevelsName().empty()) {
+		std::fstream levelFile{};
+		levelFile.open("./Levels/" + currentLevel.getLevelsName() + ".lvl", std::ios::out | std::ios::in);
+		if (!levelFile.is_open()) {
+			SDL_Log("An error occurred opening the file"); 
+			return;
+		}
+		if (ImGui::Button("Save")) 
 		{
-			levelFile << "Waypoints:";
-			for (auto& vector : wayPoints) 
+			levelFile << "- Name:" << currentLevel.getLevelsName() << '\n';
+			levelFile << "- Texture Path:" << currentLevel.getTexturePath() << '\n';
+			if (wayPointMode) 
 			{
-				levelFile << "(" << vector.getX() << "," << vector.getY() << ")" << " ";
-			}
+				levelFile << "- Waypoints:";
+				for (auto& vector : wayPoints) 
+				{
+					levelFile << "(" << vector.getX() << "," << vector.getY() << ")" << " ";
+				}
 
+			}
 		}
 	}
 }
@@ -185,7 +222,12 @@ void Editor::run()
 		if (wayPointMode) 
 		{
 			DM.drawCircle(io->MousePos.x, io->MousePos.y, 10.0f, E0::RED); 
-			for (auto vector : wayPoints) {
+			for (auto vector : currentLevel.getWaypoints()) {
+				DM.drawCircle(vector.getX(), vector.getY(), 10.0f, E0::RED); 
+			}
+		}
+		if (editMode) {
+			for (auto vector : currentLevel.getWaypoints()) {
 				DM.drawCircle(vector.getX(), vector.getY(), 10.0f, E0::RED); 
 			}
 		}
@@ -202,7 +244,7 @@ void Editor::addWayPoint()
 		
 			if (ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {
 				E0::Vector mousePosition {io->MousePos.x, io->MousePos.y};
-				wayPoints.push_back(mousePosition); 
+				currentLevel.addWayPoint(mousePosition); 
 			}
 		}
 	}
@@ -269,6 +311,7 @@ void Editor::drawLayout()
 				}
 			}
 			save();
+			edit();
 
 			ImGui::EndTabItem(); 
 		}

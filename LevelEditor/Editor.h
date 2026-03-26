@@ -21,6 +21,7 @@ class Editor
             bool isRunning{};
             bool wayPointMode{};
             bool towerPointMode{};
+            bool editMode{};
             std::vector<E0::Vector> wayPoints{}; 
             ImGuiIO* io; 
 
@@ -29,6 +30,7 @@ class Editor
         ~Editor(); 
         Editor(int width, int height);
         void draw(); 
+        void edit(); 
         void drawLayout();
         void loadLevel(); 
         void addWayPoint(); 
