@@ -67,7 +67,7 @@ E0::Vector E0::Vector::operator+(const Vector& rhs)
 
 E0::Vector E0::Vector::operator-(const Vector& rhs)
 {
-	Vector newVector{rhs.pos_x - this->pos_x, rhs.pos_y - this->pos_y}; 
+	Vector newVector{this->pos_x - rhs.pos_x, this->pos_y - rhs.pos_y}; 
 
 	return newVector;
 }
@@ -75,6 +75,7 @@ bool E0::Vector::operator>(const Vector& rhs)
 {
 	return this->pos_x > rhs.pos_x && this->pos_y > rhs.pos_y;
 }
+
 bool E0::Vector::operator<(const Vector& rhs)
 {
 	return this->pos_x < rhs.pos_x && this->pos_y < rhs.pos_y;

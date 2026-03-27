@@ -9,3 +9,4 @@ E0::Rectangle getBox(const E0::Entity*, E0::Vector where);
 
 
 
+

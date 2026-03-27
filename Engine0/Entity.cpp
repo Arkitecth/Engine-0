@@ -48,9 +48,9 @@ void E0::Entity::setVelocity(E0::Velocity new_velocity)
 	velocity.setVelocityVector(new_velocity.getVelocityVector()); 
 }
 
-E0::Vector E0::Entity::getVelocity() const
+E0::Velocity E0::Entity::getVelocity() const
 {
-	return velocity.getVelocityVector();
+	return velocity;
 }
 
 E0::Vector E0::Entity::predictPosition()
@@ -59,6 +59,9 @@ E0::Vector E0::Entity::predictPosition()
 
 	return new_vector;
 }
+
+
+
 
 
 void E0::Entity::setPosition(E0::Vector new_position)

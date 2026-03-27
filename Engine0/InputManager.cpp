@@ -4,6 +4,7 @@
 #include "EventKeyboard.h"
 #include "EventMouse.h"
 #include "LevelManager.h"
+#include "LogManager.h"
 
 void E0::InputManager::startUp()
 {
@@ -62,6 +63,7 @@ void E0::InputManager::pollInput()
 				mouseEvent.setKey(MouseKey::MOUSE_RIGHT_BUTTON); 
 			}
 			mouseEvent.setMouseAction(MouseAction::MOUSE_CLICKED); 
+			SDL_Log("X:%f: Y:%f", e.button.x, e.button.y);
 			LEM.getCurrentLevel()->broadcastEvent(dynamic_cast<Event*>(&mouseEvent)); 
 		}
 

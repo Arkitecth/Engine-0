@@ -1,5 +1,6 @@
 #pragma once
 #include "Animation.h"
+#include "Level.h"
 #include <string_view>
 #define RM E0::ResourceManager::getInstance()
 namespace E0
@@ -15,5 +16,7 @@ namespace E0
 			void startUp();
 			void shutDown(); 
 			std::vector<std::string> getAnimationFiles(std::string_view directory_path, std::string_view animation_qualifier); 
+			
+			Level loadLevel(std::string_view file_path); 
 	}; 
 }

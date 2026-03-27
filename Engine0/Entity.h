@@ -28,7 +28,8 @@ namespace E0
 			Vector getPosition() const; 
 			void setPosition(Vector new_position); 
 
-			Vector getVelocity() const; 
+
+			Velocity getVelocity() const; 
 			void setVelocity(Velocity new_velocity); 
 
 			float getWidth() const; 
