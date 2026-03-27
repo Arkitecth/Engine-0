@@ -41,6 +41,7 @@ class Editor
         void loadLevel(); 
         void addWayPoint(); 
         void simulateWaypoint(); 
+        void clear(); 
         void save();
         void run(); 
     static void SDLCALL createLevel(void* userdata, const char* const* fileList, int filter); 

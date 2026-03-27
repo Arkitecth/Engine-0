@@ -224,8 +224,8 @@ void Editor::run()
 		ImGui::Begin("Level Manager");
 		pushLayout();
 		ImGui::End();
-		render();
 		std::this_thread::sleep_until(nextFrame);
+		render();
 	}
 }
 
@@ -336,6 +336,14 @@ void Editor::simulateWaypoint()
 	}
 }
 
+void Editor::clear()
+{
+	if (ImGui::Button("Clear")) 
+	{
+		currentLevel.setWaypoint(std::vector<E0::Vector>{});
+	}
+}
+
 
 void Editor::pushLayout()
 {
@@ -352,6 +360,7 @@ void Editor::pushLayout()
 			addTowerPoint();
 			save();
 			edit();
+			clear();
 			simulateWaypoint(); 
 			ImGui::EndTabItem(); 
 		}
