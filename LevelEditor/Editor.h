@@ -1,3 +1,5 @@
+#include "Entity.h"
+#include "SimulatedEntity.h"
 #include "Level.h"
 #include "SDL3/SDL_dialog.h"
 #include "imgui.h"
@@ -15,12 +17,14 @@ class Editor
 {
     private:
             E0::Level currentLevel{};
+            SimulatedEntity entity{};
             char inputBuffer[100]{};
             int width{};
             int height{};
             bool isRunning{};
             bool wayPointMode{};
             bool towerPointMode{};
+            bool simulationMode{};
             bool editMode{};
             std::vector<E0::Vector> wayPoints{}; 
             ImGuiIO* io; 
@@ -36,6 +40,7 @@ class Editor
         void addTowerPoint();
         void loadLevel(); 
         void addWayPoint(); 
+        void simulateWaypoint(); 
         void save();
         void run(); 
     static void SDLCALL createLevel(void* userdata, const char* const* fileList, int filter); 

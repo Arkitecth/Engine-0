@@ -3,6 +3,7 @@
 #include "DisplayManager.h"
 #include "Level.h"
 #include "SDL3/SDL_log.h"
+#include "SDL3/SDL_render.h"
 #include "Vector.h"
 #include "imgui.h"
 #include "imgui_impl_sdl3.h"
@@ -10,10 +11,13 @@
 #include <algorithm>
 #include "InputManager.h"
 #include "utility.h"
+#include <chrono>
 #include <ios>
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <thread>
+#include <vector>
 
 Editor::Editor(int new_width, int new_height)
 {
@@ -126,6 +130,9 @@ void SDLCALL Editor::loadLevel(void* userdata, const char* const* fileList, int 
 		E0::Level* currentLevel = reinterpret_cast<E0::Level*>(userdata); 
 		levelFile.open(*fileList, std::ios::in);
 		if (levelFile.is_open()) {
+			float scaleX = 0.0f; 
+			float scaleY = 0.0f; 
+			SDL_GetRenderScale(DM.getRenderer(), &scaleX, &scaleY); 
 			while (std::getline(levelFile, line)) {
 				std::size_t namePos= line.find(nameTag); 
 				if (namePos != std::string::npos) 
@@ -151,7 +158,7 @@ void SDLCALL Editor::loadLevel(void* userdata, const char* const* fileList, int 
 						std::size_t commaPosition  = vectorPosition.find(",");
 						float vectorXPosition = std::stof(vectorPosition.substr(0, commaPosition)); 
 						float vectorYPosition = std::stof(vectorPosition.substr(commaPosition + 1, closingParanthesesPos - commaPosition)); 
-						E0::Vector vector{vectorXPosition, vectorYPosition};
+						E0::Vector vector{vectorXPosition / scaleX, vectorYPosition / scaleY};
 						wayPointLine.erase(openingParanthesesPos, closingParanthesesPos - openingParanthesesPos + 2);
 						waypoints.push_back(vector);
 					}
@@ -179,26 +186,30 @@ void Editor::save()
 		}
 		if (ImGui::Button("Save")) 
 		{
+			float scaleX = 0.0f; 
+			float scaleY = 0.0f; 
+			SDL_GetRenderScale(DM.getRenderer(), &scaleX, &scaleY); 
 			levelFile << "- Name:" << currentLevel.getLevelsName() << '\n';
 			levelFile << "- Texture Path:" << currentLevel.getTexturePath() << '\n';
-			if (wayPointMode) 
+			levelFile << "- Waypoints:";
+			for (auto& vector : currentLevel.getWaypoints()) 
 			{
-				levelFile << "- Waypoints:";
-				for (auto& vector : wayPoints) 
-				{
-					levelFile << "(" << vector.getX() << "," << vector.getY() << ")" << " ";
-				}
-
+				levelFile << "(" << vector.getX() * scaleX << "," << vector.getY() * scaleY << ")" << " ";
 			}
+
 		}
 	}
 }
 
 void Editor::run()
 {
+	const auto frameTime = std::chrono::milliseconds(1000 / 60);
+	auto nextFrame = std::chrono::steady_clock::now(); 
 	isRunning = true;
 	while (isRunning) 
 	{
+		nextFrame += frameTime;
+
 		SDL_Event event;
 		while (SDL_PollEvent(&event)) 
 		{
@@ -214,6 +225,7 @@ void Editor::run()
 		pushLayout();
 		ImGui::End();
 		render();
+		std::this_thread::sleep_until(nextFrame);
 	}
 }
 
@@ -226,14 +238,15 @@ void Editor::render()
 	if (wayPointMode) 
 	{
 		DM.drawCircle(io->MousePos.x, io->MousePos.y, 10.0f, E0::RED); 
+	}
+	if (wayPointMode || editMode) 
+	{
 		for (auto vector : currentLevel.getWaypoints()) {
 			DM.drawCircle(vector.getX(), vector.getY(), 10.0f, E0::RED); 
 		}
 	}
-	if (editMode) {
-		for (auto vector : currentLevel.getWaypoints()) {
-			DM.drawCircle(vector.getX(), vector.getY(), 10.0f, E0::RED); 
-		}
+	if (simulationMode) {
+		entity.draw();
 	}
 	ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData(), DM.getRenderer());
 	SDL_RenderPresent(DM.getRenderer());
@@ -246,9 +259,9 @@ void Editor::addWayPoint()
 		if (!currentLevel.getTexturePath().empty()) 
 		{
 			wayPointMode = !wayPointMode;
+			editMode = false;
 		}
 	}
-
 	if (wayPointMode) 
 	{
 		if (!io->WantCaptureMouse) 
@@ -311,6 +324,18 @@ void Editor::fileManagement()
 	}
 }
 
+void Editor::simulateWaypoint()
+{
+	if (ImGui::Button("Simulate Pathfinding")) 
+	{
+		simulationMode = !simulationMode;
+		entity.waypoints = currentLevel.getWaypoints();
+	}
+	if (simulationMode && entity.waypoints.size() != 0) {
+		entity.moveTowardsWaypoint(); 
+	}
+}
+
 
 void Editor::pushLayout()
 {
@@ -327,6 +352,7 @@ void Editor::pushLayout()
 			addTowerPoint();
 			save();
 			edit();
+			simulateWaypoint(); 
 			ImGui::EndTabItem(); 
 		}
 		ImGui::EndTabBar();
