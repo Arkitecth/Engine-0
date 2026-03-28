@@ -24,7 +24,7 @@ namespace E0
 			void  setSlowdownTimer(float new_slowdown_timer); 
 			float getSlowdownTimer(); 
 			int   getAnimationSize(); 
-			const Texture& getCurrentTexture() const; 
+			Texture& getCurrentTexture(); 
 			void setAnimationIndex(int new_index); 
 			const std::vector<Texture>* getAnimationTextures() const; 
 			void animate(E0::Rectangle& dst_rect);

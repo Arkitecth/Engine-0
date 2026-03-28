@@ -1,6 +1,7 @@
 #include "Level.h"
 #include "DisplayManager.h"
 #include "Entity.h"
+#include "Engine.h"
 #include "LevelManager.h"
 #include "EventCollision.h"
 #include "Texture.h"
@@ -141,6 +142,23 @@ void E0::Level::update()
 		}
 
 		entity->eventHandler(dynamic_cast<const Event*>(&colissionEvent)); 
+	}
+}
+
+
+void E0::Level::spawn(E0::Entity& entity, int num_entities, float rate)
+{
+	if (spawnTimer >= rate) 
+	{
+		for(int i = 0; i < num_entities; i++)
+		{
+			this->addEntity(&entity); 
+			spawnTimer = 0.0f;
+		}
+	} 
+	else 
+	{
+		spawnTimer += Engine.getDeltaTime() / 1000;
 	}
 }
 

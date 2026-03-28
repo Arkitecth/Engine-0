@@ -25,7 +25,7 @@ E0::Animation::Animation(std::vector<std::string> animation_file_paths)
 	slowdownTime = 0.5f;
 }
 
-const E0::Texture& E0::Animation::getCurrentTexture() const
+E0::Texture& E0::Animation::getCurrentTexture()
 {
 	return animationTextures[animationIndex];
 }

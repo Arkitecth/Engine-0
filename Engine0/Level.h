@@ -13,6 +13,7 @@ namespace E0
 			std::vector<Entity*> entities{}; 
 			std::vector<E0::Vector> waypoints{};
 			Texture levelTexture{};
+			float spawnTimer{};
 		
 		public:
 			Level(); 
@@ -23,6 +24,8 @@ namespace E0
 			void setTexturePath(std::string new_texture_path); 
 
 			std::vector<E0::Vector> getWaypoints(); 
+
+			void spawn(E0::Entity& entity, int num_entities, float rate); 
 
 			void addWayPoint(E0::Vector vector); 
 

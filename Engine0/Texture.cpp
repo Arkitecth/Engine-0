@@ -11,6 +11,7 @@ E0::Texture::Texture()
 	loadedTexture = nullptr;
 	width = 0.0f; 
 	height = 0.0f; 
+	flipMode = TextureDirection::NONE;
 }
 
 E0::Texture::Texture(std::string new_file_path)
@@ -21,11 +22,13 @@ E0::Texture::Texture(std::string new_file_path)
 E0::Texture::Texture(const Texture& rhs)
 {
 	setLoadedTexture(rhs.filePath); 
+	flipMode = rhs.flipMode;
 }
 
 void E0::Texture::operator=(const Texture& rhs)
 {
 	setLoadedTexture(rhs.filePath); 
+	flipMode = rhs.flipMode;
 }
 
 E0::Texture::~Texture()
@@ -47,6 +50,25 @@ void E0::Texture::setLoadedTexture(std::string_view new_file_path)
 	width = loadedTexture->w; 
 	height = loadedTexture->h;
 	SDL_DestroySurface(loadedSurface); 
+}
+
+
+SDL_FlipMode E0::Texture::getFlipMode()
+{
+	if (flipMode == TextureDirection::HORIZONTAL) 
+	{
+		return SDL_FLIP_HORIZONTAL;
+	} else if (flipMode == TextureDirection::NONE) {
+		return SDL_FLIP_NONE;
+	} else  {
+		return SDL_FLIP_VERTICAL;
+	}
+}
+
+
+void E0::Texture::setFlipMode(E0::TextureDirection new_flip_mode)
+{
+	flipMode = new_flip_mode;
 }
 
 std::string E0::Texture::getFilePath()
