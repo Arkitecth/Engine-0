@@ -6,13 +6,15 @@
 
 void SimulatedEntity::draw()
 {
-	// E0::Rectangle rect{position, 30, 30, E0::GREEN};
-	// DM.drawRectangle(rect);
-	DM.drawCircle(position.getX(), position.getY(), 10.0f, E0::GREEN); 
+	E0::Rectangle rect{position, 64, 64, E0::GREEN};
+	DM.drawRectangle(rect);
+	//DM.drawCircle(position.getX(), position.getY(), 10.0f, E0::GREEN); 
 }
 
 void SimulatedEntity::moveTowardsWaypoint()
 {
+	E0::Vector rectCenter{position.getX(), position.getY()};
+
 	E0::Vector delta {waypoints[0] - position};
 
 	int distance = delta.magnitude();
@@ -26,7 +28,7 @@ void SimulatedEntity::moveTowardsWaypoint()
 
 	velocity = newVelocity;
 
-	position.setXY(position.getX() + velocity.getVelocityVector().getX(), position.getY() + velocity.getVelocityVector().getY());
+	position.setXY(position.getX() + newVelocity.getVelocityVector().getX(), position.getY() + newVelocity.getVelocityVector().getY());
 }
 
 
