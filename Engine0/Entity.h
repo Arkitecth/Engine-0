@@ -24,6 +24,7 @@ namespace E0
 			virtual ~Entity(); 
 			virtual void eventHandler(const Event* e);  
 			virtual void draw(); 
+			virtual Entity* duplicate(); 
 
 			Vector getPosition() const; 
 			void setPosition(Vector new_position); 
@@ -33,7 +34,8 @@ namespace E0
 			void setVelocity(Velocity new_velocity); 
 
 			float getWidth() const; 
-			float getHeight() const; 
+			float getHeight() const;
+
 
 			void setWidth(float new_width); 
 			void setHeight(float new_height); 

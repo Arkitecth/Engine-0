@@ -21,6 +21,14 @@ E0::Level::Level()
 	LEM.addLevel(this); 
 }
 
+E0::Level::~Level()
+{
+	for (auto entity : entities) {
+		delete entity;
+	}
+}
+
+
 void E0::Level::setLevelsName(std::string new_level_name)
 {
 	levelName = new_level_name; 
@@ -47,6 +55,10 @@ void E0::Level::addWayPoint(E0::Vector vector)
 	waypoints.push_back(vector);
 }
 
+void E0::Level::setPrototype(E0::Entity* prototype)
+{
+	spawnPrototype = prototype;
+}
 
 void E0::Level::setTexturePath(std::string new_texture_path)
 {
@@ -140,25 +152,23 @@ void E0::Level::update()
 			colissionEvent.setEntity01(entity); 
 			colissionEvent.setEntity02(collidedEntity); 
 		}
-
 		entity->eventHandler(dynamic_cast<const Event*>(&colissionEvent)); 
 	}
 }
 
-
-void E0::Level::spawn(E0::Entity& entity, int num_entities, float rate)
+void E0::Level::spawn(float rate)
 {
+	spawnTimer += Engine.getDeltaTime() / 1000;
 	if (spawnTimer >= rate) 
 	{
-		for(int i = 0; i < num_entities; i++)
-		{
-			this->addEntity(&entity); 
-			spawnTimer = 0.0f;
-		}
+		this->addEntity(spawnPrototype->duplicate()); 
+
+		spawnTimer = 0.0f;
 	} 
 	else 
 	{
-		spawnTimer += Engine.getDeltaTime() / 1000;
+		std::cout << spawnTimer << '\n';
+
 	}
 }
 

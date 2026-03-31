@@ -3,6 +3,7 @@
 #include "Event.h"
 #include "Entity.h"
 #include "Vector.h"
+#include "Spawner.h"
 namespace E0
 {
 	class Level 
@@ -14,10 +15,11 @@ namespace E0
 			std::vector<E0::Vector> waypoints{};
 			Texture levelTexture{};
 			float spawnTimer{};
+			E0::Entity* spawnPrototype = nullptr;
 		
 		public:
 			Level(); 
-			~Level() = default;
+			~Level();
 			std::string getLevelsName(); 
 			void setLevelsName(std::string new_level_name); 	
 			std::string getTexturePath(); 
@@ -25,7 +27,9 @@ namespace E0
 
 			std::vector<E0::Vector> getWaypoints(); 
 
-			void spawn(E0::Entity& entity, int num_entities, float rate); 
+			void setPrototype(E0::Entity* new_prototype); 
+
+			void spawn(float rate); 
 
 			void addWayPoint(E0::Vector vector); 
 

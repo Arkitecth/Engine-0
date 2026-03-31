@@ -9,6 +9,7 @@ E0::Entity::Entity()
 
 E0::Entity::~Entity()
 {
+	delete this;
 }
 
 E0::Vector E0::Entity::getPosition() const
@@ -20,6 +21,11 @@ E0::Vector E0::Entity::getPosition() const
 void E0::Entity::draw()
 {
 
+}
+
+E0::Entity* E0::Entity::duplicate()
+{
+	return nullptr;
 }
 
 float E0::Entity::getWidth() const
@@ -59,10 +65,6 @@ E0::Vector E0::Entity::predictPosition()
 
 	return new_vector;
 }
-
-
-
-
 
 void E0::Entity::setPosition(E0::Vector new_position)
 {

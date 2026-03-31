@@ -84,14 +84,19 @@ void E0::GameManager::run()
 {
 	using clock = std::chrono::steady_clock; 
 	const auto frameTime = std::chrono::milliseconds(1000 / frameRate);
+	auto lastTime = clock::now();
 	EventStep stepEvent{};
 	auto nextFrame = clock::now(); 
 	LM.logInfo("Engine is now running"); 
 	while (!isGameOver) 
 	{
-		stepEvent.increment();
-
 		const auto currentTime = clock::now(); 
+
+		auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime);
+		deltaTime = static_cast<float>(duration.count());
+		lastTime = currentTime;
+
+		stepEvent.increment();
 
 		nextFrame += frameTime;
 
@@ -105,16 +110,13 @@ void E0::GameManager::run()
 		}
 
 		LEM.getCurrentLevel()->broadcastEvent(dynamic_cast<const Event*>(&stepEvent));
+		LEM.getCurrentLevel()->spawn(3.0f);
+
 
 		LEM.getCurrentLevel()->update(); 
 
 		LEM.getCurrentLevel()->draw(); 
 
-		const auto lastTime = clock::now(); 
-
-		auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(lastTime - currentTime);
-
-		deltaTime = duration.count();
 
 		std::this_thread::sleep_until(nextFrame); 
 
