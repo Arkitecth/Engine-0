@@ -44,15 +44,29 @@ void E0::Level::setWaypoint(std::vector<E0::Vector> new_waypoints)
 	waypoints = new_waypoints;
 }
 
+void E0::Level::setTowerPoints(std::vector<E0::Vector> new_tower_points)
+{
+	towerPoints = new_tower_points;
+}
+
 std::vector<E0::Vector> E0::Level::getWaypoints()
 {
 	return waypoints;
 }
 
+std::vector<E0::Vector> E0::Level::getTowerpoints()
+{
+	return towerPoints;
+}
 
 void E0::Level::addWayPoint(E0::Vector vector)
 {
 	waypoints.push_back(vector);
+}
+
+void E0::Level::addTowerPoint(E0::Vector vector)
+{
+	towerPoints.push_back(vector);
 }
 
 void E0::Level::setPrototype(E0::Entity* prototype)

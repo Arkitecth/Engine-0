@@ -13,6 +13,7 @@ namespace E0
 			std::string levelTexturePath{}; 
 			std::vector<Entity*> entities{}; 
 			std::vector<E0::Vector> waypoints{};
+			std::vector<E0::Vector> towerPoints{};
 			Texture levelTexture{};
 			float spawnTimer{};
 			E0::Entity* spawnPrototype = nullptr;
@@ -27,13 +28,19 @@ namespace E0
 
 			std::vector<E0::Vector> getWaypoints(); 
 
+			std::vector<E0::Vector> getTowerpoints(); 
+
 			void setPrototype(E0::Entity* new_prototype); 
 
 			void spawn(float rate); 
 
 			void addWayPoint(E0::Vector vector); 
 
+			void addTowerPoint(E0::Vector vector); 
+
 			void setWaypoint(std::vector<E0::Vector> waypoints); 
+
+			void setTowerPoints(std::vector<E0::Vector> towerPoints); 
 
 			std::vector<Entity*> getEntitiesOfType(std::string entity_type); 
 
