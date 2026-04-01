@@ -65,9 +65,11 @@ E0::Level E0::ResourceManager::loadLevel(std::string_view filePath)
 	std::string nameTag = "- Name:"; 
 	std::string textureTag = "- Texture Path:"; 
 	std::string waypointTag = "- Waypoints:";
+	std::string towerpointTag = "- Towerpoints:";
 	std::string openingParantheses = "("; 
 	std::string closingParantheses= ")";
 	std::vector<E0::Vector> waypoints{};
+	std::vector<E0::Vector> towerpoints{};
 	if (!levelFile.is_open()) 
 	{
 		LM.logError("An error occurred opening the file"); 
@@ -106,6 +108,26 @@ E0::Level E0::ResourceManager::loadLevel(std::string_view filePath)
 					waypoints.push_back(vector);
 				}
 					level.setWaypoint(waypoints); 
+			}
+
+			std::size_t towerPointPos = line.find(towerpointTag); 
+			if (towerPointPos != std::string::npos) 
+			{
+				std::string towerPointLine = line;
+				while (towerPointLine.find(closingParantheses) != std::string::npos) 
+				{
+					//Get everything after the opening & closing parantheses
+					std::size_t openingParanthesesPos= towerPointLine.find(openingParantheses);
+					std::size_t closingParanthesesPos = towerPointLine.find(closingParantheses); 
+					std::string vectorPosition = towerPointLine.substr(openingParanthesesPos + 1, closingParanthesesPos - openingParanthesesPos - 1); 
+					std::size_t commaPosition  = vectorPosition.find(",");
+					float vectorXPosition = std::stof(vectorPosition.substr(0, commaPosition)); 
+					float vectorYPosition = std::stof(vectorPosition.substr(commaPosition + 1, closingParanthesesPos - commaPosition)); 
+					E0::Vector vector{vectorXPosition, vectorYPosition};
+					towerPointLine.erase(openingParanthesesPos, closingParanthesesPos - openingParanthesesPos + 2);
+					towerpoints.push_back(vector);
+				}
+					level.setTowerPoints(towerpoints);
 			}
 		}
 	}
