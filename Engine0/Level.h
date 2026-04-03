@@ -24,6 +24,7 @@ namespace E0
 			std::string getLevelsName(); 
 			void setLevelsName(std::string new_level_name); 	
 			std::string getTexturePath(); 
+
 			void setTexturePath(std::string new_texture_path); 
 
 			std::vector<E0::Vector> getWaypoints(); 

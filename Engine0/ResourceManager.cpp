@@ -3,8 +3,6 @@
 #include "LogManager.h"
 #include <algorithm>
 #include <filesystem>
-#include <ios>
-#include "Texture.h"
 
 E0::ResourceManager::ResourceManager()
 {

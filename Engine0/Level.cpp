@@ -186,6 +186,3 @@ void E0::Level::spawn(float rate)
 	}
 }
 
-
-
-
