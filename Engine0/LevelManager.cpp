@@ -10,7 +10,6 @@ E0::LevelManager::LevelManager()
 
 E0::LevelManager::~LevelManager()
 {
-	shutDown(); 
 }
 
 E0::Level* E0::LevelManager::getCurrentLevel()
@@ -37,6 +36,10 @@ void E0::LevelManager::startUp()
 
 void E0::LevelManager::shutDown()
 {
+	for (auto level: levels) 
+	{
+		level->destroy(); 
+	}
 }
 
 

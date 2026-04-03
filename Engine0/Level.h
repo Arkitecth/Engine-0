@@ -2,6 +2,7 @@
 #include <vector>
 #include "Event.h"
 #include "Entity.h"
+#include "Widget.h"
 #include "Vector.h"
 #include "Spawner.h"
 namespace E0
@@ -14,6 +15,7 @@ namespace E0
 			std::vector<Entity*> entities{}; 
 			std::vector<E0::Vector> waypoints{};
 			std::vector<E0::Vector> towerPoints{};
+			std::vector<E0::Widget*> uiLayout{};
 			Texture levelTexture{};
 			float spawnTimer{};
 			E0::Entity* spawnPrototype = nullptr;
@@ -22,6 +24,7 @@ namespace E0
 			Level(); 
 			~Level();
 			std::string getLevelsName(); 
+			void destroy(); 
 			void setLevelsName(std::string new_level_name); 	
 			std::string getTexturePath(); 
 
@@ -50,6 +53,10 @@ namespace E0
 			std::vector<Entity*> getAllEntities();
 
 			void setEntities(std::vector<Entity*> new_entities);
+
+			void setUILayout(std::vector<Widget*> new_ui_layout);
+
+			std::vector<Widget*> getUILayout();
 
 			void update(); 
 

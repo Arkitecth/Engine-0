@@ -22,6 +22,9 @@ E0::Level::Level()
 }
 
 E0::Level::~Level()
+{}
+
+void E0::Level::destroy()
 {
 	for (auto entity : entities) {
 		delete entity;
@@ -154,6 +157,11 @@ void E0::Level::draw()
 	for (Entity* entity : entities) {
 		entity->draw();
 	}
+
+	for(Widget* widget: uiLayout)
+	{
+		widget->draw();
+	}
 }
 
 void E0::Level::update()
@@ -184,5 +192,15 @@ void E0::Level::spawn(float rate)
 		std::cout << spawnTimer << '\n';
 
 	}
+}
+
+void E0::Level::setUILayout(std::vector<Widget*> new_ui_layout)
+{
+	uiLayout = new_ui_layout;
+}
+
+std::vector<E0::Widget*> E0::Level::getUILayout()
+{
+	return uiLayout;
 }
 
