@@ -1,5 +1,6 @@
 #include <string>
 #include "Event.h"
+#include "Vector.h"
 #pragma once
 namespace E0
 {
@@ -25,21 +26,15 @@ namespace E0
 	{
 		private:
 			MouseKey key; 
-			float relative_x{}; //Used for dragging and offset from SDL
-			float relative_y{};
+			Vector mouse_position{};
 			MouseAction action; 
 		
 		public:
 			EventMouse(); 
 			EventMouse(MouseKey new_key, MouseAction new_action); 
 			MouseKey getKey() const; 
-
-			void  setRelativeX(float new_relative_x);
-			void  setRelativeY(float new_relative_y);
-
-			float getRelativeX() const;
-			float getRelativeY() const;
-
+			E0::Vector getMousePosition();
+			void setMousePosition(E0::Vector new_mouse_position);
 			void setKey(MouseKey new_key); 
 			MouseAction getAction() const; 
 			void setMouseAction(MouseAction new_key_action); 

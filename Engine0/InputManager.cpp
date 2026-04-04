@@ -37,8 +37,21 @@ void E0::InputManager::pollInput()
 {
 	SDL_Event e;  
 	while (SDL_PollEvent(&e)) {
+		
 		if (e.type == SDL_EVENT_QUIT) {
 			Engine.setGameOver(true); 
+		}
+
+		if (e.type == SDL_EVENT_MOUSE_MOTION) 
+		{
+			EventMouse mouseEvent; 
+			E0::Vector new_position = E0::Vector{e.motion.x, e.motion.y};
+			mouseEvent.setMousePosition(new_position);
+			if (dragging) 
+			{
+				mouseEvent.setMouseAction(MouseAction::MOUSE_DRAGGED);
+			}
+			LEM.getCurrentLevel()->broadcastEvent(dynamic_cast<Event*>(&mouseEvent)); 
 		}
 
 		if (e.type == SDL_EVENT_KEY_DOWN) {
@@ -63,15 +76,8 @@ void E0::InputManager::pollInput()
 			} else if (e.button.button == SDL_BUTTON_RIGHT) {
 				mouseEvent.setKey(MouseKey::MOUSE_RIGHT_BUTTON); 
 			}
-			float click_pos_x = e.button.x;
-			float click_pos_y = e.button.y;
-
-			if (e.motion.xrel > 0 || e.motion.yrel > 0) 
-			{
-				mouseEvent.setMouseAction(MouseAction::MOUSE_DRAGGED); 
-			} else {
-				mouseEvent.setMouseAction(MouseAction::MOUSE_CLICKED); 
-			}
+			mouseEvent.setMouseAction(MouseAction::MOUSE_CLICKED); 
+			dragging = true;
 			SDL_Log("X:%f: Y:%f", e.button.x, e.button.y);
 			LEM.getCurrentLevel()->broadcastEvent(dynamic_cast<Event*>(&mouseEvent)); 
 		}
@@ -84,6 +90,7 @@ void E0::InputManager::pollInput()
 				mouseEvent.setKey(MouseKey::MOUSE_RIGHT_BUTTON); 
 			} 
 			mouseEvent.setMouseAction(MouseAction::MOUSE_RELEASED); 
+			dragging = false;
 			LEM.getCurrentLevel()->broadcastEvent(dynamic_cast<Event*>(&mouseEvent)); 
 		}
 

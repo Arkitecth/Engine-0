@@ -1,5 +1,6 @@
 #include "EventMouse.h"
 #include "Event.h"
+#include "Vector.h"
 
 E0::EventMouse::EventMouse()
 {
@@ -35,23 +36,12 @@ void E0::EventMouse::setMouseAction(E0::MouseAction new_action)
 	action = new_action;
 }
 
-void E0::EventMouse::setRelativeX(float new_relative_x)
+E0::Vector E0::EventMouse::getMousePosition()
 {
-	relative_x = new_relative_x;
+	return mouse_position;
 }
 
-void E0::EventMouse::setRelativeY(float new_relative_y)
+void E0::EventMouse::setMousePosition(E0::Vector new_mouse_position)
 {
-	relative_y = new_relative_y;
+	mouse_position = new_mouse_position;
 }
-
-float E0::EventMouse::getRelativeX() const
-{
-	return relative_x;
-}
-
-float E0::EventMouse::getRelativeY() const
-{
-	return relative_y;
-}
-

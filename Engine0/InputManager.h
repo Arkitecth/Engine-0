@@ -5,6 +5,7 @@ namespace E0
 	{
 		private:
 			InputManager(); 
+			bool dragging{};
 		
 		public:	
 			~InputManager(); 
