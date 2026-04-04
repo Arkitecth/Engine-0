@@ -33,7 +33,7 @@ namespace E0
 			EventMouse(); 
 			EventMouse(MouseKey new_key, MouseAction new_action); 
 			MouseKey getKey() const; 
-			E0::Vector getMousePosition();
+			E0::Vector getMousePosition() const; 
 			void setMousePosition(E0::Vector new_mouse_position);
 			void setKey(MouseKey new_key); 
 			MouseAction getAction() const; 
