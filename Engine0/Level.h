@@ -42,6 +42,8 @@ namespace E0
 
 			void addTowerPoint(E0::Vector vector); 
 
+			void addWidget(E0::Widget* widget); 
+
 			void setWaypoint(std::vector<E0::Vector> waypoints); 
 
 			void setTowerPoints(std::vector<E0::Vector> towerPoints); 

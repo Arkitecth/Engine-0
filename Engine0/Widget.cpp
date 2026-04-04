@@ -12,6 +12,14 @@ void E0::Widget::eventHandler(const E0::Event* e)
 
 }
 
+E0::Widget::Widget(E0::Vector new_position, float new_width, float new_height, E0::Texture new_texture)
+{
+	position = new_position;
+	width = new_width;
+	height = new_height;
+	texture = new_texture;
+}
+
 void E0::Widget::setTexture(E0::Texture& new_texture)
 {
 	texture = new_texture;

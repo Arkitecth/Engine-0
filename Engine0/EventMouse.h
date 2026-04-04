@@ -9,9 +9,9 @@ namespace E0
 	{
 		MOUSE_CLICKED,
 		MOUSE_RELEASED, 
+		MOUSE_DRAGGED,
 		UNDEFINED_ACTION
 	}; 
-
 
 	enum class MouseKey
 	{
@@ -25,14 +25,23 @@ namespace E0
 	{
 		private:
 			MouseKey key; 
+			float relative_x{}; //Used for dragging and offset from SDL
+			float relative_y{};
 			MouseAction action; 
 		
 		public:
 			EventMouse(); 
 			EventMouse(MouseKey new_key, MouseAction new_action); 
-			MouseKey getKey(); 
+			MouseKey getKey() const; 
+
+			void  setRelativeX(float new_relative_x);
+			void  setRelativeY(float new_relative_y);
+
+			float getRelativeX() const;
+			float getRelativeY() const;
+
 			void setKey(MouseKey new_key); 
-			MouseAction getAction(); 
+			MouseAction getAction() const; 
 			void setMouseAction(MouseAction new_key_action); 
 	}; 
 }

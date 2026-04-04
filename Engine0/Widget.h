@@ -1,6 +1,7 @@
 #include "Event.h"
 #include "Texture.h"
 #include "Vector.h"
+#pragma once
 namespace E0
 {
 	class Widget 

@@ -8,6 +8,7 @@
 #include "Vector.h"
 #include <algorithm>
 #include <iostream>
+#include "Widget.h"
 #include "utility.h"
 #include <vector>
 
@@ -130,6 +131,10 @@ void E0::Level::broadcastEvent(const E0::Event* event)
 	for (Entity* entity : entities) {
 		entity->eventHandler(event); 
 	}
+	for (Widget* widget : uiLayout) {
+		widget->eventHandler(event); 
+	}
+
 }
 
 std::vector<E0::Entity*> E0::Level::getColissions(E0::Vector where, Entity* entity)
@@ -178,6 +183,11 @@ void E0::Level::update()
 	}
 }
 
+void E0::Level::addWidget(E0::Widget* widget)
+{
+	uiLayout.push_back(widget);
+}
+
 void E0::Level::spawn(float rate)
 {
 	spawnTimer += Engine.getDeltaTime() / 1000;
@@ -187,11 +197,6 @@ void E0::Level::spawn(float rate)
 
 		spawnTimer = 0.0f;
 	} 
-	else 
-	{
-		std::cout << spawnTimer << '\n';
-
-	}
 }
 
 void E0::Level::setUILayout(std::vector<Widget*> new_ui_layout)

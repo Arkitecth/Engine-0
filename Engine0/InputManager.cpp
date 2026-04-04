@@ -1,5 +1,6 @@
 #include "InputManager.h"
 #include <SDL3/SDL.h>
+#include <iostream>
 #include "Engine.h"
 #include "EventKeyboard.h"
 #include "EventMouse.h"
@@ -62,7 +63,15 @@ void E0::InputManager::pollInput()
 			} else if (e.button.button == SDL_BUTTON_RIGHT) {
 				mouseEvent.setKey(MouseKey::MOUSE_RIGHT_BUTTON); 
 			}
-			mouseEvent.setMouseAction(MouseAction::MOUSE_CLICKED); 
+			float click_pos_x = e.button.x;
+			float click_pos_y = e.button.y;
+
+			if (e.motion.xrel > 0 || e.motion.yrel > 0) 
+			{
+				mouseEvent.setMouseAction(MouseAction::MOUSE_DRAGGED); 
+			} else {
+				mouseEvent.setMouseAction(MouseAction::MOUSE_CLICKED); 
+			}
 			SDL_Log("X:%f: Y:%f", e.button.x, e.button.y);
 			LEM.getCurrentLevel()->broadcastEvent(dynamic_cast<Event*>(&mouseEvent)); 
 		}
@@ -73,7 +82,7 @@ void E0::InputManager::pollInput()
 				mouseEvent.setKey(MouseKey::MOUSE_LEFT_BUTTON); 
 			} else if (e.button.button == SDL_BUTTON_RIGHT) {
 				mouseEvent.setKey(MouseKey::MOUSE_RIGHT_BUTTON); 
-			}
+			} 
 			mouseEvent.setMouseAction(MouseAction::MOUSE_RELEASED); 
 			LEM.getCurrentLevel()->broadcastEvent(dynamic_cast<Event*>(&mouseEvent)); 
 		}
