@@ -6,7 +6,6 @@
 
 E0::Animation::Animation()
 {
-
 }
 
 

@@ -13,12 +13,13 @@ namespace E0
 			bool isGameOver{}; 
 			long long deltaTime{};
 			std::string_view title{}; 
+			std::string_view basePath{};
 			GameManager(); 
 
 		public:
 			static GameManager& getInstance(); 
 			~GameManager(); 
-			void startUp(int window_width = WINDOW_WIDTH_DEFAULT, int window_height = WINDOW_HEIGHT_DEFAULT, std::string_view title = WINDOW_TITLE_DEFAULT);
+			void startUp(int window_width = WINDOW_WIDTH_DEFAULT, int window_height = WINDOW_HEIGHT_DEFAULT, std::string_view title = WINDOW_TITLE_DEFAULT, std::string_view basePath="");
 			void shutDown(); 
 			int  getFrameRate(); 
 			float getDeltaTime(); 

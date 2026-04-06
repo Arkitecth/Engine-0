@@ -17,6 +17,7 @@ E0::Texture::Texture()
 E0::Texture::Texture(std::string new_file_path)
 {
 	setLoadedTexture(new_file_path);
+	flipMode = TextureDirection::NONE;
 }
 
 E0::Texture::Texture(const Texture& rhs)
@@ -42,9 +43,14 @@ void E0::Texture::setLoadedTexture(std::string_view new_file_path)
 {
 	filePath = new_file_path; 
 	SDL_Surface* loadedSurface = SDL_LoadPNG(new_file_path.data());
+	if (loadedSurface == nullptr) {
+		LM.logError("Error occurred with loading the PNG"); 
+		LM.logError(new_file_path.data()); 
+		return;
+	}
 	loadedTexture = SDL_CreateTextureFromSurface(DM.getRenderer(), loadedSurface); 
 	if (loadedTexture == nullptr) {
-		LM.logError("An error occurred with Setting Texture"); 
+		LM.logError("An error occurred with Getting the Active Renderer"); 
 		return;
 	}
 	width = loadedTexture->w; 

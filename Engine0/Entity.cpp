@@ -17,7 +17,6 @@ E0::Vector E0::Entity::getPosition() const
 	return position;
 }
 
-
 void E0::Entity::draw()
 {
 

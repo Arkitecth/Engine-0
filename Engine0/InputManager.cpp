@@ -33,6 +33,7 @@ E0::InputManager::~InputManager()
 {
 }
 
+
 void E0::InputManager::pollInput()
 {
 	SDL_Event e;  
@@ -46,6 +47,7 @@ void E0::InputManager::pollInput()
 		{
 			EventMouse mouseEvent; 
 			E0::Vector new_position = E0::Vector{e.motion.x, e.motion.y};
+
 			mouseEvent.setMousePosition(new_position);
 			if (dragging) 
 			{

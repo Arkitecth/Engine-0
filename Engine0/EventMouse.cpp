@@ -36,7 +36,7 @@ void E0::EventMouse::setMouseAction(E0::MouseAction new_action)
 	action = new_action;
 }
 
-E0::Vector E0::EventMouse::getMousePosition()
+E0::Vector E0::EventMouse::getMousePosition() const
 {
 	return mouse_position;
 }

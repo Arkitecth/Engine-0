@@ -110,7 +110,7 @@ void E0::DisplayManager::drawRectangle(E0::Rectangle& rect)
 	SDL_RenderFillRect(m_renderer, &fillRect); 
 }
 
-void E0::DisplayManager::drawTexture(Texture texture, Rectangle& dst)
+void E0::DisplayManager::drawTexture(Texture& texture, Rectangle& dst)
 {
 	SDL_FRect dstRect = {dst.position.getX(), dst.position.getY(), dst.width, dst.height};
 	SDL_FRect* p_dstRect= &dstRect;

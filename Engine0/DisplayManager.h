@@ -36,7 +36,7 @@ namespace E0
 			void setWindowHeight(int new_height); 
 			void drawCircle(int center_x, int center_y, int radius, Color color); 
 			void drawRectangle(Rectangle& rect); 
-			void drawTexture(E0::Texture texture, Rectangle& dst); 
+			void drawTexture(E0::Texture& texture, Rectangle& dst); 
 			void drawBackgroundTexture(E0::Texture* texture); 
 			void swapBuffer(Color color); 
 	}; 
