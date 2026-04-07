@@ -23,14 +23,6 @@ void E0::Cursor::draw()
 	DM.drawTexture(texture, rect); 
 }
 
-void E0::Cursor::update()
-{	
-	float x{};
-	float y{};
-	SDL_GetMouseState(&x, &y); 
-	position.setXY(x, y); 
-}
-
 void E0::Cursor::setCursorTexture(E0::Texture new_texture)
 {
 	texture = new_texture;

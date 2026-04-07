@@ -13,7 +13,6 @@ namespace E0
 			bool isGameOver{}; 
 			long long deltaTime{};
 			std::string_view title{}; 
-			std::string_view basePath{};
 			GameManager(); 
 
 		public:

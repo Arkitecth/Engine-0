@@ -1,9 +1,9 @@
 #include "Texture.h"
 #include "Vector.h"
-
+#pragma once
 namespace E0
 {
-	class Cursor
+	 class Cursor
 	{
 		private:
 			E0::Vector position{};
@@ -14,7 +14,6 @@ namespace E0
 			Cursor(); 
 			void toggleCursor(bool cursorVisible=false); 
 			void draw(); 
-			void update(); 
 			void setCursorTexture(E0::Texture new_texture); 
 			void setVectorPosition(E0::Vector position); 
 			E0::Vector getCursorPosition(); 

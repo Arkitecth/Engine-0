@@ -1,6 +1,8 @@
 #include "InputManager.h"
 #include <SDL3/SDL.h>
+#include <ios>
 #include <iostream>
+#include "Cursor.h"
 #include "Engine.h"
 #include "EventKeyboard.h"
 #include "EventMouse.h"
@@ -33,8 +35,7 @@ E0::InputManager::~InputManager()
 {
 }
 
-
-void E0::InputManager::pollInput()
+void E0::InputManager::pollInput(E0::Cursor& cursor)
 {
 	SDL_Event e;  
 	while (SDL_PollEvent(&e)) {
@@ -47,12 +48,13 @@ void E0::InputManager::pollInput()
 		{
 			EventMouse mouseEvent; 
 			E0::Vector new_position = E0::Vector{e.motion.x, e.motion.y};
-
-			mouseEvent.setMousePosition(new_position);
+			E0::Vector relative_mouse_positon = E0::Vector{cursor.getCursorPosition().getX() + e.motion.xrel, cursor.getCursorPosition().getY() + e.motion.yrel}; 
+			mouseEvent.setMousePosition(relative_mouse_positon);
 			if (dragging) 
 			{
 				mouseEvent.setMouseAction(MouseAction::MOUSE_DRAGGED);
 			}
+			cursor.setVectorPosition(relative_mouse_positon);
 			LEM.getCurrentLevel()->broadcastEvent(dynamic_cast<Event*>(&mouseEvent)); 
 		}
 

@@ -36,16 +36,11 @@ float E0::GameManager::getDeltaTime()
 void E0::GameManager::startUp(int window_width, int window_height, std::string_view title, std::string_view base_path)
 {
 	LM.startUp(); 
-	if (base_path == "") {
-		LM.logInfo("Error: Provide Path to Engine Code"); 
-		return;
-	}
 	RM.startUp();
 	LEM.startUp(); 
 	DM.startUp(window_width, window_height, title.data());
 	IM.startUp();
 	LM.logInfo("Engine has been booted"); 
-	basePath = base_path;
 }
 
 
@@ -90,24 +85,24 @@ void E0::GameManager::run()
 {
 	using clock = std::chrono::steady_clock; 
 	const auto frameTime = std::chrono::milliseconds(1000 / frameRate);
-	Cursor cursor{};
 	auto lastTime = clock::now();
 	EventStep stepEvent{};
+	Cursor cursor{};
 	auto nextFrame = clock::now(); 
 	LM.logInfo("Engine is now running"); 
 	while (!isGameOver) 
 	{
-		SDL_HideCursor();
 		const auto currentTime = clock::now(); 
 		auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime);
 		deltaTime = static_cast<float>(duration.count());
+
 		lastTime = currentTime;
 
 		stepEvent.increment();
 
 		nextFrame += frameTime;
 
-		IM.pollInput(); 
+		IM.pollInput(cursor); 
 
 		if (LEM.getLevels().size() == 0) 
 		{	
@@ -115,9 +110,6 @@ void E0::GameManager::run()
 			Engine.shutDown();
 			return;
 		}
-
-		cursor.update();
-
 		LEM.getCurrentLevel()->broadcastEvent(dynamic_cast<const Event*>(&stepEvent));
 
 		//LEM.getCurrentLevel()->spawn(3.0f);

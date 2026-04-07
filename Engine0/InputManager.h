@@ -1,3 +1,4 @@
+#include "Cursor.h"
 #define IM E0::InputManager::getInstance()
 namespace E0
 {
@@ -13,7 +14,7 @@ namespace E0
 			void startUp(); 
 			void shutDown(); 
 			static InputManager& getInstance();
-			void pollInput(); 
+			void pollInput(Cursor& cursor); 
 			
 	};  
 }

@@ -18,6 +18,7 @@ namespace E0
 			std::vector<E0::Widget*> uiLayout{};
 			Texture levelTexture{};
 			float spawnTimer{};
+			bool drawTowerPositions{};
 			E0::Entity* spawnPrototype = nullptr;
 		
 		public:
