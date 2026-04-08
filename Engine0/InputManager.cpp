@@ -1,13 +1,11 @@
 #include "InputManager.h"
 #include <SDL3/SDL.h>
-#include <ios>
-#include <iostream>
 #include "Cursor.h"
+#include "DisplayManager.h"
 #include "Engine.h"
 #include "EventKeyboard.h"
 #include "EventMouse.h"
 #include "LevelManager.h"
-#include "LogManager.h"
 
 void E0::InputManager::startUp()
 {
@@ -48,13 +46,25 @@ void E0::InputManager::pollInput(E0::Cursor& cursor)
 		{
 			EventMouse mouseEvent; 
 			E0::Vector new_position = E0::Vector{e.motion.x, e.motion.y};
-			E0::Vector relative_mouse_positon = E0::Vector{cursor.getCursorPosition().getX() + e.motion.xrel, cursor.getCursorPosition().getY() + e.motion.yrel}; 
-			mouseEvent.setMousePosition(relative_mouse_positon);
+			float relative_x = cursor.getCursorPosition().getX() + e.motion.xrel;
+			float relative_y = cursor.getCursorPosition().getY() + e.motion.yrel;
+			int render_w{}; 
+			int render_h{};
+			SDL_GetRenderOutputSize(DM.getRenderer(), &render_w, &render_h); 
+
+			if (relative_x < 0) relative_x = 0;
+			if (relative_x > render_w) relative_x = render_w;
+			if (relative_y < 0) relative_y = 0;
+			if (relative_y > render_h) relative_y = render_h;
+
+			E0::Vector boundedPosition{relative_x, relative_y};
+
+			mouseEvent.setMousePosition(boundedPosition);
 			if (dragging) 
 			{
 				mouseEvent.setMouseAction(MouseAction::MOUSE_DRAGGED);
 			}
-			cursor.setVectorPosition(relative_mouse_positon);
+			cursor.setVectorPosition(boundedPosition);
 			LEM.getCurrentLevel()->broadcastEvent(dynamic_cast<Event*>(&mouseEvent)); 
 		}
 

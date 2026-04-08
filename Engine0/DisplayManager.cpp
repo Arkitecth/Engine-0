@@ -7,8 +7,8 @@ E0::DisplayManager::DisplayManager()
 {
 	m_window = nullptr;
 	m_renderer = nullptr;
-	width = WINDOW_WIDTH_DEFAULT;
-	height = WINDOW_HEIGHT_DEFAULT;
+	win_width = WINDOW_WIDTH_DEFAULT;
+	win_height = WINDOW_HEIGHT_DEFAULT;
 	title = WINDOW_TITLE_DEFAULT;
 }
 
@@ -26,12 +26,12 @@ E0::DisplayManager& E0::DisplayManager::getInstance()
 
 void E0::DisplayManager::setWindowWidth(int new_width)
 {
-	width = new_width;
+	win_width = new_width;
 }
 
 void E0::DisplayManager::setWindowHeight(int new_height)
 {
-	height = new_height; 
+	win_height = new_height; 
 }
 
 SDL_Renderer* E0::DisplayManager::getRenderer()
@@ -53,10 +53,10 @@ void E0::DisplayManager::startUp(int new_width, int new_height, std::string new_
 {
 	if (m_window == nullptr && m_renderer == nullptr) 
 	{
-		width = new_width;
-		height = new_height;
+		win_width = new_width;
+		win_height = new_height;
 		title = new_title;
-		m_window = SDL_CreateWindow(new_title.c_str(), new_width, new_height, SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIGH_PIXEL_DENSITY); 
+		m_window = SDL_CreateWindow(new_title.c_str(), new_width, new_height, SDL_WINDOW_HIGH_PIXEL_DENSITY); 
 		m_renderer = SDL_CreateRenderer(m_window, nullptr); 
 		SDL_SetRenderVSync(m_renderer, 1); 
 		SDL_HideCursor();
@@ -140,7 +140,7 @@ void E0::DisplayManager::swapBuffer(Color color)
 
 int E0::DisplayManager::getWindowWidth()
 {
-	return width; 
+	return win_width; 
 }
 
 SDL_Window* E0::DisplayManager::getWindow()
@@ -150,7 +150,7 @@ SDL_Window* E0::DisplayManager::getWindow()
 
 int E0::DisplayManager::getWindowHeight()
 {
-	return height; 
+	return win_height; 
 }
 
 
