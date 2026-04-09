@@ -58,7 +58,6 @@ void E0::InputManager::pollInput(E0::Cursor& cursor)
 			if (relative_y > render_h) relative_y = render_h;
 
 			E0::Vector boundedPosition{relative_x, relative_y};
-
 			mouseEvent.setMousePosition(boundedPosition);
 			if (dragging) 
 			{

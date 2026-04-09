@@ -23,6 +23,7 @@ void E0::Cursor::draw()
 	DM.drawTexture(texture, rect); 
 }
 
+
 void E0::Cursor::setCursorTexture(E0::Texture new_texture)
 {
 	texture = new_texture;
