@@ -24,6 +24,7 @@ Editor::Editor(int new_width, int new_height)
 	width = new_width;
 	height = new_height;
 	DM.startUp(width, height, "Level Editor"); 
+	DM.toggleCursor();
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	io = &ImGui::GetIO(); (void)io; 
@@ -113,9 +114,11 @@ void SDLCALL Editor::loadLevel(void* userdata, const char* const* fileList, int 
 	std::string nameTag = "- Name:"; 
 	std::string textureTag = "- Texture Path:"; 
 	std::string waypointTag = "- Waypoints:";
+	std::string towerpointTag = "- Towerpoints:";
 	std::string openingParantheses = "("; 
 	std::string closingParantheses= ")";
 	std::vector<E0::Vector> waypoints{};
+	std::vector<E0::Vector> towerpoints{};
 	if (!fileList) 
 	{
 		SDL_Log("An error occurred: %s\n", SDL_GetError()); 
@@ -164,6 +167,25 @@ void SDLCALL Editor::loadLevel(void* userdata, const char* const* fileList, int 
 					}
 					currentLevel->setWaypoint(waypoints); 
 				}
+
+				std::size_t towerPointPos = line.find(towerpointTag); 
+				if (towerPointPos != std::string::npos) 
+				{
+					std::string towerPointLine = line;
+					while (towerPointLine.find(closingParantheses) != std::string::npos) {
+						//Get everything after the opening & closing parantheses
+						std::size_t openingParanthesesPos= towerPointLine.find(openingParantheses);
+						std::size_t closingParanthesesPos = towerPointLine.find(closingParantheses); 
+						std::string vectorPosition = towerPointLine.substr(openingParanthesesPos + 1, closingParanthesesPos - openingParanthesesPos - 1); 
+						std::size_t commaPosition  = vectorPosition.find(",");
+						float vectorXPosition = std::stof(vectorPosition.substr(0, commaPosition)); 
+						float vectorYPosition = std::stof(vectorPosition.substr(commaPosition + 1, closingParanthesesPos - commaPosition)); 
+						E0::Vector vector{vectorXPosition / scaleX, vectorYPosition / scaleY};
+						towerPointLine.erase(openingParanthesesPos, closingParanthesesPos - openingParanthesesPos + 2);
+						towerpoints.push_back(vector);
+					}
+					currentLevel->setTowerPoints(towerpoints);
+				}
 			}
 		}
 	}
@@ -196,6 +218,13 @@ void Editor::save()
 			{
 				levelFile << "(" << vector.getX() * scaleX << "," << vector.getY() * scaleY << ")" << " ";
 			}
+			levelFile << '\n';
+			levelFile << "- Towerpoints:" ;
+			for (auto& vector : currentLevel.getTowerpoints()) 
+			{
+				levelFile << "(" << vector.getX() * scaleX << "," << vector.getY() * scaleY << ")" << " ";
+			}
+
 
 		}
 	}
@@ -235,6 +264,7 @@ void Editor::render()
 	SDL_SetRenderScale(DM.getRenderer(), io->DisplayFramebufferScale.x, io->DisplayFramebufferScale.y);
 	SDL_RenderClear(DM.getRenderer()); 
 	currentLevel.draw();
+	E0::Texture texture{"./Assets/dot.png"};
 	if (wayPointMode) 
 	{
 		DM.drawCircle(io->MousePos.x, io->MousePos.y, 10.0f, E0::RED); 
@@ -245,6 +275,21 @@ void Editor::render()
 			DM.drawCircle(vector.getX(), vector.getY(), 10.0f, E0::RED); 
 		}
 	}
+	if (towerPointMode) {
+		for (auto vector : currentLevel.getTowerpoints()) {
+			E0::Rectangle rect{vector, texture.getWidth() / 2.0f, texture.getHeight() / 2.0f};
+			DM.drawTexture(texture, rect);
+			//DM.drawCircle(vector.getX(), vector.getY(), 10.0f, E0::BLUE); 
+		}
+	}
+
+	if (wayPointMode || towerPointMode) {
+		E0::Vector position{io->MousePos.x, io->MousePos.y};
+		E0::Rectangle rect{position, texture.getWidth() / 2.0f, texture.getHeight() / 2.0f};
+		DM.drawTexture(texture, rect);
+		//DM.drawCircle(io->MousePos.x, io->MousePos.y, 10.0f, E0::BLUE); 
+	}
+
 	if (simulationMode) {
 		entity.draw();
 	}
@@ -259,6 +304,7 @@ void Editor::addWayPoint()
 		if (!currentLevel.getTexturePath().empty()) 
 		{
 			wayPointMode = !wayPointMode;
+			towerPointMode = false;
 			editMode = false;
 		}
 	}
@@ -282,6 +328,19 @@ void Editor::addTowerPoint()
 		if (!currentLevel.getTexturePath().empty()) 
 		{
 			towerPointMode = !towerPointMode;
+			editMode = false; 
+			wayPointMode = false;
+		}
+	}
+
+	if (towerPointMode) {
+		if (!io->WantCaptureMouse) 
+		{
+		
+			if (ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {
+				E0::Vector mousePosition {io->MousePos.x, io->MousePos.y};
+				currentLevel.addTowerPoint(mousePosition); 
+			}
 		}
 	}
 }
@@ -331,6 +390,7 @@ void Editor::simulateWaypoint()
 		simulationMode = !simulationMode;
 		entity.waypoints = currentLevel.getWaypoints();
 	}
+
 	if (simulationMode && entity.waypoints.size() != 0) {
 		entity.moveTowardsWaypoint(); 
 	}

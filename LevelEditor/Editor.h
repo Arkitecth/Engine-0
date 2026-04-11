@@ -1,4 +1,3 @@
-#include "Entity.h"
 #include "SimulatedEntity.h"
 #include "Level.h"
 #include "SDL3/SDL_dialog.h"
