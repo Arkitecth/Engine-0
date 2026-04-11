@@ -32,10 +32,12 @@ void ArcherIcon::draw()
 {
 	E0::Rectangle rect{E0::Widget::getPosition(), E0::Widget::getWidth(), E0::Widget::getHeight()};
 	DM.drawRectangle(rect);
+	E0::Texture texture{"../LevelEditor/Assets/dot.png"};
 	if (dragging) {
 		for (auto points : towerPositions) 
 		{
-			DM.drawCircle(points.getX(), points.getY(), 40.0f, E0::BLUE);
+			E0::Rectangle rect{points, texture.getWidth(), texture.getHeight()}; 
+			DM.drawTexture(texture, rect); 
 		}
 	}
 		
@@ -93,7 +95,6 @@ void ArcherIcon::eventHandler(const E0::Event* e)
 					E0::Rectangle towerbox = getBox(currentTower);
 					if (CheckForIntersection(rect, towerbox)) 
 					{
-						std::cout << "HERE" << '\n';
 						isValidPosition = true;
 						break;
 					}
