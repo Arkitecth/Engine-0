@@ -59,8 +59,16 @@ void E0::DisplayManager::startUp(int new_width, int new_height, std::string new_
 		m_window = SDL_CreateWindow(new_title.c_str(), new_width, new_height, SDL_WINDOW_HIGH_PIXEL_DENSITY); 
 		m_renderer = SDL_CreateRenderer(m_window, nullptr); 
 		SDL_SetRenderVSync(m_renderer, 1); 
-		SDL_HideCursor();
 		SDL_SetWindowRelativeMouseMode(m_window, true); 
+	}
+}
+
+void E0::DisplayManager::toggleCursor()
+{
+	if (SDL_CursorVisible()) {
+		SDL_SetWindowRelativeMouseMode(m_window, false);
+	} else {
+		SDL_SetWindowRelativeMouseMode(m_window, true);
 	}
 }
 

@@ -34,6 +34,7 @@ namespace E0
 			void setWindowTitle(std::string new_title); 
 			int getWindowHeight(); 
 			void setWindowHeight(int new_height); 
+			void toggleCursor();
 			void drawCircle(int center_x, int center_y, int radius, Color color); 
 			void drawRectangle(Rectangle& rect); 
 			void drawTexture(E0::Texture& texture, Rectangle& dst); 

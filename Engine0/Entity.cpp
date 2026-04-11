@@ -9,7 +9,6 @@ E0::Entity::Entity()
 
 E0::Entity::~Entity()
 {
-	delete this;
 }
 
 E0::Vector E0::Entity::getPosition() const

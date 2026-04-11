@@ -122,8 +122,9 @@ void E0::Level::addEntity(Entity* entity)
 
 void E0::Level::destroyEntity(Entity* entity)
 {
-	auto it = entities.begin() + entity->getEntityID();
+	auto it = std::find(entities.begin(), entities.end(), entity);
 	entities.erase(it);
+	delete entity;
 }
 
 void E0::Level::broadcastEvent(const E0::Event* event)

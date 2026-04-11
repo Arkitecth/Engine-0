@@ -84,11 +84,14 @@ void E0::InputManager::pollInput(E0::Cursor& cursor)
 
 		else if (e.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
 			EventMouse mouseEvent; 
+			float relative_x = cursor.getCursorPosition().getX() + e.motion.xrel;
+			float relative_y = cursor.getCursorPosition().getY() + e.motion.yrel;
 			if (e.button.button == SDL_BUTTON_LEFT) {	
 				mouseEvent.setKey(MouseKey::MOUSE_LEFT_BUTTON); 
 			} else if (e.button.button == SDL_BUTTON_RIGHT) {
 				mouseEvent.setKey(MouseKey::MOUSE_RIGHT_BUTTON); 
 			}
+			mouseEvent.setMousePosition(E0::Vector{relative_x, relative_y});
 			mouseEvent.setMouseAction(MouseAction::MOUSE_CLICKED); 
 			dragging = true;
 			SDL_Log("X:%f: Y:%f", e.button.x, e.button.y);
