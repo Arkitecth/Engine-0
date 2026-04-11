@@ -1,12 +1,16 @@
 #include "Tower.h"
+#include "Color.h"
 #include "DisplayManager.h"
 #include "Rectangle.h"
+#include "utility.h"
 #include "Vector.h"
 Tower::Tower(std::string_view path_to_tower_roof, std::string_view path_to_tower_body)
 {
 	roofTexture.setLoadedTexture(path_to_tower_roof);
 	bodyTexture.setLoadedTexture(path_to_tower_body);
-	this->setPosition(E0::Vector{368, 130}); 
+	this->setEntityType("Tower"); 
+	this->setWidth(roofTexture.getWidth());
+	this->setHeight(bodyTexture.getHeight());
 }
 
 void Tower::draw()

@@ -1,4 +1,5 @@
 #include "Entity.h"
+#pragma once
 class Tower: public E0::Entity
 {
 	private:
