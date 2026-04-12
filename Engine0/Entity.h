@@ -1,5 +1,4 @@
 #pragma once
-#include "Texture.h"
 #include "Vector.h"
 #include "Velocity.h"
 #include <string>
@@ -18,6 +17,7 @@ namespace E0
 			Velocity velocity{};
 			float width{}; 
 			float height{};
+			float detectionRadius{};
 
 		public:
 			Entity(); 
@@ -25,28 +25,21 @@ namespace E0
 			virtual void eventHandler(const Event* e);  
 			virtual void draw(); 
 			virtual Entity* duplicate(); 
-
 			Vector getPosition() const; 
 			void setPosition(Vector new_position); 
-
-
 			Velocity getVelocity() const; 
 			void setVelocity(Velocity new_velocity); 
-
 			float getWidth() const; 
 			float getHeight() const;
-
-
 			void setWidth(float new_width); 
 			void setHeight(float new_height); 
-
 			std::string getEntityType() const; 
 			void setEntityType(std::string new_entity_type); 
-
 			Vector predictPosition(); 
-
 			int getEntityID() const; 
-
+			void setDetectionRadius(int new_radius); 
+			int getDetectionRadius();
+			
 			bool operator==(const Entity& rhs); 
 	
 	}; 

@@ -145,7 +145,11 @@ std::vector<E0::Entity*> E0::Level::getColissions(E0::Vector where, Entity* enti
 		if (current_entity == entity) {
 			continue;
 		}
-		if (CheckForIntersection(getBox(entity), getBox(current_entity))) {
+		if (CheckForIntersection(getBox(entity, where), getBox(current_entity))) {
+			colissionList.push_back(current_entity); 
+		}
+
+		if (CheckForIntersection(current_entity->getPosition(), entity->getPosition().getX(), entity->getPosition().getY(), entity->getDetectionRadius())) {
 			colissionList.push_back(current_entity); 
 		}
 	}
@@ -160,15 +164,17 @@ void E0::Level::draw()
 		DM.drawBackgroundTexture(&levelTexture); 
 	}
 
-	for (Entity* entity : entities) {
-		entity->draw();
-	}
-
 	for(Widget* widget: uiLayout)
 	{
 		widget->draw();
 	}
 
+
+	for (Entity* entity : entities) {
+		entity->draw();
+	}
+
+	
 }
 
 void E0::Level::update()

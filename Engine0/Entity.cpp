@@ -93,3 +93,14 @@ bool E0::Entity::operator==(const Entity& rhs)
 {
 	return rhs.entityID == this->entityID; 
 }
+
+int E0::Entity::getDetectionRadius() 
+{
+	return detectionRadius;
+}
+
+void E0::Entity::setDetectionRadius(int new_radius)
+{
+	detectionRadius = new_radius;
+}
+

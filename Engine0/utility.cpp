@@ -40,7 +40,7 @@ E0::Rectangle getBox(const E0::Entity* entity)
 	return box; 
 }
 
-E0::Rectangle getBox(E0::Entity* entity, E0::Vector where)
+E0::Rectangle getBox(const E0::Entity* entity, E0::Vector where)
 {
 	E0::Rectangle box{where, entity->getWidth(), entity->getHeight(), E0::BLACK};
 
