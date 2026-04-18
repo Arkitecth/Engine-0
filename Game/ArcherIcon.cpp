@@ -1,10 +1,8 @@
 #include "ArcherIcon.h"
-#include "Color.h"
 #include "DisplayManager.h"
 #include "EventMouse.h"
 #include "Rectangle.h"
 #include "Vector.h"
-#include <iostream>
 #include <vector>
 #include "utility.h"
 
@@ -14,18 +12,17 @@ ArcherIcon::ArcherIcon()
 
 ArcherIcon::ArcherIcon(E0::Vector position, E0::Texture& texture, std::vector<E0::Vector> tower_postions, E0::Level& level)
 {
-	E0::Widget::setPosition(position); 
+	this->setPosition(position); 
 
-	E0::Widget::setTexture(texture);
+	this->setTexture(texture);
 
-	E0::Widget::setHeight(texture.getHeight());
+	this->setHeight(texture.getHeight());
 
-	E0::Widget::setWidth(texture.getWidth());
+	this->setWidth(texture.getWidth());
 
 	this->towerPositions = tower_postions;
 
 	this->currentLevel = &level;
-
 }
 
 void ArcherIcon::draw()
@@ -75,7 +72,7 @@ void ArcherIcon::eventHandler(const E0::Event* e)
 			bool didIntersect = CheckForIntersection(cursorRect, rect);
 			if (didIntersect) 
 			{
-				Tower* tower = new Tower{"./Assets/Archer/1.png", "./Assets/Archer/2.png"};
+				Tower* tower = new Tower{"./Assets/Archer/1.png", "./Assets/Archer/2.png", "./Assets/Archer/3.png"};
 				tower->setPosition(mouseEvent->getMousePosition());
 				currentTower = tower;
 				dragging = true;
