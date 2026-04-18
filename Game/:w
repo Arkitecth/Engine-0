@@ -3,6 +3,7 @@
 #include "DisplayManager.h"
 #include "Rectangle.h"
 #include <EventCollision.h>
+#include <iostream>
 #include "ResourceManager.h"
 #include "utility.h"
 #include "Vector.h"
