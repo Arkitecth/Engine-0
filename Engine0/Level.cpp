@@ -149,7 +149,9 @@ std::vector<E0::Entity*> E0::Level::getColissions(E0::Vector where, Entity* enti
 			colissionList.push_back(current_entity); 
 		}
 
-		if (CheckForIntersection(current_entity->getPosition(), entity->getPosition().getX(), entity->getPosition().getY(), entity->getDetectionRadius())) {
+		float center_x = entity->getPosition().getX() + (entity->getWidth() / 2.0f);
+		float center_y = entity->getPosition().getY() + (entity->getHeight() / 2.0f);
+		if (CheckForIntersection(current_entity->getPosition(), center_x,  center_y, entity->getDetectionRadius())) {
 			colissionList.push_back(current_entity); 
 		}
 	}
@@ -187,7 +189,9 @@ void E0::Level::update()
 			colissionEvent.setEntity01(entity); 
 			colissionEvent.setEntity02(collidedEntity); 
 		}
-		entity->eventHandler(dynamic_cast<const Event*>(&colissionEvent)); 
+		if (collidedEntities.size() != 0) {
+			entity->eventHandler(dynamic_cast<const Event*>(&colissionEvent)); 
+		}
 	}
 }
 

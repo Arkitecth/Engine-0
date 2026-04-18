@@ -113,6 +113,33 @@ void E0::DisplayManager::drawCircle(int center_x, int center_y, int radius, Colo
 	}
 }
 
+void E0::DisplayManager::drawHollowCircle(int center_x, int center_y, int radius, E0::Color color)
+{
+	int x = 0;
+	int y = radius;
+	int decision = 1 - radius;
+	SDL_SetRenderDrawColor(m_renderer, color.red, color.green, color.blue, color.alpha);
+	while (x <= y) {
+		SDL_RenderPoint(m_renderer, center_x + x, center_y + y);
+		SDL_RenderPoint(m_renderer, center_x - x, center_y + y);
+		SDL_RenderPoint(m_renderer, center_x + x, center_y - y);
+		SDL_RenderPoint(m_renderer, center_x - x, center_y - y);
+		SDL_RenderPoint(m_renderer, center_x + y, center_y + x);
+		SDL_RenderPoint(m_renderer, center_x - y, center_y + x);
+		SDL_RenderPoint(m_renderer, center_x + y, center_y - x);
+		SDL_RenderPoint(m_renderer, center_x - y, center_y - x);
+
+		if (decision < 0) {
+			decision += 2 * x + 1;
+		} else if (decision > 0) {
+			y -= 1;
+			decision += 2 * (x - y) + 1;
+		}
+		x += 1;
+	}
+}
+
+
 void E0::DisplayManager::drawRectangle(E0::Rectangle& rect)
 {
 	SDL_FRect fillRect = {rect.position.getX(), rect.position.getY(), rect.width, rect.height};
