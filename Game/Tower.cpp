@@ -1,20 +1,24 @@
 #include "Tower.h"
 #include "Color.h"
 #include "DisplayManager.h"
+#include "Engine.h"
+#include "LevelManager.h"
+#include "Projectile.h"
 #include "Rectangle.h"
 #include <EventCollision.h>
 #include "ResourceManager.h"
 #include "utility.h"
 #include "Vector.h"
 
-Tower::Tower(std::string_view path_to_tower_roof, std::string_view path_to_tower_body, std::string_view path_to_head_texture)
+Tower::Tower(std::string_view path_to_tower_roof, std::string_view path_to_tower_body, std::string_view path_to_head_texture, E0::Level* level)
 {
 	animation = RM.getAnimationFiles("./Assets/ArcherAnimation/", ""); 
 	animation.setSlowdownTimer(60.0f);
 	roofTexture.setLoadedTexture(path_to_tower_roof);
 	bodyTexture.setLoadedTexture(path_to_tower_body);
 	headTexture.setLoadedTexture(path_to_head_texture);
-
+	currentLevel = level;
+	coolDownTimer = 0.0f;
 	this->setEntityType("Tower"); 
 	this->setWidth(roofTexture.getWidth());
 	this->setHeight(bodyTexture.getHeight());
@@ -56,6 +60,13 @@ void Tower::eventHandler(const E0::Event* e)
 		if (colissionEvent->getEntity02()->getEntityType() == "Enemy") 
 		{
 			currentState = ATTACK;
+			coolDownTimer = coolDownTimer + Engine.getDeltaTime();
+			if (coolDownTimer >= 120.0f) 
+			{
+				Projectile* projectile = new Projectile{this->getPosition(), "./Assets/Arrow.png", colissionEvent->getEntity02()}; 
+				LEM.getCurrentLevel()->addEntity(projectile);
+				coolDownTimer = 0.0f;
+			}
 		}
 	} 
 	else 
@@ -64,4 +75,3 @@ void Tower::eventHandler(const E0::Event* e)
 	}
 
 }
-

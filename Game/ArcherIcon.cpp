@@ -2,6 +2,7 @@
 #include "DisplayManager.h"
 #include "EventMouse.h"
 #include "Rectangle.h"
+#include "Tower.h"
 #include "Vector.h"
 #include <vector>
 #include "utility.h"
@@ -72,7 +73,7 @@ void ArcherIcon::eventHandler(const E0::Event* e)
 			bool didIntersect = CheckForIntersection(cursorRect, rect);
 			if (didIntersect) 
 			{
-				Tower* tower = new Tower{"./Assets/Archer/1.png", "./Assets/Archer/2.png", "./Assets/Archer/3.png"};
+				Tower* tower = new Tower{"./Assets/Archer/1.png", "./Assets/Archer/2.png", "./Assets/Archer/3.png", currentLevel};
 				tower->setPosition(mouseEvent->getMousePosition());
 				currentTower = tower;
 				dragging = true;
