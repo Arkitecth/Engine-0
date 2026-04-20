@@ -64,6 +64,12 @@ E0::Vector E0::Vector::operator+(const Vector& rhs)
 
 	return newVector;
 }
+E0::Vector E0::Vector::operator*(float scale)
+{
+	Vector newVector{this->pos_x * scale, this->pos_y * scale}; 
+
+	return newVector;
+}
 
 E0::Vector E0::Vector::operator-(const Vector& rhs)
 {

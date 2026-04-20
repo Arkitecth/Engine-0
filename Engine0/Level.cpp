@@ -117,7 +117,6 @@ void E0::Level::addEntity(Entity* entity)
 	} 
 
 	entities.push_back(entity); 
-	setEntities(entities); 
 }
 
 void E0::Level::destroyEntity(Entity* entity)
@@ -181,7 +180,11 @@ void E0::Level::draw()
 
 void E0::Level::update()
 {
-	for (Entity* entity : entities) {
+	std::vector<Entity*> current_entities = getAllEntities();
+	for (Entity* entity : current_entities) {
+		if (!entity) {
+			continue;
+		}
 		std::vector<E0::Entity*> collidedEntities= getColissions(entity->predictPosition(), entity); 
 		EventColission colissionEvent{}; 
 		colissionEvent.setPosition(entity->predictPosition()); 

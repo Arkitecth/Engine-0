@@ -22,6 +22,7 @@ namespace E0
 			void operator=(const Vector& rhs); 
 			Vector operator+(const Vector& rhs); 
 			Vector operator-(const Vector& rhs); 
+			Vector operator*(const float scale);
 			bool  operator>(const Vector& rhs); 
 			bool  operator<(const Vector& rhs); 
 			bool  operator==(const Vector& rhs); 
