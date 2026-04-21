@@ -1,7 +1,6 @@
 #include "Level.h"
 #include "DisplayManager.h"
 #include "Entity.h"
-#include "Engine.h"
 #include "LevelManager.h"
 #include "EventCollision.h"
 #include "Texture.h"
@@ -73,10 +72,6 @@ void E0::Level::addTowerPoint(E0::Vector vector)
 	towerPoints.push_back(vector);
 }
 
-void E0::Level::setPrototype(E0::Entity* prototype)
-{
-	spawnPrototype = prototype;
-}
 
 void E0::Level::setTexturePath(std::string new_texture_path)
 {
@@ -180,6 +175,13 @@ void E0::Level::draw()
 
 void E0::Level::update()
 {
+	if (spawner != nullptr) 
+	{
+		E0::Entity* spawnEntity = spawner->spawn(spawner->getSpawnRate()); 
+		if (spawnEntity != nullptr) {
+			this->addEntity(spawnEntity);
+		}
+	}
 	std::vector<Entity*> current_entities = getAllEntities();
 	for (Entity* entity : current_entities) {
 		if (!entity) {
@@ -203,15 +205,9 @@ void E0::Level::addWidget(E0::Widget* widget)
 	uiLayout.push_back(widget);
 }
 
-void E0::Level::spawn(float rate)
+void E0::Level::setSpawner(Spawner* new_spawner)
 {
-	spawnTimer += Engine.getDeltaTime() / 1000;
-	if (spawnTimer >= rate) 
-	{
-		this->addEntity(spawnPrototype->duplicate()); 
-
-		spawnTimer = 0.0f;
-	} 
+	spawner = new_spawner;
 }
 
 void E0::Level::setUILayout(std::vector<Widget*> new_ui_layout)

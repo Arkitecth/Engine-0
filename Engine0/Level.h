@@ -2,9 +2,9 @@
 #include <vector>
 #include "Event.h"
 #include "Entity.h"
+#include "Spawner.h"
 #include "Widget.h"
 #include "Vector.h"
-#include "Spawner.h"
 namespace E0
 {
 	class Level 
@@ -17,8 +17,7 @@ namespace E0
 			std::vector<E0::Vector> towerPoints{};
 			std::vector<E0::Widget*> uiLayout{};
 			Texture levelTexture{};
-			float spawnTimer{};
-			E0::Entity* spawnPrototype = nullptr;
+			Spawner* spawner{};
 		
 		public:
 			Level(); 
@@ -34,11 +33,11 @@ namespace E0
 
 			std::vector<E0::Vector> getTowerpoints(); 
 
-			void setPrototype(E0::Entity* new_prototype); 
-
-			void spawn(float rate); 
-
 			void addWayPoint(E0::Vector vector); 
+
+			Spawner* getSpawner();
+
+			void setSpawner(Spawner* new_spawner); 
 
 			void addTowerPoint(E0::Vector vector); 
 
