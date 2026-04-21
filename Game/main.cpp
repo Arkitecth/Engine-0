@@ -19,12 +19,14 @@ int main()
 	ArcherIcon archerIcon{E0::Vector{100, 400}, texture, level.getTowerpoints(), level};
 	level.addWidget(&archerIcon);
 
-
 	Enemy* prototype = new Enemy{};
 	prototype->setPosition(E0::Vector{-300, 82});
 	prototype->setWaypoints(level.getWaypoints());
 
-	level.setPrototype(prototype);
+	E0::Spawner spawner{prototype, 30.0f};
+
+	level.setSpawner(&spawner); 
+
 	Engine.run(); 
 }
 

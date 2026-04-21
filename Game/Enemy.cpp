@@ -5,7 +5,6 @@
 #include "Rectangle.h"
 #include "Texture.h"
 #include "Vector.h"
-#include <iostream>
 #include <utility.h>
 #include "EventCollision.h"
 #include <ResourceManager.h>
@@ -79,7 +78,6 @@ void Enemy::eventHandler(const E0::Event* e)
 			{
 				LEM.getCurrentLevel()->destroyEntity(this); 
 			}
-			std::cout << "Your health point is " << healthPoints << " " << '\n';
 		}
 	}
 }
