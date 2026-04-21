@@ -12,11 +12,10 @@ namespace E0
 
 		public:	
 			static ResourceManager& getInstance(); 
-			~ResourceManager(); 
+			~ResourceManager() = default; 
 			void startUp();
 			void shutDown(); 
 			std::vector<std::string> getAnimationFiles(std::string_view directory_path, std::string_view animation_qualifier); 
-			
 			Level loadLevel(std::string_view file_path); 
 	}; 
 }

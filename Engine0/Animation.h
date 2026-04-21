@@ -13,9 +13,8 @@ namespace E0
 			std::vector<Texture> animationTextures{};
 		public:
 			Animation(); 
+			~Animation() = default; 
 			Animation(std::vector<std::string> animation_file_paths); 
-			~Animation(); 
-
 			int   getAnimationIndex(); 
 			void  setAnimationTimer(float new_animation_timer); 
 			float getAnimationTimer(); 

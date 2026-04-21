@@ -3,14 +3,9 @@
 
 E0::Widget::Widget(){}
 
-void E0::Widget::draw()
-{
-}
+void E0::Widget::draw(){}
 
-void E0::Widget::eventHandler(const E0::Event* e)
-{
-
-}
+void E0::Widget::eventHandler(const E0::Event* e){}
 
 E0::Widget::Widget(E0::Vector new_position, float new_width, float new_height, E0::Texture new_texture)
 {

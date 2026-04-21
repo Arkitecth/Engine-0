@@ -1,9 +1,7 @@
 #include "Velocity.h"
 #include "Vector.h"
-E0::Velocity::Velocity()
-{
-}
 
+E0::Velocity::Velocity(){}
 
 E0::Velocity::Velocity(Vector new_direction, float new_speed)
 {

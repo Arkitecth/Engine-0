@@ -7,19 +7,14 @@ E0::Entity::Entity()
 	current_entity_id += 1; 
 }
 
-E0::Entity::~Entity()
-{
-}
+E0::Entity::~Entity(){};
 
 E0::Vector E0::Entity::getPosition() const
 {
 	return position;
 }
 
-void E0::Entity::draw()
-{
-
-}
+void E0::Entity::draw(){}
 
 E0::Entity* E0::Entity::duplicate()
 {
@@ -69,10 +64,7 @@ void E0::Entity::setPosition(E0::Vector new_position)
 	position.setXY(new_position.getX(), new_position.getY()); 
 }
 
-void E0::Entity::eventHandler(const Event* e) 
-{
-
-}
+void E0::Entity::eventHandler(const Event* e) {};
 
 std::string E0::Entity::getEntityType() const
 {

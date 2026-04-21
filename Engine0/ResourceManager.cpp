@@ -5,32 +5,16 @@
 #include <filesystem>
 
 E0::ResourceManager::ResourceManager()
-{
-
-}
-
-E0::ResourceManager::~ResourceManager()
-{
-
-}
-
+{}
 
 E0::ResourceManager& E0::ResourceManager::getInstance()
 {
 	static ResourceManager rm;
 	return rm;
 }
+void E0::ResourceManager::startUp(){}
 
-
-void E0::ResourceManager::startUp()
-{
-
-}
-
-void E0::ResourceManager::shutDown()
-{
-
-}
+void E0::ResourceManager::shutDown(){}
 
 std::vector<std::string> E0::ResourceManager::getAnimationFiles(std::string_view directory_path, std::string_view animation_qualifier)
 {

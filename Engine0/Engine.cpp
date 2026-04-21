@@ -112,8 +112,6 @@ void E0::GameManager::run()
 
 		LEM.getCurrentLevel()->broadcastEvent(dynamic_cast<const Event*>(&stepEvent));
 
-		//LEM.getCurrentLevel()->spawn(30.0f);
-
 		LEM.getCurrentLevel()->update(); 
 
 		LEM.getCurrentLevel()->draw(); 

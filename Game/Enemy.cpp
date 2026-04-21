@@ -32,7 +32,6 @@ Enemy::Enemy(E0::Vector new_spawn_position, float new_width, float new_height, E
 }
 Enemy::~Enemy()
 {
-
 }
 
 E0::Entity* Enemy::duplicate()

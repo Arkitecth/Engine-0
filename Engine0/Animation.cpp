@@ -4,15 +4,7 @@
 #include "Rectangle.h"
 #include "Texture.h"
 
-E0::Animation::Animation()
-{
-}
-
-
-E0::Animation::~Animation()
-{
-
-}
+E0::Animation::Animation(){}
 
 E0::Animation::Animation(std::vector<std::string> animation_file_paths)
 {
