@@ -20,6 +20,7 @@ class Tower: public E0::Entity
 		E0::Texture headTexture{};
 		E0::Animation animation{};
 		float coolDownTimer{};
+		bool isClicked{};
 		State currentState{};
 		E0::Level* currentLevel;
 	public:

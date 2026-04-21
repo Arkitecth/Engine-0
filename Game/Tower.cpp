@@ -27,26 +27,20 @@ Tower::Tower(std::string_view path_to_tower_roof, std::string_view path_to_tower
 
 void Tower::draw()
 {
+	float center_x = this->getPosition().getX() + (this->getWidth() / 2.0f);
+	float center_y = this->getPosition().getY() + (this->getHeight() / 2.0f);
+	E0::Rectangle bodyRect{this->getPosition(), bodyTexture.getWidth(), bodyTexture.getHeight()};
+	E0::Rectangle roofRect{E0::Vector{this->getPosition().getX() + 10, this->getPosition().getY() - 25}, roofTexture.getWidth(), roofTexture.getHeight()};
+	E0::Rectangle headRect{E0::Vector{this->getPosition().getX() + 50, this->getPosition().getY() - 30}, headTexture.getWidth(), headTexture.getHeight()};
+	DM.drawTexture(bodyTexture, bodyRect);
+	DM.drawTexture(roofTexture, roofRect);
+	DM.drawHollowCircle(center_x, center_y, this->getDetectionRadius(), E0::BLUE);
 	if (currentState == IDLE) 
 	{
-		float center_x = this->getPosition().getX() + (this->getWidth() / 2.0f);
-		float center_y = this->getPosition().getY() + (this->getHeight() / 2.0f);
-		E0::Rectangle bodyRect{this->getPosition(), bodyTexture.getWidth(), bodyTexture.getHeight()};
-		E0::Rectangle roofRect{E0::Vector{this->getPosition().getX() + 10, this->getPosition().getY() - 25}, roofTexture.getWidth(), roofTexture.getHeight()};
-		E0::Rectangle headRect{E0::Vector{this->getPosition().getX() + 50, this->getPosition().getY() - 30}, headTexture.getWidth(), headTexture.getHeight()};
-		DM.drawTexture(bodyTexture, bodyRect);
-		DM.drawTexture(roofTexture, roofRect);
 		DM.drawTexture(headTexture, headRect);
-
-		DM.drawHollowCircle(center_x, center_y, this->getDetectionRadius(), E0::BLUE);
 	} 
 	else 
 	{
-		E0::Rectangle bodyRect{this->getPosition(), bodyTexture.getWidth(), bodyTexture.getHeight()};
-		E0::Rectangle roofRect{E0::Vector{this->getPosition().getX() + 10, this->getPosition().getY() - 25}, roofTexture.getWidth(), roofTexture.getHeight()};
-		E0::Rectangle headRect{E0::Vector{this->getPosition().getX() + 50, this->getPosition().getY() - 30}, headTexture.getWidth(), headTexture.getHeight()};
-		DM.drawTexture(bodyTexture, bodyRect);
-		DM.drawTexture(roofTexture, roofRect);
 		animation.animate(headRect); 
 	}
 }
@@ -61,7 +55,7 @@ void Tower::eventHandler(const E0::Event* e)
 		{
 			currentState = ATTACK;
 			coolDownTimer = coolDownTimer + Engine.getDeltaTime();
-			if (coolDownTimer >= 120.0f) 
+			if (coolDownTimer >= 300.0f) 
 			{
 				Projectile* projectile = new Projectile{this->getPosition(), "./Assets/Arrow.png", colissionEvent->getEntity02()}; 
 				LEM.getCurrentLevel()->addEntity(projectile);
@@ -73,5 +67,4 @@ void Tower::eventHandler(const E0::Event* e)
 	{
 		currentState = IDLE;
 	}
-
 }

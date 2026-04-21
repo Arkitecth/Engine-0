@@ -1,9 +1,13 @@
 #include "Enemy.h"
+#include "DisplayManager.h"
 #include "Entity.h"
+#include "LevelManager.h"
 #include "Rectangle.h"
 #include "Texture.h"
 #include "Vector.h"
+#include <iostream>
 #include <utility.h>
+#include "EventCollision.h"
 #include <ResourceManager.h>
 #include <EventStep.h>
 
@@ -14,9 +18,11 @@ Enemy::Enemy():
 	E0::Entity::setHeight(160.0f);
 	E0::Entity::setWidth(160.0f);
 	E0::Entity::setVelocity(E0::Velocity{E0::RIGHT, 1}); 
+	healthTexture.setLoadedTexture("./Assets/health_bar-04.png");
+	healthPoints = 100; 
 }
 
-Enemy::Enemy(E0::Vector new_spawn_position, float new_width, float new_height, E0::Animation animation):
+Enemy::Enemy(E0::Vector new_spawn_position, float new_width, float new_height, E0::Animation animation, std::string_view pathToTexture):
 	animation{animation}
 {
 	E0::Entity::setPosition(new_spawn_position); 
@@ -46,7 +52,11 @@ E0::Entity* Enemy::duplicate()
 void Enemy::draw()
 {
 	E0::Rectangle box = getBox(this); 
-	//DM.drawRectangle(box);
+	E0::Vector position = E0::Vector{this->getPosition().getX(), this->getPosition().getY() + 10};
+	E0::Rectangle healthRect{position, float(healthPoints), 10}; 
+	DM.drawRectangle(healthRect);
+	DM.drawTexture(healthTexture, healthRect);
+	// DM.drawRectangle(box);
 	animation.animate(box);
 }
 void Enemy::eventHandler(const E0::Event* e)
@@ -59,11 +69,19 @@ void Enemy::eventHandler(const E0::Event* e)
 			E0::Entity::setPosition(E0::Entity::predictPosition()); 
 		}
 	}
-}
-
-int Enemy::getAttackScore()
-{
-	return attackScore;
+	if (e->getType() == E0::EVENT_COLISSION) 
+	{
+		const E0::EventColission* colissionEvent = dynamic_cast<const E0::EventColission*>(e);
+		if (colissionEvent->getEntity02()->getEntityType() == "Projectile") 
+		{
+			healthPoints -= 1;
+			if (healthPoints == 0) 
+			{
+				LEM.getCurrentLevel()->destroyEntity(this); 
+			}
+			std::cout << "Your health point is " << healthPoints << " " << '\n';
+		}
+	}
 }
 
 void Enemy::setWaypoints(std::vector<E0::Vector> new_waypoints) 
@@ -74,21 +92,6 @@ void Enemy::setWaypoints(std::vector<E0::Vector> new_waypoints)
 std::vector<E0::Vector> Enemy::getWaypoints()
 {
 	return waypoints;
-}
-
-void Enemy::setAttackScore(int new_attack_score)
-{
-	attackScore = new_attack_score;
-}
-
-int Enemy::getDefenseScore()
-{
-	return defenseScore;
-}
-
-void Enemy::setDefenseScore(int new_defense_score)
-{
-	defenseScore = new_defense_score;
 }
 
 void Enemy::moveTowards(E0::Vector destination)
@@ -109,3 +112,4 @@ void Enemy::moveTowards(E0::Vector destination)
 	}
 	setVelocity(newVelocity);
 }
+

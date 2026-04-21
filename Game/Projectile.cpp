@@ -14,7 +14,8 @@ Projectile::Projectile(E0::Vector new_position, std::string_view new_texture, E0
 	target = new_target;
 	this->setWidth(texture.getWidth());
 	this->setHeight(texture.getHeight());
-	this->setVelocity(E0::Velocity{E0::RIGHT, 8.0f});
+	this->setVelocity(E0::Velocity{E0::RIGHT, 3.0f});
+	this->setEntityType("Projectile");
 }
 
 Projectile::~Projectile()
@@ -31,7 +32,8 @@ void Projectile::eventHandler(const E0::Event* e)
 	if (e->getType() == E0::EVENT_COLISSION) 
 	{
 		const E0::EventColission* colissionEvent = dynamic_cast<const E0::EventColission*>(e);
-		if (colissionEvent->getEntity02()->getEntityType() == "Enemy") {
+		if (colissionEvent->getEntity02()->getEntityType() == "Enemy") 
+		{
 			LEM.getCurrentLevel()->destroyEntity(this);
 		}
 	}
